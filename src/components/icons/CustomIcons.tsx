@@ -1,23 +1,19 @@
-import { motion } from 'framer-motion';
-
-// Custom SVG icons to replace emoji placeholders - designed for Lumina Sites Co.
+// Custom SVG icons - designed for Lumina Sites Co.
+// Static icons for performance (no continuous animations)
 
 interface IconProps {
   className?: string;
-  animate?: boolean;
   size?: number;
 }
 
 // Elegant nail polish bottle icon
-export const NailPolishIcon = ({ className = '', animate = false, size = 48 }: IconProps) => (
-  <motion.svg
+export const NailPolishIcon = ({ className = '', size = 48 }: IconProps) => (
+  <svg
     width={size}
     height={size}
     viewBox="0 0 48 48"
     fill="none"
     className={className}
-    animate={animate ? { rotate: [0, 5, -5, 0] } : undefined}
-    transition={animate ? { duration: 4, repeat: Infinity } : undefined}
   >
     {/* Bottle cap */}
     <rect x="18" y="4" width="12" height="8" rx="2" fill="hsl(var(--lumina-terracotta))" />
@@ -45,26 +41,22 @@ export const NailPolishIcon = ({ className = '', animate = false, size = 48 }: I
     
     {/* Liquid level shine */}
     <ellipse cx="24" cy="22" rx="6" ry="2" fill="white" opacity="0.3" />
-  </motion.svg>
+  </svg>
 );
 
 // Sparkle/diamond icon
-export const SparkleIcon = ({ className = '', animate = false, size = 48 }: IconProps) => (
-  <motion.svg
+export const SparkleIcon = ({ className = '', size = 48 }: IconProps) => (
+  <svg
     width={size}
     height={size}
     viewBox="0 0 48 48"
     fill="none"
     className={className}
-    animate={animate ? { scale: [1, 1.1, 1], rotate: [0, 10, 0] } : undefined}
-    transition={animate ? { duration: 3, repeat: Infinity } : undefined}
   >
     {/* Main 4-point star */}
-    <motion.path
+    <path
       d="M24 4 L26 20 L42 24 L26 28 L24 44 L22 28 L6 24 L22 20 Z"
       fill="hsl(var(--lumina-gold))"
-      animate={animate ? { opacity: [0.8, 1, 0.8] } : undefined}
-      transition={animate ? { duration: 2, repeat: Infinity } : undefined}
     />
     
     {/* Small accent sparkles */}
@@ -78,19 +70,17 @@ export const SparkleIcon = ({ className = '', animate = false, size = 48 }: Icon
       fill="white"
       opacity="0.4"
     />
-  </motion.svg>
+  </svg>
 );
 
 // Artist palette icon
-export const PaletteIcon = ({ className = '', animate = false, size = 48 }: IconProps) => (
-  <motion.svg
+export const PaletteIcon = ({ className = '', size = 48 }: IconProps) => (
+  <svg
     width={size}
     height={size}
     viewBox="0 0 48 48"
     fill="none"
     className={className}
-    animate={animate ? { y: [0, -3, 0] } : undefined}
-    transition={animate ? { duration: 4, repeat: Infinity } : undefined}
   >
     {/* Palette base */}
     <path
@@ -113,19 +103,17 @@ export const PaletteIcon = ({ className = '', animate = false, size = 48 }: Icon
     {/* Paint highlights */}
     <circle cx="21" cy="13" r="1.5" fill="white" opacity="0.5" />
     <circle cx="31" cy="15" r="1" fill="white" opacity="0.4" />
-  </motion.svg>
+  </svg>
 );
 
 // Pencil/drawing icon
-export const PencilIcon = ({ className = '', animate = false, size = 64 }: IconProps) => (
-  <motion.svg
+export const PencilIcon = ({ className = '', size = 64 }: IconProps) => (
+  <svg
     width={size}
     height={size}
     viewBox="0 0 64 64"
     fill="none"
     className={className}
-    animate={animate ? { y: [0, -6, 0], rotate: [0, 3, 0] } : undefined}
-    transition={animate ? { duration: 2, repeat: Infinity } : undefined}
   >
     {/* Pencil body */}
     <rect
@@ -183,19 +171,17 @@ export const PencilIcon = ({ className = '', animate = false, size = 64 }: IconP
       opacity="0.3"
       transform="rotate(-15 23.5 28)"
     />
-  </motion.svg>
+  </svg>
 );
 
 // Diamond/gem icon for luxury feel
-export const DiamondIcon = ({ className = '', animate = false, size = 44 }: IconProps) => (
-  <motion.svg
+export const DiamondIcon = ({ className = '', size = 44 }: IconProps) => (
+  <svg
     width={size}
     height={size}
     viewBox="0 0 44 44"
     fill="none"
     className={className}
-    animate={animate ? { scale: [1, 1.05, 1] } : undefined}
-    transition={animate ? { duration: 3, repeat: Infinity } : undefined}
   >
     {/* Top facets */}
     <path d="M22 4 L10 16 L22 12 Z" fill="hsl(var(--lumina-gold))" opacity="0.9" />
@@ -210,19 +196,17 @@ export const DiamondIcon = ({ className = '', animate = false, size = 44 }: Icon
     
     {/* Highlight */}
     <path d="M14 16 L22 12 L22 20 Z" fill="white" opacity="0.4" />
-  </motion.svg>
+  </svg>
 );
 
 // Hand with manicure icon
-export const ManicureHandIcon = ({ className = '', animate = false, size = 48 }: IconProps) => (
-  <motion.svg
+export const ManicureHandIcon = ({ className = '', size = 48 }: IconProps) => (
+  <svg
     width={size}
     height={size}
     viewBox="0 0 48 48"
     fill="none"
     className={className}
-    animate={animate ? { rotate: [0, 5, -5, 0] } : undefined}
-    transition={animate ? { duration: 5, repeat: Infinity } : undefined}
   >
     {/* Palm */}
     <ellipse cx="24" cy="32" rx="12" ry="10" fill="hsl(var(--lumina-cream-warm))" stroke="hsl(var(--lumina-ink))" strokeWidth="0.5" opacity="0.9" />
@@ -244,34 +228,12 @@ export const ManicureHandIcon = ({ className = '', animate = false, size = 48 }:
     <ellipse cx="20" cy="6" rx="0.8" ry="1.5" fill="white" opacity="0.5" />
     <ellipse cx="26" cy="4" rx="0.8" ry="1.5" fill="white" opacity="0.5" />
     <ellipse cx="32" cy="8" rx="0.8" ry="1.5" fill="white" opacity="0.5" />
-  </motion.svg>
-);
-
-// Brush stroke icon
-export const BrushStrokeIcon = ({ className = '', size = 80 }: IconProps) => (
-  <svg
-    width={size}
-    height={size * 0.25}
-    viewBox="0 0 80 20"
-    fill="none"
-    className={className}
-  >
-    <motion.path
-      d="M2 10 Q20 2 40 10 T78 10"
-      stroke="hsl(var(--lumina-terracotta))"
-      strokeWidth="4"
-      strokeLinecap="round"
-      fill="none"
-      initial={{ pathLength: 0, opacity: 0 }}
-      animate={{ pathLength: 1, opacity: 0.6 }}
-      transition={{ duration: 1.5, ease: "easeInOut" }}
-    />
   </svg>
 );
 
 // Sun/sunset icon for branding
-export const SunsetIcon = ({ className = '', animate = false, size = 48 }: IconProps) => (
-  <motion.svg
+export const SunsetIcon = ({ className = '', size = 48 }: IconProps) => (
+  <svg
     width={size}
     height={size}
     viewBox="0 0 48 48"
@@ -282,18 +244,11 @@ export const SunsetIcon = ({ className = '', animate = false, size = 48 }: IconP
     <line x1="4" y1="32" x2="44" y2="32" stroke="hsl(var(--lumina-ink))" strokeWidth="1" opacity="0.3" />
     
     {/* Sun */}
-    <motion.circle
-      cx="24"
-      cy="28"
-      r="12"
-      fill="url(#sunsetGradient)"
-      animate={animate ? { y: [0, -2, 0] } : undefined}
-      transition={animate ? { duration: 4, repeat: Infinity } : undefined}
-    />
+    <circle cx="24" cy="28" r="12" fill="url(#sunsetGradient)" />
     
     {/* Sun rays */}
     {[0, 30, 60, 90, 120, 150].map((angle, i) => (
-      <motion.line
+      <line
         key={i}
         x1={24 + Math.cos((angle * Math.PI) / 180) * 16}
         y1={28 - Math.sin((angle * Math.PI) / 180) * 16}
@@ -303,8 +258,6 @@ export const SunsetIcon = ({ className = '', animate = false, size = 48 }: IconP
         strokeWidth="2"
         strokeLinecap="round"
         opacity="0.6"
-        animate={animate ? { opacity: [0.4, 0.8, 0.4] } : undefined}
-        transition={animate ? { duration: 2, delay: i * 0.2, repeat: Infinity } : undefined}
       />
     ))}
     
@@ -314,5 +267,5 @@ export const SunsetIcon = ({ className = '', animate = false, size = 48 }: IconP
         <stop offset="100%" stopColor="hsl(var(--lumina-terracotta))" />
       </linearGradient>
     </defs>
-  </motion.svg>
+  </svg>
 );

@@ -5,18 +5,17 @@ interface IntroAnimationProps {
   onComplete: () => void;
 }
 
-// Enhanced sketch-to-website intro animation with playful elements
-
+// Jesko Jets inspired cinematic intro - dark, elegant, minimal
 const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
-  const [phase, setPhase] = useState<'sketch' | 'drawing' | 'reveal'>('sketch');
+  const [phase, setPhase] = useState<'intro' | 'tagline' | 'reveal'>('intro');
 
   useEffect(() => {
-    const drawTimer = setTimeout(() => setPhase('drawing'), 600);
-    const revealTimer = setTimeout(() => setPhase('reveal'), 2400);
-    const completeTimer = setTimeout(() => onComplete(), 3000);
+    const taglineTimer = setTimeout(() => setPhase('tagline'), 1200);
+    const revealTimer = setTimeout(() => setPhase('reveal'), 2800);
+    const completeTimer = setTimeout(() => onComplete(), 3400);
 
     return () => {
-      clearTimeout(drawTimer);
+      clearTimeout(taglineTimer);
       clearTimeout(revealTimer);
       clearTimeout(completeTimer);
     };
@@ -24,213 +23,106 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
 
   return (
     <AnimatePresence>
-      {phase === 'reveal' && (
-        <motion.div
-          key="fade-out"
-          className="fixed inset-0 z-[100] bg-lumina-cream pointer-events-none"
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 0 }}
-          transition={{ duration: 0.6 }}
-        />
-      )}
-      
-      {phase !== 'reveal' && (
+      {phase !== 'reveal' ? (
         <motion.div
           key="intro"
-          className="fixed inset-0 z-[100] overflow-hidden bg-lumina-cream"
+          className="fixed inset-0 z-[100] overflow-hidden bg-lumina-dark"
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
         >
-          {/* Paper texture */}
-          <div className="absolute inset-0 paper-texture" />
-
-          {/* Grid lines */}
-          <motion.div 
-            className="absolute inset-0 opacity-[0.03]"
-            style={{
-              backgroundImage: `
-                linear-gradient(to right, hsl(var(--lumina-ink)) 1px, transparent 1px),
-                linear-gradient(to bottom, hsl(var(--lumina-ink)) 1px, transparent 1px)
-              `,
-              backgroundSize: '40px 40px',
-            }}
-          />
-
-          {/* Bouncing decorative elements */}
-          <motion.div
-            className="absolute top-20 right-32 text-3xl"
-            animate={{ 
-              y: [0, -20, 0],
-              rotate: [0, 10, -10, 0]
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            💅
-          </motion.div>
-          
-          <motion.div
-            className="absolute bottom-32 left-24 text-2xl"
-            animate={{ 
-              y: [0, 15, 0],
-              scale: [1, 1.1, 1]
-            }}
-            transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
-          >
-            ✨
-          </motion.div>
-
-          <motion.div
-            className="absolute top-40 left-40 text-xl"
-            animate={{ 
-              rotate: [0, 360],
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-          >
-            🎨
-          </motion.div>
+          {/* Subtle gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
 
           {/* Center content */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              {/* Pencil with enhanced animation */}
+              {/* Brand name */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, type: 'spring' }}
-                className="mb-8 relative"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                className="overflow-hidden"
               >
-                <motion.div
-                  animate={phase === 'drawing' ? { 
-                    x: [0, 30, -20, 40, 10, 0],
-                    y: [0, -10, 15, -5, 10, 0],
-                    rotate: [0, 5, -5, 10, -10, 0]
-                  } : {}}
-                  transition={{ duration: 1.8, ease: 'easeInOut' }}
-                  className="text-6xl md:text-7xl drop-shadow-lg"
-                >
-                  ✏️
-                </motion.div>
-                
-                {/* Drawing trail */}
-                <motion.div
-                  className="absolute left-1/2 top-full w-0.5 bg-gradient-to-b from-lumina-ink/40 to-transparent"
-                  initial={{ height: 0 }}
-                  animate={phase === 'drawing' ? { height: 30 } : { height: 0 }}
-                  transition={{ duration: 0.5 }}
-                />
-              </motion.div>
-
-              {/* Drawing canvas */}
-              <div className="relative w-72 md:w-80 h-40 mx-auto mb-8">
-                {/* Progressive lines */}
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute left-0 right-0 h-px bg-lumina-ink/25"
-                    style={{ top: `${i * 22 + 10}%` }}
-                    initial={{ scaleX: 0, originX: 0 }}
-                    animate={phase === 'drawing' ? { scaleX: 1 } : { scaleX: 0 }}
-                    transition={{ duration: 0.35, delay: i * 0.15 }}
-                  />
-                ))}
-                
-                {/* Wireframe boxes appearing */}
-                <motion.div
-                  className="absolute left-6 top-4 w-24 h-20 border-2 border-dashed border-lumina-ink/20 rounded-lg"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={phase === 'drawing' ? { opacity: 1, scale: 1 } : { opacity: 0 }}
-                  transition={{ duration: 0.4, delay: 0.7 }}
-                />
-                <motion.div
-                  className="absolute right-6 top-4 w-36 h-10 border-2 border-dashed border-lumina-ink/20 rounded-lg"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={phase === 'drawing' ? { opacity: 1, scale: 1 } : { opacity: 0 }}
-                  transition={{ duration: 0.4, delay: 0.9 }}
-                />
-                <motion.div
-                  className="absolute left-1/2 -translate-x-1/2 bottom-4 w-28 h-8 border-2 border-dashed border-lumina-terracotta/40 rounded-full flex items-center justify-center"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={phase === 'drawing' ? { opacity: 1, scale: 1 } : { opacity: 0 }}
-                  transition={{ duration: 0.4, delay: 1.1 }}
-                >
-                  <span className="text-lumina-terracotta/50 text-xs">CTA</span>
-                </motion.div>
-
-                {/* Sparkle effects */}
-                {[...Array(6)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-1.5 h-1.5 rounded-full bg-lumina-terracotta/50"
-                    style={{
-                      left: `${15 + i * 15}%`,
-                      top: `${20 + (i % 3) * 25}%`,
-                    }}
-                    animate={phase === 'drawing' ? {
-                      scale: [0, 1.2, 0],
-                      opacity: [0, 1, 0],
-                    } : {}}
-                    transition={{
-                      duration: 1.5,
-                      delay: 0.8 + i * 0.15,
-                      repeat: Infinity,
-                      repeatDelay: 1,
-                    }}
-                  />
-                ))}
-              </div>
-
-              {/* Text with staggered animation */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <motion.span 
-                  className="text-lumina-ink-subtle text-xs uppercase tracking-[0.4em] block"
-                  animate={{ opacity: [0.5, 1, 0.5] }}
-                  transition={{ duration: 2, repeat: Infinity }}
+                <motion.span
+                  initial={{ y: 30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="text-lumina-gold/60 text-xs uppercase tracking-[0.5em] block mb-6"
                 >
                   Lumina Sites Co.
                 </motion.span>
-                <motion.h1
-                  className="font-display text-4xl md:text-5xl text-lumina-ink mt-4"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  <span className="text-brush text-lumina-terracotta">Sketching</span>
-                  <motion.span 
-                    className="block font-sans font-bold uppercase text-xl md:text-2xl mt-2"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.8 }}
-                  >
-                    Your Vision
-                  </motion.span>
-                </motion.h1>
               </motion.div>
 
-              {/* Loading dots */}
-              <div className="flex justify-center gap-2 mt-8">
-                {[0, 1, 2].map((i) => (
-                  <motion.div
-                    key={i}
-                    className="w-2 h-2 rounded-full bg-lumina-terracotta/60"
-                    animate={{
-                      scale: [1, 1.3, 1],
-                      opacity: [0.4, 1, 0.4],
-                    }}
-                    transition={{
-                      duration: 1,
-                      delay: i * 0.2,
-                      repeat: Infinity,
-                    }}
-                  />
-                ))}
+              {/* Main headline - staggered word reveal */}
+              <div className="overflow-hidden">
+                <motion.h1
+                  className="font-display text-4xl md:text-6xl lg:text-7xl text-white leading-tight"
+                  initial={{ y: 80 }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                >
+                  Web design
+                </motion.h1>
               </div>
+              
+              <div className="overflow-hidden mt-2">
+                <motion.h2
+                  className="font-display text-3xl md:text-5xl lg:text-6xl text-white/90"
+                  initial={{ y: 60 }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                >
+                  that <span className="text-lumina-gold italic">converts</span>
+                </motion.h2>
+              </div>
+
+              {/* Tagline */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={phase === 'tagline' ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.6 }}
+                className="text-white/50 mt-8 text-sm md:text-base max-w-md mx-auto"
+              >
+                Turning your vision into stunning, high-converting websites
+              </motion.p>
+
+              {/* Elegant loading line */}
+              <motion.div
+                className="mt-12 w-32 h-px mx-auto bg-lumina-gold/20 overflow-hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+              >
+                <motion.div
+                  className="h-full bg-lumina-gold"
+                  initial={{ x: '-100%' }}
+                  animate={{ x: '100%' }}
+                  transition={{ 
+                    duration: 1.5, 
+                    repeat: Infinity,
+                    ease: 'easeInOut'
+                  }}
+                />
+              </motion.div>
             </div>
           </div>
+
+          {/* Bottom accent line */}
+          <motion.div
+            className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-lumina-gold/30 to-transparent"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1.2, delay: 0.5 }}
+          />
         </motion.div>
+      ) : (
+        <motion.div
+          key="fade-out"
+          className="fixed inset-0 z-[100] bg-lumina-dark pointer-events-none"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 0 }}
+          transition={{ duration: 0.6 }}
+        />
       )}
     </AnimatePresence>
   );
