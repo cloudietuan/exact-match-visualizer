@@ -234,53 +234,78 @@ const CinematicHeroV2 = () => {
 
         {/* ============ SCENE 4: Transformation ============ */}
         <motion.div 
-          className="absolute inset-0 bg-lumina-dark flex items-start md:items-center justify-center overflow-hidden py-12 md:py-0"
+          className="absolute inset-0 bg-lumina-dark flex items-center justify-center overflow-hidden"
           style={{ opacity: scene4Opacity }}
         >
-          {/* Ambient lighting */}
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-lumina-gold/8 rounded-full blur-[100px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-lumina-gold/5 rounded-full blur-[120px]" />
+          {/* Ambient lighting - larger, more dramatic */}
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-lumina-gold/10 rounded-full blur-[150px]" />
+          <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-lumina-coral/8 rounded-full blur-[180px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-lumina-gold/5 rounded-full blur-[200px]" />
 
+          {/* Full-width browser mockup */}
           <div className="relative z-10 w-full max-w-6xl mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_auto] items-center gap-10 md:gap-14">
-              {/* Text */}
-              <div className="text-center md:text-left max-w-md md:max-w-none">
+            {/* Header text */}
+            <motion.div 
+              className="text-center mb-8 md:mb-12"
+              style={{ y: phoneEnter }}
+            >
               <p className="text-lumina-gold text-xs md:text-sm tracking-[0.4em] uppercase font-medium mb-4">
                 The Result
               </p>
-              <h2 className="text-lumina-cream text-3xl md:text-5xl lg:text-6xl font-display font-medium leading-[1.1] tracking-[-0.02em]">
-                From concept<br /><span className="italic">to launch</span>
+              <h2 className="text-lumina-cream text-4xl md:text-6xl lg:text-7xl font-display font-medium leading-[1.1] tracking-[-0.02em]">
+                From concept <span className="italic">to launch</span>
               </h2>
-              <p className="mt-6 text-lumina-cream/70 text-base md:text-lg font-light leading-relaxed">
-                A complete website that captures the essence of your salon and converts visitors into loyal clients.
-              </p>
+            </motion.div>
+
+            {/* Large browser frame */}
+            <motion.div 
+              className="relative w-full max-w-5xl mx-auto"
+              style={{ scale: finalScale }}
+            >
+              {/* Browser chrome */}
+              <div className="bg-lumina-dark-elevated rounded-t-xl md:rounded-t-2xl p-3 md:p-4 flex items-center gap-2 border border-lumina-cream/10 border-b-0">
+                <div className="flex gap-1.5 md:gap-2">
+                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-lumina-cream/20" />
+                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-lumina-cream/20" />
+                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-lumina-cream/20" />
+                </div>
+                <div className="flex-1 mx-4 md:mx-8">
+                  <div className="bg-lumina-dark rounded-full px-4 py-1.5 md:py-2 flex items-center justify-center">
+                    <span className="text-lumina-cream/50 text-xs md:text-sm font-mono">sunsetnails.lovable.app</span>
+                  </div>
+                </div>
+                <motion.a
+                  href="https://sunsetnails.lovable.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 md:px-4 md:py-2 bg-lumina-gold text-lumina-dark text-xs md:text-sm font-medium rounded-full hover:bg-lumina-gold/90 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Visit Live ↗
+                </motion.a>
+              </div>
+              
+              {/* Browser content - iframe */}
+              <div className="relative w-full h-[50vh] md:h-[60vh] lg:h-[65vh] bg-lumina-dark rounded-b-xl md:rounded-b-2xl overflow-hidden border border-lumina-cream/10 border-t-0">
+                <iframe 
+                  src="https://sunsetnails.lovable.app" 
+                  className="w-full h-full border-0"
+                  title="Sunset Nails Preview"
+                />
               </div>
 
-              {/* Phone mockup */}
-              <motion.div 
-                className="relative md:justify-self-end"
-                style={{ x: phoneEnter }}
-              >
-                <div className="relative w-[220px] sm:w-[240px] md:w-[260px] lg:w-[280px] h-[clamp(340px,48vh,460px)] sm:h-[clamp(380px,50vh,500px)] md:h-[clamp(460px,58vh,540px)] lg:h-[clamp(520px,64vh,580px)] bg-lumina-dark-elevated rounded-[45px] md:rounded-[50px] p-2 shadow-2xl border border-lumina-cream/10">
-                  <div className="w-full h-full rounded-[38px] md:rounded-[42px] overflow-hidden bg-lumina-dark">
-                    <iframe 
-                      src="https://sunsetnails.lovable.app" 
-                      className="w-full h-full border-0"
-                      title="Sunset Nails Preview"
-                    />
-                  </div>
-                  <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-lumina-dark-elevated rounded-full" />
-                </div>
+              {/* Decorative glow under browser */}
+              <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-lumina-gold/20 blur-3xl rounded-full" />
+            </motion.div>
 
-                <motion.div 
-                  className="absolute -right-2 md:-right-4 top-12 md:top-20 px-4 py-2 bg-lumina-gold text-lumina-dark text-sm font-medium rounded-full shadow-lg"
-                  animate={{ y: [0, -6, 0] }}
-                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  Live Site ↗
-                </motion.div>
-              </motion.div>
-            </div>
+            {/* Caption */}
+            <motion.p 
+              className="text-center mt-8 md:mt-12 text-lumina-cream/60 text-sm md:text-base font-light"
+              style={{ y: phoneEnter }}
+            >
+              A complete website that captures the essence of your salon
+            </motion.p>
           </div>
         </motion.div>
 
