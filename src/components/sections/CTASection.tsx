@@ -7,28 +7,12 @@ const CTASection = () => {
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#2D1B3D] to-[#3D2B35]" />
       
-      {/* Radial glow */}
+      {/* Radial glow - static */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_hsl(var(--lumina-rose)/0.2)_0%,_transparent_60%)]" />
       
-      {/* Floating orbs */}
-      <motion.div 
-        className="absolute top-20 left-1/4 w-64 h-64 rounded-full bg-lumina-rose/10 blur-3xl"
-        animate={{ 
-          x: [0, 30, 0],
-          y: [0, -20, 0],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div 
-        className="absolute bottom-20 right-1/4 w-48 h-48 rounded-full bg-lumina-champagne/10 blur-3xl"
-        animate={{ 
-          x: [0, -20, 0],
-          y: [0, 20, 0],
-          scale: [1, 1.15, 1],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-      />
+      {/* Static orbs */}
+      <div className="absolute top-20 left-1/4 w-64 h-64 rounded-full bg-lumina-rose/10 blur-3xl" />
+      <div className="absolute bottom-20 right-1/4 w-48 h-48 rounded-full bg-lumina-champagne/10 blur-3xl" />
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div 
@@ -49,18 +33,15 @@ const CTASection = () => {
             First month is risk-free.
           </p>
 
-          <motion.div 
-            className="mt-10"
-            whileHover={{ scale: 1.02 }}
-          >
+          <div className="mt-10">
             <Button 
               variant="glow" 
               size="lg" 
-              className="text-lg px-10 py-6 h-auto animate-pulse-glow"
+              className="text-lg px-10 py-6 h-auto"
             >
               Book Your Free Consultation →
             </Button>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

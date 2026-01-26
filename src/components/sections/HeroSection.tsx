@@ -21,38 +21,12 @@ const HeroSection = () => {
     },
   };
 
-  const letterVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: 0.5 + i * 0.03, duration: 0.4 },
-    }),
-  };
-
-  const headline = "Websites That Glow As Bright As Your Work";
-  const words = headline.split(' ');
-
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden noise-overlay">
-      {/* Background gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div 
-          className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-lumina-rose/5 blur-3xl"
-          animate={{ 
-            x: [0, 30, 0],
-            y: [0, -20, 0],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div 
-          className="absolute -bottom-40 -left-40 w-[400px] h-[400px] rounded-full bg-lumina-champagne/5 blur-3xl"
-          animate={{ 
-            x: [0, -20, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-        />
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Static background gradient orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-lumina-rose/5 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] rounded-full bg-lumina-champagne/5 blur-3xl" />
       </div>
 
       <div className="container mx-auto px-6 pt-24 pb-12 relative z-10">
@@ -67,42 +41,18 @@ const HeroSection = () => {
             {/* Badge */}
             <motion.div variants={itemVariants}>
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-lumina-cream-muted">
-                <span className="animate-pulse">✨</span>
+                <span>✨</span>
                 Mesa's Premium Nail Salon Web Partner
               </span>
             </motion.div>
 
             {/* Headline */}
-            <h1 className="mt-8 font-display text-4xl md:text-5xl lg:text-6xl leading-tight">
-              {words.map((word, wordIndex) => (
-                <span key={wordIndex} className="inline-block mr-3">
-                  {word === 'Glow' ? (
-                    <motion.span 
-                      className="text-gradient-animated inline-block"
-                      custom={wordIndex * 5}
-                      variants={letterVariants}
-                      initial="hidden"
-                      animate="visible"
-                    >
-                      {word}
-                    </motion.span>
-                  ) : (
-                    word.split('').map((letter, letterIndex) => (
-                      <motion.span
-                        key={letterIndex}
-                        custom={wordIndex * 5 + letterIndex}
-                        variants={letterVariants}
-                        initial="hidden"
-                        animate="visible"
-                        className="inline-block"
-                      >
-                        {letter}
-                      </motion.span>
-                    ))
-                  )}
-                </span>
-              ))}
-            </h1>
+            <motion.h1 
+              variants={itemVariants}
+              className="mt-8 font-display text-4xl md:text-5xl lg:text-6xl leading-tight"
+            >
+              Websites That <span className="text-gradient-animated">Glow</span> As Bright As Your Work
+            </motion.h1>
 
             {/* Subtitle */}
             <motion.p 
@@ -136,21 +86,17 @@ const HeroSection = () => {
           >
             <PhoneMockup />
 
-            {/* Floating cards */}
+            {/* Static floating cards */}
             <motion.div 
               className="absolute -top-4 -right-4 glass px-4 py-2 rounded-xl"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 1.2 }}
             >
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="text-sm"
-              >
+              <div className="text-sm">
                 <span className="text-lumina-champagne">📈 +47%</span>
                 <span className="text-lumina-cream-muted ml-1">More Bookings</span>
-              </motion.div>
+              </div>
             </motion.div>
 
             <motion.div 
@@ -159,14 +105,10 @@ const HeroSection = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 1.4 }}
             >
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                className="text-sm"
-              >
+              <div className="text-sm">
                 <span className="text-lumina-rose">⭐</span>
                 <span className="text-lumina-cream-muted ml-1">5-Star Reviews</span>
-              </motion.div>
+              </div>
             </motion.div>
 
             <motion.div 
@@ -175,14 +117,10 @@ const HeroSection = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 1.6 }}
             >
-              <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                className="text-sm"
-              >
+              <div className="text-sm">
                 <span className="text-lumina-blush">📱</span>
                 <span className="text-lumina-cream-muted ml-1">24/7 Online Booking</span>
-              </motion.div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
