@@ -10,13 +10,6 @@ import { motion, useScroll, useTransform } from 'framer-motion';
  * - Massive typography that interacts with images
  * - Clean luxury minimalism
  * - Text clips through images like Jesko
- * 
- * Scene Structure:
- * 0-20%:   Scene 1 - Hero image with framed nail art (like Jesko's window)
- * 20-40%:  Scene 2 - Image expands, text scales through
- * 40-60%:  Scene 3 - Results/Stats on cream background
- * 60-80%:  Scene 4 - The transformation reveal
- * 80-100%: Scene 5 - Final website showcase
  */
 
 const CinematicHeroV2 = () => {
@@ -49,13 +42,13 @@ const CinematicHeroV2 = () => {
   const scene5Opacity = useTransform(scrollYProgress, [0.78, 0.82, 1], [0, 1, 1]);
   const finalScale = useTransform(scrollYProgress, [0.82, 0.95], [0.9, 1]);
 
-  // Stats stagger transforms for individual items
+  // Stats stagger transforms
   const stat1Y = useTransform(scrollYProgress, [0.42, 0.52], [40, 0]);
   const stat2Y = useTransform(scrollYProgress, [0.44, 0.54], [40, 0]);
   const stat3Y = useTransform(scrollYProgress, [0.46, 0.56], [40, 0]);
   const featuresY = useTransform(scrollYProgress, [0.48, 0.56], [30, 0]);
 
-  // Scroll progress indicator colors (using hex for framer-motion compatibility)
+  // Scroll progress indicator colors
   const dot1Color = useTransform(scrollYProgress, [0, 0.1], ['#E8E4DF', '#1A1A1A']);
   const dot2Color = useTransform(scrollYProgress, [0.2, 0.3], ['#E8E4DF', '#1A1A1A']);
   const dot3Color = useTransform(scrollYProgress, [0.4, 0.5], ['#E8E4DF', '#1A1A1A']);
@@ -74,64 +67,137 @@ const CinematicHeroV2 = () => {
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         
         {/* ============ SCENE 1: Hero with Framed Image ============ */}
-        <div className="absolute inset-0 bg-lumina-cream flex items-center justify-center">
-          {/* The Frame - like Jesko's airplane window */}
+        <div className="absolute inset-0 bg-[#FAF8F5] flex items-center justify-center">
+          {/* Subtle ambient gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F5] via-[#F5F2EE] to-[#FAF8F5]" />
+          
+          {/* Floating decorative elements */}
           <motion.div 
-            className="relative"
+            className="absolute top-[15%] left-[10%] w-2 h-2 rounded-full bg-lumina-gold/40"
+            animate={{ y: [0, -15, 0], opacity: [0.4, 0.8, 0.4] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div 
+            className="absolute top-[25%] right-[15%] w-1.5 h-1.5 rounded-full bg-lumina-gold/30"
+            animate={{ y: [0, -20, 0], opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+          <motion.div 
+            className="absolute bottom-[20%] left-[20%] w-1 h-1 rounded-full bg-lumina-gold/50"
+            animate={{ y: [0, -10, 0], opacity: [0.5, 0.9, 0.5] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          />
+          <motion.div 
+            className="absolute bottom-[30%] right-[12%] w-2.5 h-2.5 rounded-full bg-lumina-coral/20"
+            animate={{ y: [0, -12, 0], opacity: [0.2, 0.5, 0.2] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          />
+
+          {/* The Frame - inspired by Jesko's window */}
+          <motion.div 
+            className="relative z-10"
             style={{ scale: heroImageScale }}
           >
-            {/* Outer frame border */}
+            {/* Outer decorative frame */}
             <motion.div 
-              className="absolute -inset-6 rounded-[60px] border-[16px] border-lumina-cream-warm shadow-2xl"
+              className="absolute -inset-5 md:-inset-7 rounded-[55px] md:rounded-[65px] border-[12px] md:border-[14px] border-[#EBE7E2] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.15)]"
+              style={{ opacity: heroFrameOpacity }}
+            />
+            
+            {/* Inner glow ring */}
+            <motion.div 
+              className="absolute -inset-1 rounded-[48px] md:rounded-[52px] bg-gradient-to-br from-white/80 to-transparent"
               style={{ opacity: heroFrameOpacity }}
             />
             
             {/* Main image container */}
-            <div className="relative w-[340px] h-[460px] md:w-[420px] md:h-[560px] rounded-[44px] overflow-hidden shadow-2xl">
-              {/* Real nail salon image from Unsplash */}
+            <div className="relative w-[300px] h-[420px] md:w-[380px] md:h-[520px] rounded-[44px] md:rounded-[50px] overflow-hidden shadow-[0_40px_100px_-30px_rgba(0,0,0,0.25)]">
+              {/* High-quality nail art image */}
               <img 
-                src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80"
-                alt="Luxury nail salon"
+                src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=90"
+                alt="Luxury nail art"
                 className="w-full h-full object-cover"
               />
               
-              {/* Subtle gradient overlay for depth */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10" />
+              {/* Sophisticated gradient overlays */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-white/5" />
+              <div className="absolute inset-0 bg-gradient-to-br from-lumina-gold/5 via-transparent to-lumina-coral/5" />
             </div>
           </motion.div>
 
-          {/* Hero Text - positioned around the frame */}
+          {/* Hero Typography - refined positioning */}
           <motion.div 
-            className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
+            className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20"
             style={{ y: heroTextY, opacity: heroTextOpacity }}
           >
-            {/* Top text */}
-            <div className="absolute top-[12%] left-0 right-0 text-center">
-              <p className="text-lumina-gold-muted text-sm tracking-[0.4em] uppercase font-medium">
+            {/* Top eyebrow */}
+            <div className="absolute top-[10%] md:top-[12%] left-0 right-0 text-center">
+              <motion.p 
+                className="text-[#9A8B7A] text-xs md:text-sm tracking-[0.5em] uppercase font-medium"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
                 Lumina Sites
-              </p>
+              </motion.p>
             </div>
             
-            {/* Side text - left */}
-            <div className="absolute left-[5%] top-1/2 -translate-y-1/2 hidden lg:block">
-              <h1 className="text-lumina-ink text-6xl xl:text-7xl font-display font-semibold leading-none">
+            {/* Left headline */}
+            <motion.div 
+              className="absolute left-[4%] md:left-[6%] top-1/2 -translate-y-1/2 hidden lg:block"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <h1 className="text-[#1C1917] text-5xl xl:text-6xl 2xl:text-7xl font-display font-medium leading-[0.95] tracking-[-0.02em]">
                 We build
               </h1>
-            </div>
+            </motion.div>
             
-            {/* Side text - right */}
-            <div className="absolute right-[5%] top-1/2 -translate-y-1/2 text-right hidden lg:block">
-              <h1 className="text-lumina-ink text-6xl xl:text-7xl font-display font-semibold leading-none">
+            {/* Right headline */}
+            <motion.div 
+              className="absolute right-[4%] md:right-[6%] top-1/2 -translate-y-1/2 text-right hidden lg:block"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              <h1 className="text-[#1C1917] text-5xl xl:text-6xl 2xl:text-7xl font-display font-medium leading-[0.95] tracking-[-0.02em] italic">
                 stunning
               </h1>
+            </motion.div>
+
+            {/* Mobile headline */}
+            <div className="absolute top-[20%] left-0 right-0 text-center lg:hidden px-6">
+              <motion.h1 
+                className="text-[#1C1917] text-4xl md:text-5xl font-display font-medium leading-[1.1] tracking-[-0.02em]"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                We build <span className="italic">stunning</span>
+              </motion.h1>
             </div>
             
-            {/* Bottom text */}
-            <div className="absolute bottom-[15%] left-0 right-0 text-center">
-              <p className="text-lumina-ink-muted text-lg md:text-xl font-light">
+            {/* Bottom tagline */}
+            <div className="absolute bottom-[12%] md:bottom-[14%] left-0 right-0 text-center">
+              <motion.p 
+                className="text-[#6B645C] text-base md:text-lg font-light tracking-wide"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
                 websites for nail salons
-              </p>
-              <p className="text-lumina-ink-subtle text-sm mt-2">Scroll to explore</p>
+              </motion.p>
+              <motion.p 
+                className="text-[#A39E96] text-xs md:text-sm mt-3 flex items-center justify-center gap-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+              >
+                <span className="w-4 h-px bg-[#C4B8A8]" />
+                Scroll to explore
+                <span className="w-4 h-px bg-[#C4B8A8]" />
+              </motion.p>
             </div>
           </motion.div>
         </div>
@@ -144,24 +210,24 @@ const CinematicHeroV2 = () => {
           {/* Full bleed background image */}
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=1600&q=80"
-              alt="Nail art close-up"
+              src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=1600&q=85"
+              alt="Nail art detail"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/30 to-white/70" />
+            <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/40 to-white/75" />
           </div>
           
-          {/* Massive text that clips through */}
+          {/* Massive text */}
           <motion.div 
             className="absolute inset-0 flex items-center justify-center"
             style={{ scale: bigTextScale }}
           >
-            <div className="text-center px-4">
-              <h2 className="text-lumina-ink text-5xl md:text-8xl lg:text-9xl font-display font-bold leading-[0.9] tracking-tight">
+            <div className="text-center px-6">
+              <h2 className="text-[#1C1917] text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-medium leading-[0.9] tracking-[-0.03em]">
                 More<br />
-                <span className="text-lumina-gold">Bookings</span>
+                <span className="text-lumina-gold italic">Bookings</span>
               </h2>
-              <p className="mt-8 text-lumina-ink-muted text-xl md:text-2xl font-light max-w-xl mx-auto">
+              <p className="mt-8 md:mt-10 text-[#5C564F] text-lg md:text-xl lg:text-2xl font-light max-w-lg mx-auto">
                 Beautiful websites that turn visitors into clients
               </p>
             </div>
@@ -170,53 +236,53 @@ const CinematicHeroV2 = () => {
 
         {/* ============ SCENE 3: Results/Stats ============ */}
         <motion.div 
-          className="absolute inset-0 bg-lumina-cream flex items-center justify-center"
+          className="absolute inset-0 bg-[#FAF8F5] flex items-center justify-center"
           style={{ opacity: scene3Opacity }}
         >
           {/* Subtle texture */}
-          <div className="absolute inset-0 opacity-[0.02]" style={{
+          <div className="absolute inset-0 opacity-[0.015]" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
           }} />
           
           <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
             {/* Section label */}
             <motion.p 
-              className="text-lumina-gold text-sm tracking-[0.3em] uppercase mb-12"
+              className="text-lumina-gold text-xs md:text-sm tracking-[0.4em] uppercase font-medium mb-10 md:mb-14"
               style={{ y: statsStagger }}
             >
               Case Study: Sunset Nails
             </motion.p>
             
-            {/* Big stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
+            {/* Stats grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
               {stats.map((stat, i) => (
                 <motion.div 
                   key={i}
                   className="text-center"
                   style={{ y: stat.y }}
                 >
-                  <div className="text-6xl md:text-8xl font-display font-semibold text-lumina-ink tracking-tight">
+                  <div className="text-5xl md:text-7xl lg:text-8xl font-display font-medium text-[#1C1917] tracking-[-0.02em]">
                     {stat.value}
                   </div>
-                  <div className="mt-2 text-lumina-ink text-lg font-medium">
+                  <div className="mt-2 text-[#1C1917] text-base md:text-lg font-medium">
                     {stat.label}
                   </div>
-                  <div className="text-lumina-ink-subtle text-sm">
+                  <div className="text-[#9A948C] text-sm">
                     {stat.sublabel}
                   </div>
                 </motion.div>
               ))}
             </div>
 
-            {/* Features row */}
+            {/* Features */}
             <motion.div 
-              className="mt-20 flex flex-wrap justify-center gap-4"
+              className="mt-16 md:mt-20 flex flex-wrap justify-center gap-3 md:gap-4"
               style={{ y: featuresY }}
             >
               {['Online Booking', 'Mobile-First', 'SEO Optimized', 'Fast Loading'].map((feature) => (
                 <span 
                   key={feature}
-                  className="px-5 py-2.5 border border-lumina-cream-warm text-lumina-ink-muted text-sm rounded-full bg-white/50"
+                  className="px-5 py-2.5 border border-[#E5E0DA] text-[#6B645C] text-sm rounded-full bg-white/60 backdrop-blur-sm"
                 >
                   {feature}
                 </span>
@@ -227,58 +293,47 @@ const CinematicHeroV2 = () => {
 
         {/* ============ SCENE 4: Transformation ============ */}
         <motion.div 
-          className="absolute inset-0 bg-lumina-ink flex items-center justify-center overflow-hidden"
+          className="absolute inset-0 bg-[#1A1815] flex items-center justify-center overflow-hidden"
           style={{ opacity: scene4Opacity }}
         >
-          {/* Gradient accent */}
-          <div className="absolute inset-0 bg-gradient-to-br from-lumina-ink via-lumina-dark-elevated to-lumina-ink" />
-          
-          {/* Floating light orbs */}
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-lumina-gold/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-lumina-gold/5 rounded-full blur-3xl" />
+          {/* Ambient lighting */}
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-lumina-gold/8 rounded-full blur-[100px]" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-lumina-gold/5 rounded-full blur-[120px]" />
 
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24 px-6">
-            {/* Left: Text */}
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20 px-6">
+            {/* Text */}
             <div className="text-center lg:text-left max-w-md">
-              <p className="text-lumina-gold text-sm tracking-[0.3em] uppercase mb-4">
+              <p className="text-lumina-gold text-xs md:text-sm tracking-[0.4em] uppercase font-medium mb-4">
                 The Result
               </p>
-              <h2 className="text-white text-4xl md:text-6xl font-display font-semibold leading-tight">
-                From concept<br />to launch
+              <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-display font-medium leading-[1.1] tracking-[-0.02em]">
+                From concept<br /><span className="italic">to launch</span>
               </h2>
-              <p className="mt-6 text-lumina-ink-subtle text-lg">
+              <p className="mt-6 text-[#8A847C] text-base md:text-lg font-light leading-relaxed">
                 A complete website that captures the essence of your salon and converts visitors into loyal clients.
               </p>
             </div>
 
-            {/* Right: Phone with site preview */}
+            {/* Phone mockup */}
             <motion.div 
               className="relative"
               style={{ x: phoneEnter }}
             >
-              {/* Phone frame */}
-              <div className="relative w-[280px] h-[580px] bg-black rounded-[50px] p-2 shadow-2xl border border-lumina-ink-muted/30">
-                {/* Screen */}
-                <div className="w-full h-full rounded-[42px] overflow-hidden bg-lumina-ink">
+              <div className="relative w-[260px] h-[540px] md:w-[280px] md:h-[580px] bg-[#0C0C0C] rounded-[45px] md:rounded-[50px] p-2 shadow-2xl border border-[#2A2A2A]">
+                <div className="w-full h-full rounded-[38px] md:rounded-[42px] overflow-hidden bg-[#111]">
                   <iframe 
                     src="https://sunsetnails.lovable.app" 
                     className="w-full h-full border-0"
                     title="Sunset Nails Preview"
                   />
                 </div>
-                
-                {/* Notch */}
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full" />
-                
-                {/* Side button */}
-                <div className="absolute right-[-2px] top-28 w-[3px] h-12 bg-lumina-ink-muted/30 rounded-l" />
+                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#0C0C0C] rounded-full" />
               </div>
 
-              {/* Floating badge */}
               <motion.div 
-                className="absolute -right-4 top-20 px-4 py-2 bg-lumina-gold text-lumina-ink text-sm font-medium rounded-full shadow-lg"
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                className="absolute -right-2 md:-right-4 top-16 md:top-20 px-4 py-2 bg-lumina-gold text-[#1A1815] text-sm font-medium rounded-full shadow-lg"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               >
                 Live Site ↗
               </motion.div>
@@ -288,30 +343,30 @@ const CinematicHeroV2 = () => {
 
         {/* ============ SCENE 5: Final CTA ============ */}
         <motion.div 
-          className="absolute inset-0 bg-lumina-cream flex items-center justify-center"
+          className="absolute inset-0 bg-[#FAF8F5] flex items-center justify-center"
           style={{ opacity: scene5Opacity, scale: finalScale }}
         >
-          <div className="text-center px-6 max-w-4xl">
+          <div className="text-center px-6 max-w-3xl">
             <motion.p 
-              className="text-lumina-gold text-sm tracking-[0.3em] uppercase mb-6"
+              className="text-lumina-gold text-xs md:text-sm tracking-[0.4em] uppercase font-medium mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
             >
               Ready to transform your salon?
             </motion.p>
             
-            <h2 className="text-lumina-ink text-4xl md:text-7xl font-display font-semibold leading-tight mb-8">
+            <h2 className="text-[#1C1917] text-3xl md:text-5xl lg:text-6xl font-display font-medium leading-[1.1] tracking-[-0.02em] mb-8">
               Let's build something<br />
-              <span className="text-lumina-gold">beautiful</span>
+              <span className="text-lumina-gold italic">beautiful</span>
             </h2>
             
-            <p className="text-lumina-ink-muted text-xl mb-12 max-w-2xl mx-auto">
+            <p className="text-[#6B645C] text-base md:text-lg font-light mb-10 md:mb-12 max-w-xl mx-auto">
               Join the nail salons that have transformed their online presence and seen real results.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <motion.button
-                className="px-8 py-4 bg-lumina-ink text-white text-lg font-medium rounded-full hover:bg-lumina-ink-muted transition-colors"
+                className="px-7 py-3.5 md:px-8 md:py-4 bg-[#1C1917] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#2C2926] transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -319,7 +374,7 @@ const CinematicHeroV2 = () => {
               </motion.button>
               
               <motion.button
-                className="px-8 py-4 border border-lumina-cream-warm text-lumina-ink text-lg font-medium rounded-full hover:border-lumina-ink transition-colors"
+                className="px-7 py-3.5 md:px-8 md:py-4 border border-[#D9D4CD] text-[#1C1917] text-base md:text-lg font-medium rounded-full hover:border-[#1C1917] transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -328,7 +383,7 @@ const CinematicHeroV2 = () => {
             </div>
 
             {/* Trust indicators */}
-            <div className="mt-16 flex flex-wrap justify-center gap-8 text-lumina-ink-subtle text-sm">
+            <div className="mt-12 md:mt-16 flex flex-wrap justify-center gap-6 md:gap-8 text-[#9A948C] text-sm">
               <span>✓ No upfront costs</span>
               <span>✓ 7-day delivery</span>
               <span>✓ Cancel anytime</span>
@@ -338,26 +393,26 @@ const CinematicHeroV2 = () => {
 
         {/* ============ Persistent Elements ============ */}
         
-        {/* Logo - top left */}
-        <div className="fixed top-6 left-6 z-50">
+        {/* Logo */}
+        <div className="fixed top-5 md:top-6 left-5 md:left-6 z-50">
           <a href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-lumina-ink flex items-center justify-center">
-              <span className="text-white font-display text-lg font-bold">L</span>
+            <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-[#1C1917] flex items-center justify-center">
+              <span className="text-white font-display text-base md:text-lg font-medium">L</span>
             </div>
           </a>
         </div>
 
-        {/* Nav - top right */}
-        <div className="fixed top-6 right-6 z-50 hidden md:flex items-center gap-6">
-          <a href="#work" className="text-lumina-ink-muted hover:text-lumina-ink text-sm font-medium transition-colors">Work</a>
-          <a href="#pricing" className="text-lumina-ink-muted hover:text-lumina-ink text-sm font-medium transition-colors">Pricing</a>
-          <a href="#contact" className="px-5 py-2 bg-lumina-ink text-white text-sm font-medium rounded-full hover:bg-lumina-ink-muted transition-colors">
+        {/* Nav */}
+        <div className="fixed top-5 md:top-6 right-5 md:right-6 z-50 hidden md:flex items-center gap-6">
+          <a href="#work" className="text-[#6B645C] hover:text-[#1C1917] text-sm font-medium transition-colors">Work</a>
+          <a href="#pricing" className="text-[#6B645C] hover:text-[#1C1917] text-sm font-medium transition-colors">Pricing</a>
+          <a href="#contact" className="px-5 py-2 bg-[#1C1917] text-white text-sm font-medium rounded-full hover:bg-[#2C2926] transition-colors">
             Contact
           </a>
         </div>
 
-        {/* Scroll progress - right side */}
-        <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-2">
+        {/* Scroll progress */}
+        <div className="fixed right-5 md:right-6 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-2.5">
           <motion.div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: dot1Color }} />
           <motion.div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: dot2Color }} />
           <motion.div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: dot3Color }} />
