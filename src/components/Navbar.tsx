@@ -39,13 +39,13 @@ const Navbar = () => {
             </span>
           </a>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-12">
+          {/* Desktop nav - positioned to not overlap hero content */}
+          <div className="hidden md:flex items-center gap-10">
             {['work', 'pricing', 'contact'].map((item) => (
               <button 
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="text-lumina-ink-muted hover:text-lumina-ink transition-colors text-xs uppercase tracking-[0.2em]"
+                className="text-lumina-ink-muted hover:text-lumina-ink transition-colors text-xs uppercase tracking-[0.15em] relative z-50"
               >
                 {item}
               </button>
