@@ -2,8 +2,6 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 import { useRef } from 'react';
 import { Check } from 'lucide-react';
 
-// Pricing with scroll-triggered animations
-
 const plans = [
   {
     name: 'Glow',
@@ -35,13 +33,13 @@ const PricingSection = () => {
     offset: ['start end', 'end start'],
   });
 
-  const bgY = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
+  const bgY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
 
   return (
-    <section ref={containerRef} id="pricing" className="py-32 section-dark relative overflow-hidden">
-      {/* Parallax background elements */}
+    <section ref={containerRef} id="pricing" className="py-20 sm:py-24 md:py-32 section-dark relative overflow-hidden">
+      {/* Parallax background */}
       <motion.div
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0 opacity-[0.03]"
         style={{ y: bgY }}
       >
         <div className="absolute inset-0" style={{
@@ -49,30 +47,30 @@ const PricingSection = () => {
             linear-gradient(to right, hsl(var(--lumina-gold)) 1px, transparent 1px),
             linear-gradient(to bottom, hsl(var(--lumina-gold)) 1px, transparent 1px)
           `,
-          backgroundSize: '80px 80px',
+          backgroundSize: '100px 100px',
         }} />
       </motion.div>
 
       {/* Gold lines */}
       <div className="absolute top-0 left-0 right-0 luxury-line" />
 
-      <div className="container mx-auto px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-10 sm:mb-14 md:mb-20"
         >
-          <span className="text-lumina-gold/60 text-xs uppercase tracking-[0.4em]">Investment</span>
-          <h2 className="font-display text-5xl md:text-6xl mt-4 text-white">
+          <span className="text-lumina-gold/60 text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em]">Investment</span>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-3 sm:mt-4 text-white">
             Simple <span className="text-gradient-gold">Pricing</span>
           </h2>
         </motion.div>
 
         {/* Cards */}
         <div className="relative max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
             {plans.map((plan, index) => (
               <PricingCard key={index} plan={plan} index={index} />
             ))}
@@ -90,16 +88,16 @@ const PricingCard = ({ plan, index }: { plan: typeof plans[0]; index: number }) 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const mouseXSpring = useSpring(x, { stiffness: 200, damping: 20 });
-  const mouseYSpring = useSpring(y, { stiffness: 200, damping: 20 });
+  const mouseXSpring = useSpring(x, { stiffness: 200, damping: 25 });
+  const mouseYSpring = useSpring(y, { stiffness: 200, damping: 25 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    x.set((e.clientX - centerX) / 20);
-    y.set((e.clientY - centerY) / 20);
+    x.set((e.clientX - centerX) / 25);
+    y.set((e.clientY - centerY) / 25);
   };
 
   const handleMouseLeave = () => {
@@ -110,20 +108,20 @@ const PricingCard = ({ plan, index }: { plan: typeof plans[0]; index: number }) 
   return (
     <motion.div
       ref={cardRef}
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: plan.featured ? -20 : 0 }}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: plan.featured ? -12 : 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.15 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`relative ${plan.featured ? 'md:-mt-6 md:mb-6' : ''}`}
+      className={`relative ${plan.featured ? 'md:-mt-4 md:mb-4' : ''}`}
     >
       <motion.div
         style={{ x: mouseXSpring, y: mouseYSpring }}
-        whileHover={{ y: -10 }}
-        className={`h-full p-8 border transition-all bg-lumina-dark-elevated ${
+        whileHover={{ y: -8 }}
+        className={`h-full p-5 sm:p-6 md:p-8 border transition-all bg-lumina-dark-elevated ${
           plan.featured 
-            ? 'border-lumina-gold shadow-xl shadow-lumina-gold/10' 
+            ? 'border-lumina-gold shadow-lg shadow-lumina-gold/10' 
             : 'border-white/10 hover:border-lumina-gold/30'
         }`}
       >
@@ -131,26 +129,26 @@ const PricingCard = ({ plan, index }: { plan: typeof plans[0]; index: number }) 
           <div className="absolute -top-px left-0 right-0 h-1 bg-lumina-gold" />
         )}
 
-        <div className="mb-6">
-          <p className="text-lumina-gold/60 text-xs uppercase tracking-[0.2em] mb-2">{plan.name}</p>
+        <div className="mb-5 sm:mb-6">
+          <p className="text-lumina-gold/60 text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] mb-2">{plan.name}</p>
           <div className="flex items-baseline gap-1">
-            <span className="font-display text-5xl text-white">{plan.price}</span>
-            <span className="text-white/40">/mo</span>
+            <span className="font-display text-3xl sm:text-4xl md:text-5xl text-white">{plan.price}</span>
+            <span className="text-white/40 text-sm">/mo</span>
           </div>
         </div>
 
-        <p className="text-white/50 text-sm mb-8">{plan.description}</p>
+        <p className="text-white/50 text-xs sm:text-sm mb-6 sm:mb-8">{plan.description}</p>
 
-        <ul className="space-y-3 mb-8">
+        <ul className="space-y-2.5 sm:space-y-3 mb-6 sm:mb-8">
           {plan.features.map((feature, fIndex) => (
-            <li key={fIndex} className="flex items-center gap-3 text-sm">
-              <Check className="w-4 h-4 text-lumina-gold flex-shrink-0" />
+            <li key={fIndex} className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm">
+              <Check className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-lumina-gold flex-shrink-0" />
               <span className="text-white/60">{feature}</span>
             </li>
           ))}
         </ul>
 
-        <button className={`w-full py-4 font-medium transition-colors ${
+        <button className={`w-full py-3 sm:py-4 font-medium text-sm transition-colors ${
           plan.featured 
             ? 'bg-lumina-gold text-lumina-dark hover:bg-lumina-gold/90' 
             : 'border border-lumina-gold/30 text-lumina-gold hover:bg-lumina-gold/10'
