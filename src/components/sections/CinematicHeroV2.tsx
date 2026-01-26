@@ -234,51 +234,53 @@ const CinematicHeroV2 = () => {
 
         {/* ============ SCENE 4: Transformation ============ */}
         <motion.div 
-          className="absolute inset-0 bg-[#1A1815] flex items-center justify-center overflow-hidden"
+          className="absolute inset-0 bg-lumina-dark flex items-start md:items-center justify-center overflow-hidden py-12 md:py-0"
           style={{ opacity: scene4Opacity }}
         >
           {/* Ambient lighting */}
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-lumina-gold/8 rounded-full blur-[100px]" />
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-lumina-gold/5 rounded-full blur-[120px]" />
 
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20 px-6">
-            {/* Text */}
-            <div className="text-center lg:text-left max-w-md">
+          <div className="relative z-10 w-full max-w-6xl mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_auto] items-center gap-10 md:gap-14">
+              {/* Text */}
+              <div className="text-center md:text-left max-w-md md:max-w-none">
               <p className="text-lumina-gold text-xs md:text-sm tracking-[0.4em] uppercase font-medium mb-4">
                 The Result
               </p>
-              <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-display font-medium leading-[1.1] tracking-[-0.02em]">
+              <h2 className="text-lumina-cream text-3xl md:text-5xl lg:text-6xl font-display font-medium leading-[1.1] tracking-[-0.02em]">
                 From concept<br /><span className="italic">to launch</span>
               </h2>
-              <p className="mt-6 text-[#8A847C] text-base md:text-lg font-light leading-relaxed">
+              <p className="mt-6 text-lumina-cream/70 text-base md:text-lg font-light leading-relaxed">
                 A complete website that captures the essence of your salon and converts visitors into loyal clients.
               </p>
-            </div>
-
-            {/* Phone mockup */}
-            <motion.div 
-              className="relative"
-              style={{ x: phoneEnter }}
-            >
-              <div className="relative w-[260px] h-[540px] md:w-[280px] md:h-[580px] bg-[#0C0C0C] rounded-[45px] md:rounded-[50px] p-2 shadow-2xl border border-[#2A2A2A]">
-                <div className="w-full h-full rounded-[38px] md:rounded-[42px] overflow-hidden bg-[#111]">
-                  <iframe 
-                    src="https://sunsetnails.lovable.app" 
-                    className="w-full h-full border-0"
-                    title="Sunset Nails Preview"
-                  />
-                </div>
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#0C0C0C] rounded-full" />
               </div>
 
+              {/* Phone mockup */}
               <motion.div 
-                className="absolute -right-2 md:-right-4 top-16 md:top-20 px-4 py-2 bg-lumina-gold text-[#1A1815] text-sm font-medium rounded-full shadow-lg"
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                className="relative md:justify-self-end"
+                style={{ x: phoneEnter }}
               >
-                Live Site ↗
+                <div className="relative w-[220px] sm:w-[240px] md:w-[260px] lg:w-[280px] h-[clamp(340px,48vh,460px)] sm:h-[clamp(380px,50vh,500px)] md:h-[clamp(460px,58vh,540px)] lg:h-[clamp(520px,64vh,580px)] bg-lumina-dark-elevated rounded-[45px] md:rounded-[50px] p-2 shadow-2xl border border-lumina-cream/10">
+                  <div className="w-full h-full rounded-[38px] md:rounded-[42px] overflow-hidden bg-lumina-dark">
+                    <iframe 
+                      src="https://sunsetnails.lovable.app" 
+                      className="w-full h-full border-0"
+                      title="Sunset Nails Preview"
+                    />
+                  </div>
+                  <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-lumina-dark-elevated rounded-full" />
+                </div>
+
+                <motion.div 
+                  className="absolute -right-2 md:-right-4 top-12 md:top-20 px-4 py-2 bg-lumina-gold text-lumina-dark text-sm font-medium rounded-full shadow-lg"
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  Live Site ↗
+                </motion.div>
               </motion.div>
-            </motion.div>
+            </div>
           </div>
         </motion.div>
 
