@@ -138,7 +138,7 @@ const WebsiteShowcase = () => {
                       viewport={{ once: true }}
                       className="text-white text-sm uppercase tracking-[0.3em] mb-4 drop-shadow-lg"
                     >
-                      Gilbert, Arizona
+                      Mesa, Arizona · Est. 2018
                     </motion.p>
                     <motion.h3
                       initial={{ opacity: 0, y: 20 }}
@@ -154,9 +154,9 @@ const WebsiteShowcase = () => {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.2 }}
-                      className="text-white/90 text-lg italic drop-shadow-lg"
+                      className="text-white/90 text-lg italic drop-shadow-lg max-w-md mx-auto"
                     >
-                      "Where beauty meets artistry"
+                      "Where every visit feels like golden hour"
                     </motion.p>
                     <motion.button
                       initial={{ opacity: 0, y: 20 }}
@@ -177,9 +177,9 @@ const WebsiteShowcase = () => {
               <div className="p-8 md:p-12 bg-white">
                 <div className="grid md:grid-cols-3 gap-6 md:gap-8">
                   {[
-                    { name: 'Manicures', price: '$35+', desc: 'Classic & gel options', icon: 'polish' },
-                    { name: 'Pedicures', price: '$45+', desc: 'Relaxing spa treatment', icon: 'sparkle' },
-                    { name: 'Nail Art', price: '$55+', desc: 'Custom designs', icon: 'diamond' },
+                    { name: 'Basic Bliss', price: '$55', desc: 'Mani + Pedi', icon: 'polish' },
+                    { name: 'Premium Blue', price: '$70', desc: 'Mani + Pedi', icon: 'sparkle' },
+                    { name: 'Deluxe', price: '$100', desc: 'Mani + Pedi', icon: 'diamond' },
                   ].map((service, i) => (
                     <motion.div
                       key={i}

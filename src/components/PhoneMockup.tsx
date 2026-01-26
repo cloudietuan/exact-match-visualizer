@@ -25,7 +25,7 @@ const PhoneMockup = () => {
             {/* Logo area */}
             <div className="text-center py-3">
               <p className="text-[#C17F59] text-[10px] uppercase tracking-[0.2em]">Sunset Nails</p>
-              <p className="text-[#B8A89A] text-[8px] mt-0.5">Gilbert, Arizona</p>
+              <p className="text-[#B8A89A] text-[8px] mt-0.5">Mesa, Arizona · Est. 2018</p>
             </div>
 
             {/* Hero image */}
@@ -39,10 +39,10 @@ const PhoneMockup = () => {
 
             {/* Hero tagline */}
             <div className="text-center py-2">
-              <p className="font-display text-[#8B7355] text-sm italic">"Where beauty meets artistry"</p>
+              <p className="font-display text-[#8B7355] text-xs italic leading-tight">"Where every visit feels like golden hour"</p>
             </div>
 
-            {/* Services icons - using custom SVG icons instead of emojis */}
+            {/* Services icons - using custom SVG icons */}
             <div className="flex justify-center gap-3 py-2">
               <div className="w-9 h-9 rounded-full bg-[#C17F59]/10 flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 48 48" fill="none">
@@ -65,18 +65,18 @@ const PhoneMockup = () => {
               </div>
             </div>
 
-            {/* Pricing preview */}
+            {/* Pricing preview - matching real site */}
             <div className="flex gap-2 justify-center">
               <div className="bg-white/50 rounded-lg px-2 py-1.5 text-center">
-                <p className="text-[#C17F59] text-[10px] font-medium">$35</p>
-                <p className="text-[#8B7355] text-[7px]">Basic</p>
+                <p className="text-[#C17F59] text-[10px] font-medium">$55</p>
+                <p className="text-[#8B7355] text-[7px]">Basic Bliss</p>
               </div>
               <div className="bg-[#C17F59] rounded-lg px-2 py-1.5 text-center">
-                <p className="text-white text-[10px] font-medium">$55</p>
+                <p className="text-white text-[10px] font-medium">$70</p>
                 <p className="text-white/80 text-[7px]">Premium</p>
               </div>
               <div className="bg-white/50 rounded-lg px-2 py-1.5 text-center">
-                <p className="text-[#C17F59] text-[10px] font-medium">$75</p>
+                <p className="text-[#C17F59] text-[10px] font-medium">$100</p>
                 <p className="text-[#8B7355] text-[7px]">Deluxe</p>
               </div>
             </div>

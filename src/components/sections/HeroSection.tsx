@@ -313,7 +313,7 @@ const HeroSection = () => {
                       {/* Logo */}
                       <div className="text-center py-3">
                         <p className="text-[#C17F59] text-sm uppercase tracking-[0.25em] font-semibold">Sunset Nails</p>
-                        <p className="text-[#B8A89A] text-xs mt-1">Gilbert, Arizona</p>
+                        <p className="text-[#B8A89A] text-xs mt-1">Mesa, Arizona · Est. 2018</p>
                       </div>
 
                       {/* Hero image */}
@@ -327,7 +327,7 @@ const HeroSection = () => {
 
                       {/* Hero tagline */}
                       <div className="text-center py-2">
-                        <p className="font-display text-[#8B7355] text-lg italic">"Where beauty meets artistry"</p>
+                        <p className="font-display text-[#8B7355] text-base italic leading-tight">"Where every visit feels like golden hour"</p>
                       </div>
 
                       {/* Services preview - using custom icons */}
@@ -355,18 +355,18 @@ const HeroSection = () => {
                         <p className="text-center text-[#8B7355] text-xs">Manicures • Pedicures • Nail Art</p>
                       </div>
 
-                      {/* Pricing preview */}
+                      {/* Pricing preview - matching real site */}
                       <div className="flex gap-2 mb-4">
                         <div className="flex-1 bg-white/50 rounded-lg p-2.5 text-center backdrop-blur-sm">
-                          <p className="text-[#C17F59] text-base font-semibold">$35</p>
-                          <p className="text-[#8B7355] text-[10px]">Basic</p>
+                          <p className="text-[#C17F59] text-base font-semibold">$55</p>
+                          <p className="text-[#8B7355] text-[10px]">Basic Bliss</p>
                         </div>
                         <div className="flex-1 bg-[#C17F59] rounded-lg p-2.5 text-center shadow-lg">
-                          <p className="text-white text-base font-semibold">$55</p>
+                          <p className="text-white text-base font-semibold">$70</p>
                           <p className="text-white/80 text-[10px]">Premium</p>
                         </div>
                         <div className="flex-1 bg-white/50 rounded-lg p-2.5 text-center backdrop-blur-sm">
-                          <p className="text-[#C17F59] text-base font-semibold">$75</p>
+                          <p className="text-[#C17F59] text-base font-semibold">$100</p>
                           <p className="text-[#8B7355] text-[10px]">Deluxe</p>
                         </div>
                       </div>
