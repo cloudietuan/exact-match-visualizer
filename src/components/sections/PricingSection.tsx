@@ -1,7 +1,8 @@
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { useRef } from 'react';
 import { Check } from 'lucide-react';
 
-// Midlife Engineering inspired: Layered cards with mouse-reactive effects
+// Pricing with scroll-triggered animations
 
 const plans = [
   {
@@ -10,7 +11,6 @@ const plans = [
     description: 'For new salons ready to shine.',
     features: ['3-page website', 'Mobile responsive', 'Basic SEO', 'Contact form', '2 updates/mo'],
     featured: false,
-    offset: 0,
   },
   {
     name: 'Radiant',
@@ -18,7 +18,6 @@ const plans = [
     description: 'For salons ready to dominate.',
     features: ['5-7 page website', 'Booking integration', 'Google optimization', 'Portfolio gallery', 'Unlimited updates', 'Analytics report'],
     featured: true,
-    offset: -20,
   },
   {
     name: 'Brilliant',
@@ -26,41 +25,52 @@ const plans = [
     description: 'The ultimate online presence.',
     features: ['Everything in Radiant', 'E-commerce', 'Gift cards', 'Blog', 'Priority support', 'Strategy calls'],
     featured: false,
-    offset: 0,
   },
 ];
 
 const PricingSection = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
+
   return (
-    <section id="pricing" className="py-32 bg-background relative">
-      {/* Stacked panel accents (Midlife style) */}
-      <div className="absolute left-0 top-0 bottom-0 w-1/3 hidden lg:block">
-        {[0, 1, 2, 3].map((i) => (
-          <div
-            key={i}
-            className="absolute top-0 bottom-0 bg-lumina-cream-soft"
-            style={{
-              left: `${i * 30}px`,
-              width: '100%',
-              opacity: 0.3 + i * 0.15,
-            }}
-          />
-        ))}
-      </div>
+    <section ref={containerRef} id="pricing" className="py-32 section-dark relative overflow-hidden">
+      {/* Parallax background elements */}
+      <motion.div
+        className="absolute inset-0 opacity-5"
+        style={{ y: bgY }}
+      >
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(to right, hsl(var(--lumina-gold)) 1px, transparent 1px),
+            linear-gradient(to bottom, hsl(var(--lumina-gold)) 1px, transparent 1px)
+          `,
+          backgroundSize: '80px 80px',
+        }} />
+      </motion.div>
+
+      {/* Gold lines */}
+      <div className="absolute top-0 left-0 right-0 luxury-line" />
 
       <div className="container mx-auto px-8 relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <span className="text-lumina-ink-subtle text-xs uppercase tracking-[0.3em]">Investment</span>
-          <h2 className="font-display text-4xl md:text-5xl mt-4">Simple Pricing</h2>
+          <span className="text-lumina-gold/60 text-xs uppercase tracking-[0.4em]">Investment</span>
+          <h2 className="font-display text-5xl md:text-6xl mt-4 text-white">
+            Simple <span className="text-gradient-gold">Pricing</span>
+          </h2>
         </motion.div>
 
-        {/* Pricing cards with stacking effect */}
+        {/* Cards */}
         <div className="relative max-w-5xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
             {plans.map((plan, index) => (
@@ -69,11 +79,14 @@ const PricingSection = () => {
           </div>
         </div>
       </div>
+
+      <div className="absolute bottom-0 left-0 right-0 luxury-line" />
     </section>
   );
 };
 
 const PricingCard = ({ plan, index }: { plan: typeof plans[0]; index: number }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -81,11 +94,12 @@ const PricingCard = ({ plan, index }: { plan: typeof plans[0]; index: number }) 
   const mouseYSpring = useSpring(y, { stiffness: 200, damping: 20 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    x.set((e.clientX - centerX) / 25);
-    y.set((e.clientY - centerY) / 25);
+    x.set((e.clientX - centerX) / 20);
+    y.set((e.clientY - centerY) / 20);
   };
 
   const handleMouseLeave = () => {
@@ -95,8 +109,9 @@ const PricingCard = ({ plan, index }: { plan: typeof plans[0]; index: number }) 
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: plan.offset }}
+      ref={cardRef}
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: plan.featured ? -20 : 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.15 }}
       onMouseMove={handleMouseMove}
@@ -106,44 +121,40 @@ const PricingCard = ({ plan, index }: { plan: typeof plans[0]; index: number }) 
       <motion.div
         style={{ x: mouseXSpring, y: mouseYSpring }}
         whileHover={{ y: -10 }}
-        className={`h-full p-8 border rounded-xl transition-all bg-background ${
+        className={`h-full p-8 border transition-all bg-lumina-dark-elevated ${
           plan.featured 
-            ? 'border-lumina-terracotta shadow-xl shadow-lumina-terracotta/10' 
-            : 'border-lumina-ink/10 hover:border-lumina-terracotta/30'
+            ? 'border-lumina-gold shadow-xl shadow-lumina-gold/10' 
+            : 'border-white/10 hover:border-lumina-gold/30'
         }`}
       >
         {plan.featured && (
-          <div className="absolute -top-px left-4 right-4 h-1 bg-lumina-terracotta rounded-full" />
+          <div className="absolute -top-px left-0 right-0 h-1 bg-lumina-gold" />
         )}
 
         <div className="mb-6">
-          <p className="text-lumina-ink-subtle text-xs uppercase tracking-[0.2em] mb-2">
-            {plan.name}
-          </p>
+          <p className="text-lumina-gold/60 text-xs uppercase tracking-[0.2em] mb-2">{plan.name}</p>
           <div className="flex items-baseline gap-1">
-            <span className="font-display text-5xl">{plan.price}</span>
-            <span className="text-lumina-ink-subtle">/mo</span>
+            <span className="font-display text-5xl text-white">{plan.price}</span>
+            <span className="text-white/40">/mo</span>
           </div>
         </div>
 
-        <p className="text-lumina-ink-muted text-sm mb-8">{plan.description}</p>
+        <p className="text-white/50 text-sm mb-8">{plan.description}</p>
 
         <ul className="space-y-3 mb-8">
           {plan.features.map((feature, fIndex) => (
             <li key={fIndex} className="flex items-center gap-3 text-sm">
-              <Check className="w-4 h-4 text-lumina-terracotta flex-shrink-0" />
-              <span className="text-lumina-ink-muted">{feature}</span>
+              <Check className="w-4 h-4 text-lumina-gold flex-shrink-0" />
+              <span className="text-white/60">{feature}</span>
             </li>
           ))}
         </ul>
 
-        <button 
-          className={`w-full py-4 rounded-full font-medium transition-colors ${
-            plan.featured 
-              ? 'bg-foreground text-background hover:bg-lumina-ink/90' 
-              : 'border border-foreground/20 hover:bg-lumina-cream-soft'
-          }`}
-        >
+        <button className={`w-full py-4 font-medium transition-colors ${
+          plan.featured 
+            ? 'bg-lumina-gold text-lumina-dark hover:bg-lumina-gold/90' 
+            : 'border border-lumina-gold/30 text-lumina-gold hover:bg-lumina-gold/10'
+        }`}>
           Get Started
         </button>
       </motion.div>

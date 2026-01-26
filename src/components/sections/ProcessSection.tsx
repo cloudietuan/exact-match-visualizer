@@ -1,116 +1,106 @@
-import { motion } from 'framer-motion';
-import type { Easing } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+
+// Process section with Jesko-style scroll animations
 
 const steps = [
   {
     number: '01',
-    emoji: '📞',
-    title: 'Discovery Call',
-    description: "Quick 15-minute call to understand your salon's vibe, services, and goals.",
-    time: 'Day 1',
+    title: 'Discovery',
+    description: 'We learn about your salon, your style, and your goals through a quick consultation.',
+    icon: '💬',
   },
   {
     number: '02',
-    emoji: '🎨',
-    title: 'Design & Build',
-    description: 'We create your custom website using your brand, photos, and personality.',
-    time: 'Days 2-5',
+    title: 'Design',
+    description: 'Our team crafts a custom design that captures your unique brand personality.',
+    icon: '✏️',
   },
   {
     number: '03',
-    emoji: '✨',
-    title: 'Review & Refine',
-    description: "You review, we refine. We don't stop until you love it.",
-    time: 'Day 6',
+    title: 'Development',
+    description: 'We build your site with booking integration, SEO, and mobile optimization.',
+    icon: '⚡',
   },
   {
     number: '04',
-    emoji: '🚀',
-    title: 'Launch & Grow',
-    description: 'Your site goes live. We handle hosting, updates, and ongoing support.',
-    time: 'Day 7+',
+    title: 'Launch',
+    description: 'Your new website goes live and starts bringing in more clients immediately.',
+    icon: '🚀',
   },
 ];
 
 const ProcessSection = () => {
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.15 },
-    },
-  };
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  });
 
-  const stepVariants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as Easing },
-    },
-  };
+  const lineHeight = useTransform(scrollYProgress, [0.1, 0.9], ['0%', '100%']);
 
   return (
-    <section className="py-24 bg-lumina-bg-secondary">
-      <div className="container mx-auto px-6">
-        {/* Header */}
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
+    <section ref={containerRef} className="py-32 bg-lumina-cream-warm relative overflow-hidden">
+      {/* Background decoration */}
+      <motion.div
+        className="absolute right-0 top-0 w-1/2 h-full opacity-[0.02]"
+        style={{
+          backgroundImage: `repeating-linear-gradient(45deg, hsl(var(--lumina-ink)) 0, hsl(var(--lumina-ink)) 1px, transparent 0, transparent 50%)`,
+          backgroundSize: '30px 30px',
+        }}
+      />
+
+      <div className="container mx-auto px-8 relative z-10">
+        {/* Header with scroll animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          className="mb-20"
         >
-          <span className="text-primary uppercase tracking-widest text-sm font-medium">
-            The Process
-          </span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl">
-            Live in 7 Days. Seriously.
+          <span className="text-lumina-ink-subtle text-xs uppercase tracking-[0.4em]">Our Process</span>
+          <h2 className="font-sans font-bold text-[10vw] md:text-[6vw] leading-[0.9] uppercase text-lumina-ink mt-4">
+            How We
+            <span className="block text-brush text-lumina-terracotta font-normal normal-case">Work</span>
           </h2>
-          <p className="mt-4 text-lumina-cream-muted text-lg max-w-md mx-auto">
-            We've streamlined everything so you can focus on what you do best.
-          </p>
         </motion.div>
 
-        {/* Timeline */}
-        <motion.div 
-          className="relative max-w-3xl mx-auto"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {/* Vertical line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-lumina-rose via-lumina-blush to-lumina-champagne" />
-
-          {steps.map((step, index) => (
+        {/* Process steps with connected line */}
+        <div className="relative max-w-4xl mx-auto">
+          {/* Animated progress line */}
+          <div className="absolute left-8 md:left-12 top-0 bottom-0 w-px bg-lumina-ink/10">
             <motion.div
-              key={index}
-              variants={stepVariants}
-              className={`relative flex items-start gap-8 mb-12 last:mb-0 ${
-                index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-              }`}
-            >
-              {/* Number circle */}
-              <div className="absolute left-0 md:left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-gradient-glow flex items-center justify-center z-10">
-                <span className="text-background font-display text-lg">{step.number}</span>
-              </div>
+              className="absolute top-0 left-0 w-full bg-lumina-terracotta origin-top"
+              style={{ height: lineHeight }}
+            />
+          </div>
 
-              {/* Content */}
-              <div className={`ml-24 md:ml-0 md:w-[calc(50%-4rem)] ${
-                index % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8'
-              }`}>
-                <div className="glass rounded-2xl p-6">
-                  <span className="text-3xl mb-4 block">{step.emoji}</span>
-                  <h3 className="font-display text-xl mb-2">{step.title}</h3>
-                  <p className="text-lumina-cream-muted mb-3">{step.description}</p>
-                  <span className="inline-block px-3 py-1 rounded-full bg-lumina-champagne/20 text-lumina-champagne text-xs font-medium">
-                    {step.time}
-                  </span>
+          {/* Steps */}
+          <div className="space-y-16">
+            {steps.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="relative pl-20 md:pl-28"
+              >
+                {/* Step number circle */}
+                <div className="absolute left-0 top-0 w-16 h-16 md:w-24 md:h-24 rounded-full bg-background border-2 border-lumina-terracotta flex items-center justify-center">
+                  <span className="text-3xl">{step.icon}</span>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+
+                {/* Content */}
+                <div className="pt-2">
+                  <span className="text-lumina-terracotta font-display text-lg">{step.number}</span>
+                  <h3 className="font-sans font-bold text-3xl md:text-4xl uppercase mt-2 mb-4">{step.title}</h3>
+                  <p className="text-lumina-ink-muted text-lg max-w-lg">{step.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

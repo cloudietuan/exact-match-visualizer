@@ -1,14 +1,23 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
-// Jesko Jets inspired: Dark, editorial, luxurious
+// Dark luxury footer with parallax
 
 const Footer = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end end'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [30, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+
   return (
-    <footer className="py-20 section-dark relative">
-      {/* Gold accent line */}
+    <footer ref={containerRef} className="py-20 section-dark relative overflow-hidden">
       <div className="absolute top-0 left-0 right-0 luxury-line" />
 
-      <div className="container mx-auto px-8">
+      <motion.div style={{ y, opacity }} className="container mx-auto px-8">
         {/* Large brand statement */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -17,7 +26,7 @@ const Footer = () => {
           className="mb-16"
         >
           <h3 className="font-display text-4xl md:text-5xl text-white max-w-2xl leading-tight">
-            Elevating nail salons with 
+            Elevating salons with 
             <span className="text-gradient-gold"> premium web design</span>
           </h3>
         </motion.div>
@@ -40,12 +49,9 @@ const Footer = () => {
           <div>
             <p className="text-lumina-gold/60 text-xs uppercase tracking-[0.2em] mb-6">Navigate</p>
             <ul className="space-y-4">
-              {['Work', 'Services', 'Pricing', 'Contact'].map((item) => (
+              {['Work', 'Process', 'Pricing', 'Contact'].map((item) => (
                 <li key={item}>
-                  <a 
-                    href={`#${item.toLowerCase()}`} 
-                    className="text-white/50 hover:text-lumina-gold transition-colors text-sm"
-                  >
+                  <a href={`#${item.toLowerCase()}`} className="text-white/50 hover:text-lumina-gold transition-colors text-sm">
                     {item}
                   </a>
                 </li>
@@ -57,13 +63,8 @@ const Footer = () => {
           <div>
             <p className="text-lumina-gold/60 text-xs uppercase tracking-[0.2em] mb-6">Legal</p>
             <ul className="space-y-4">
-              {['Privacy Policy', 'Terms of Service'].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-white/50 hover:text-lumina-gold transition-colors text-sm">
-                    {item}
-                  </a>
-                </li>
-              ))}
+              <li><a href="#" className="text-white/50 hover:text-lumina-gold transition-colors text-sm">Privacy Policy</a></li>
+              <li><a href="#" className="text-white/50 hover:text-lumina-gold transition-colors text-sm">Terms of Service</a></li>
             </ul>
           </div>
 
@@ -73,36 +74,18 @@ const Footer = () => {
             <div className="space-y-4">
               <p className="text-white/50 text-sm">hello@luminasites.co</p>
               <p className="text-white/50 text-sm">Mesa, Arizona</p>
-              <div className="flex gap-4 mt-6">
-                {['Instagram', 'Twitter', 'LinkedIn'].map((social) => (
-                  <a 
-                    key={social} 
-                    href="#" 
-                    className="text-white/30 hover:text-lumina-gold transition-colors text-xs uppercase tracking-wider"
-                  >
-                    {social.slice(0, 2)}
-                  </a>
-                ))}
-              </div>
             </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4"
-        >
-          <p className="text-white/30 text-xs">
-            © 2026 Lumina Sites Co. All rights reserved.
-          </p>
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-white/30 text-xs">© 2026 Lumina Sites Co. All rights reserved.</p>
           <p className="text-white/30 text-xs flex items-center gap-2">
             Made with <span className="text-lumina-gold">✦</span> in Arizona
           </p>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </footer>
   );
 };

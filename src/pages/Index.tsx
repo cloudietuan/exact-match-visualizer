@@ -2,11 +2,8 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
-import SocialProofBar from '@/components/sections/SocialProofBar';
-import StyleShowcaseSection from '@/components/sections/StyleShowcaseSection';
-import HorizontalScrollSection from '@/components/sections/HorizontalScrollSection';
-import StatsSection from '@/components/sections/StatsSection';
-import ServicesSection from '@/components/sections/ServicesSection';
+import WebsiteShowcase from '@/components/sections/WebsiteShowcase';
+import ProcessSection from '@/components/sections/ProcessSection';
 import PricingSection from '@/components/sections/PricingSection';
 import CTASection from '@/components/sections/CTASection';
 import Footer from '@/components/sections/Footer';
@@ -31,33 +28,24 @@ const Index = () => {
       >
         <Navbar />
         
-        {/* Vizcom-inspired Hero: Brush typography, centered, carousel */}
+        {/* Sketch-to-Website Hero with scroll transformation */}
         <HeroSection />
         
-        {/* Vizcom-inspired: Logo trust bar */}
-        <SocialProofBar />
-        
-        {/* Style showcase: Explains the 5 different aesthetics */}
-        <StyleShowcaseSection />
-        
-        {/* Midlife Engineering-inspired: Stacked panels + horizontal scroll */}
+        {/* Full Sunset Nails website showcase */}
         <div id="work">
-          <HorizontalScrollSection />
+          <WebsiteShowcase />
         </div>
         
-        {/* Jesko Jets-inspired: Dark luxury with gold accents */}
-        <StatsSection />
+        {/* Process section with scroll animations */}
+        <ProcessSection />
         
-        {/* Kineticsplay-inspired: Massive full-bleed typography */}
-        <ServicesSection />
-        
-        {/* Midlife Engineering-inspired: Mouse-reactive layered cards */}
+        {/* Pricing with dark luxury style */}
         <PricingSection />
         
-        {/* dontboardme-inspired: Playful, colorful, interactive */}
+        {/* CTA with parallax */}
         <CTASection />
         
-        {/* Jesko Jets-inspired: Dark editorial footer */}
+        {/* Dark editorial footer */}
         <Footer />
       </motion.div>
     </>

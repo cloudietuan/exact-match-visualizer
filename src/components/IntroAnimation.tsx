@@ -5,25 +5,18 @@ interface IntroAnimationProps {
   onComplete: () => void;
 }
 
-// Multi-style intro: Shows all 5 aesthetics
+// Sketch-to-website intro animation
 
 const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
-  const [phase, setPhase] = useState<'panels' | 'logo' | 'reveal'>('panels');
-
-  const styles = [
-    { color: 'bg-lumina-pink', label: 'Playful' },
-    { color: 'bg-lumina-cream-warm', label: 'Clean' },
-    { color: 'bg-[#333]', label: 'Editorial' },
-    { color: 'bg-lumina-dark', label: 'Luxury' },
-  ];
+  const [phase, setPhase] = useState<'sketch' | 'drawing' | 'reveal'>('sketch');
 
   useEffect(() => {
-    const logoTimer = setTimeout(() => setPhase('logo'), 800);
-    const revealTimer = setTimeout(() => setPhase('reveal'), 2000);
-    const completeTimer = setTimeout(() => onComplete(), 2500);
+    const drawTimer = setTimeout(() => setPhase('drawing'), 600);
+    const revealTimer = setTimeout(() => setPhase('reveal'), 2200);
+    const completeTimer = setTimeout(() => onComplete(), 2800);
 
     return () => {
-      clearTimeout(logoTimer);
+      clearTimeout(drawTimer);
       clearTimeout(revealTimer);
       clearTimeout(completeTimer);
     };
@@ -31,74 +24,109 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
 
   return (
     <AnimatePresence>
+      {phase !== 'reveal' ? null : (
+        <motion.div
+          key="fade-out"
+          className="fixed inset-0 z-[100] bg-lumina-cream pointer-events-none"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 0 }}
+          transition={{ duration: 0.6 }}
+        />
+      )}
+      
       {phase !== 'reveal' && (
         <motion.div
           key="intro"
-          className="fixed inset-0 z-[100] overflow-hidden bg-background"
+          className="fixed inset-0 z-[100] overflow-hidden bg-lumina-cream"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
         >
-          {/* Stacked color panels (showing versatility) */}
-          <div className="absolute inset-0">
-            {styles.map((style, index) => (
-              <motion.div
-                key={index}
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                transition={{ duration: 0.4, delay: index * 0.1, ease: 'easeOut' }}
-                className={`absolute bottom-0 left-0 right-0 ${style.color} origin-bottom`}
-                style={{ height: `${25 * (index + 1)}%`, zIndex: styles.length - index }}
-              />
-            ))}
-          </div>
+          {/* Paper texture */}
+          <div className="absolute inset-0 paper-texture" />
 
-          {/* Logo reveal */}
-          <AnimatePresence>
-            {phase === 'logo' && (
+          {/* Grid lines */}
+          <div 
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: `
+                linear-gradient(to right, hsl(var(--lumina-ink)) 1px, transparent 1px),
+                linear-gradient(to bottom, hsl(var(--lumina-ink)) 1px, transparent 1px)
+              `,
+              backgroundSize: '40px 40px',
+            }}
+          />
+
+          {/* Center content */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center">
+              {/* Pencil drawing animation */}
               <motion.div
-                className="absolute inset-0 flex items-center justify-center z-20"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, scale: 1.1 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="mb-8"
               >
-                <div className="text-center">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: 60 }}
-                    transition={{ duration: 0.4, delay: 0.1 }}
-                    className="h-px bg-white/50 mx-auto mb-6"
-                  />
-                  
-                  <motion.span
-                    className="block text-white/80 text-xs uppercase tracking-[0.4em] mb-4"
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.2 }}
-                  >
-                    Lumina Sites Co.
-                  </motion.span>
-
-                  <motion.h1
-                    className="font-display text-4xl md:text-5xl text-white"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                  >
-                    5 Styles
-                    <span className="block font-sans font-bold uppercase text-2xl mt-2">One Vision</span>
-                  </motion.h1>
-
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: 60 }}
-                    transition={{ duration: 0.4, delay: 0.6 }}
-                    className="h-px bg-white/50 mx-auto mt-6"
-                  />
-                </div>
+                <motion.div
+                  animate={phase === 'drawing' ? { 
+                    x: [0, 20, -10, 30, 0],
+                    y: [0, -5, 10, -10, 0],
+                  } : {}}
+                  transition={{ duration: 1.5, ease: 'easeInOut' }}
+                  className="text-6xl"
+                >
+                  ✏️
+                </motion.div>
               </motion.div>
-            )}
-          </AnimatePresence>
+
+              {/* Drawing lines appearing */}
+              <div className="relative w-64 h-32 mx-auto mb-8">
+                {[0, 1, 2, 3].map((i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute left-0 right-0 h-px bg-lumina-ink/30"
+                    style={{ top: `${i * 30 + 10}%` }}
+                    initial={{ scaleX: 0 }}
+                    animate={phase === 'drawing' ? { scaleX: 1 } : { scaleX: 0 }}
+                    transition={{ duration: 0.4, delay: i * 0.2 }}
+                  />
+                ))}
+                
+                {/* Box shapes */}
+                <motion.div
+                  className="absolute left-4 top-4 w-20 h-16 border-2 border-dashed border-lumina-ink/20"
+                  initial={{ opacity: 0 }}
+                  animate={phase === 'drawing' ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{ duration: 0.3, delay: 0.8 }}
+                />
+                <motion.div
+                  className="absolute right-4 top-4 w-32 h-8 border-2 border-dashed border-lumina-ink/20"
+                  initial={{ opacity: 0 }}
+                  animate={phase === 'drawing' ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{ duration: 0.3, delay: 1 }}
+                />
+              </div>
+
+              {/* Text */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <span className="text-lumina-ink-subtle text-xs uppercase tracking-[0.4em]">
+                  Lumina Sites Co.
+                </span>
+                <motion.h1
+                  className="font-display text-4xl md:text-5xl text-lumina-ink mt-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <span className="text-brush text-lumina-terracotta">Sketching</span>
+                  <span className="block font-sans font-bold uppercase text-2xl mt-2">Your Vision</span>
+                </motion.h1>
+              </motion.div>
+            </div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
