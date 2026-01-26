@@ -2,106 +2,142 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
-  const [hasScrolled, setHasScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setHasScrolled(window.scrollY > 100);
+      setScrolled(window.scrollY > 100);
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    setMobileMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const navLinks = [
+    { label: 'Work', href: '#work' },
+    { label: 'Process', href: '#process' },
+    { label: 'Pricing', href: '#pricing' },
+    { label: 'Contact', href: '#contact' },
+  ];
 
   return (
     <>
       <motion.nav
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          hasScrolled 
-            ? 'bg-lumina-cream/90 backdrop-blur-xl border-b border-lumina-ink/5' 
+          scrolled 
+            ? 'bg-lumina-dark/90 backdrop-blur-lg border-b border-amber-900/20' 
             : 'bg-transparent'
         }`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        <div className="container mx-auto px-6 sm:px-8 md:px-12 py-5 sm:py-6 flex items-center justify-between">
-          {/* Logo */}
-          <a href="/" className="flex items-center gap-3">
-            <div className="w-3 h-3 rounded-full bg-lumina-terracotta" />
-            <span className="text-lumina-ink uppercase tracking-[0.25em] text-sm font-medium">
-              Lumina
-            </span>
-          </a>
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <a href="/" className="flex items-center gap-2 group">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
+                <span className="text-white font-display text-lg font-bold">L</span>
+              </div>
+              <span className="text-amber-100 font-display text-xl hidden sm:block">
+                Lumina<span className="text-amber-400">Sites</span>
+              </span>
+            </a>
 
-          {/* Desktop nav - positioned to not overlap hero content */}
-          <div className="hidden md:flex items-center gap-10">
-            {['work', 'pricing', 'contact'].map((item) => (
-              <button 
-                key={item}
-                onClick={() => scrollToSection(item)}
-                className="text-lumina-ink-muted hover:text-lumina-ink transition-colors text-xs uppercase tracking-[0.15em] relative z-50"
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-amber-200/70 hover:text-amber-100 text-sm font-medium tracking-wide transition-colors relative group"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-amber-400 group-hover:w-full transition-all duration-300" />
+                </a>
+              ))}
+            </div>
+
+            {/* CTA Button */}
+            <div className="hidden md:block">
+              <motion.a
+                href="#contact"
+                className="px-5 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 text-white text-sm font-medium rounded-full hover:shadow-lg hover:shadow-amber-500/25 transition-shadow"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                {item}
-              </button>
-            ))}
-          </div>
+                Get Started
+              </motion.a>
+            </div>
 
-          {/* CTA */}
-          <div className="flex items-center gap-6">
-            <button 
-              onClick={() => scrollToSection('contact')}
-              className="hidden md:block px-6 py-2 bg-lumina-ink text-white text-xs uppercase tracking-[0.15em] rounded-full hover:bg-lumina-ink/90 transition-colors"
-            >
-              Get Started
-            </button>
-
-            {/* Mobile menu toggle */}
+            {/* Mobile Menu Button */}
             <button
+              className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden w-8 h-8 flex flex-col justify-center items-center gap-1.5"
             >
-              <motion.span 
-                className="w-6 h-px bg-lumina-ink"
-                animate={{ rotate: mobileMenuOpen ? 45 : 0, y: mobileMenuOpen ? 3 : 0 }}
+              <motion.span
+                className="w-6 h-0.5 bg-amber-200 block"
+                animate={{ rotate: mobileMenuOpen ? 45 : 0, y: mobileMenuOpen ? 4 : 0 }}
               />
-              <motion.span 
-                className="w-6 h-px bg-lumina-ink"
-                animate={{ rotate: mobileMenuOpen ? -45 : 0, y: mobileMenuOpen ? -3 : 0 }}
+              <motion.span
+                className="w-6 h-0.5 bg-amber-200 block"
+                animate={{ opacity: mobileMenuOpen ? 0 : 1 }}
+              />
+              <motion.span
+                className="w-6 h-0.5 bg-amber-200 block"
+                animate={{ rotate: mobileMenuOpen ? -45 : 0, y: mobileMenuOpen ? -4 : 0 }}
               />
             </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
+            className="fixed inset-0 z-40 md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-lumina-cream flex items-center justify-center md:hidden"
           >
-            <div className="text-center space-y-8">
-              {['work', 'pricing', 'contact'].map((item, index) => (
-                <motion.button
-                  key={item}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => scrollToSection(item)}
-                  className="block text-3xl font-display capitalize hover:text-lumina-terracotta transition-colors"
+            <div 
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <motion.div
+              className="absolute top-20 left-4 right-4 bg-lumina-dark-elevated border border-amber-900/30 rounded-2xl p-6 shadow-2xl"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <div className="flex flex-col gap-4">
+                {navLinks.map((link, i) => (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    className="text-amber-100 text-lg font-medium py-2 border-b border-amber-900/20"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </motion.a>
+                ))}
+                <motion.a
+                  href="#contact"
+                  className="mt-4 w-full py-3 bg-gradient-to-r from-amber-600 to-amber-500 text-white text-center font-medium rounded-full"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  onClick={() => setMobileMenuOpen(false)}
                 >
-                  {item}
-                </motion.button>
-              ))}
-            </div>
+                  Get Started
+                </motion.a>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -2,73 +2,90 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Lumina Sites Co. Design System — Multi-Style Showcase */
-
 @layer base {
   :root {
-    /* Base: Light cream (Vizcom style) */
-    --background: 40 20% 96%;
-    --foreground: 20 15% 15%;
-
-    --card: 40 15% 94%;
-    --card-foreground: 20 15% 15%;
-
-    --popover: 40 15% 94%;
-    --popover-foreground: 20 15% 15%;
-
-    --primary: 15 55% 55%;
-    --primary-foreground: 40 20% 96%;
-
-    --secondary: 140 15% 70%;
-    --secondary-foreground: 20 15% 15%;
-
-    --muted: 35 10% 88%;
-    --muted-foreground: 25 8% 45%;
-
-    --accent: 35 15% 90%;
-    --accent-foreground: 20 15% 15%;
-
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 40 20% 96%;
-
-    --border: 35 12% 85%;
-    --input: 35 12% 85%;
-    --ring: 15 55% 55%;
-
-    --radius: 0.75rem;
-
-    /* Light cream tokens (Vizcom) */
-    --lumina-cream: 40 20% 96%;
-    --lumina-cream-warm: 38 18% 93%;
-    --lumina-cream-soft: 35 15% 90%;
-    --lumina-ink: 20 15% 15%;
-    --lumina-ink-muted: 25 8% 45%;
-    --lumina-ink-subtle: 30 6% 65%;
-    --lumina-terracotta: 15 55% 55%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
     
-    /* Dark luxury tokens (Jesko Jets) */
-    --lumina-dark: 20 10% 8%;
-    --lumina-dark-elevated: 20 10% 12%;
-    --lumina-gold: 38 45% 65%;
-    --lumina-gold-muted: 38 35% 50%;
-    
-    /* Playful tokens (dontboardme) */
-    --lumina-pink: 350 60% 88%;
-    --lumina-coral: 10 75% 55%;
-    --lumina-yellow: 50 90% 55%;
-    
-    /* Kinetics tokens */
-    --lumina-slate: 210 5% 45%;
+    /* Lumina Custom Colors */
+    --lumina-cream: 40 33% 96%;
+    --lumina-cream-warm: 35 40% 94%;
+    --lumina-cream-soft: 40 25% 97%;
+    --lumina-ink: 30 10% 15%;
+    --lumina-ink-muted: 30 8% 30%;
+    --lumina-ink-subtle: 30 6% 50%;
+    --lumina-terracotta: 15 60% 55%;
+    --lumina-dark: 25 20% 8%;
+    --lumina-dark-elevated: 25 18% 12%;
+    --lumina-gold: 38 75% 55%;
+    --lumina-gold-muted: 38 50% 45%;
+    --lumina-pink: 350 60% 75%;
+    --lumina-coral: 15 70% 65%;
+    --lumina-yellow: 45 90% 60%;
+    --lumina-slate: 220 15% 40%;
 
     /* Sidebar */
-    --sidebar-background: 40 20% 96%;
-    --sidebar-foreground: 20 15% 15%;
-    --sidebar-primary: 15 55% 55%;
-    --sidebar-primary-foreground: 40 20% 96%;
-    --sidebar-accent: 35 15% 90%;
-    --sidebar-accent-foreground: 20 15% 15%;
-    --sidebar-border: 35 12% 85%;
-    --sidebar-ring: 15 55% 55%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -76,103 +93,174 @@
   * {
     @apply border-border;
   }
-
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     @apply bg-background text-foreground;
-    font-family: 'DM Sans', sans-serif;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
+/* Fluid Typography Scale */
 @layer utilities {
-  .text-brush {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-weight: 400;
+  .text-fluid-xs {
+    font-size: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
   }
-
-  .text-gradient-gold {
-    background: linear-gradient(135deg, hsl(var(--lumina-gold)), hsl(var(--lumina-terracotta)));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  
+  .text-fluid-sm {
+    font-size: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
   }
-
-  .soft-line {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, hsl(var(--lumina-ink) / 0.15), transparent);
+  
+  .text-fluid-base {
+    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
   }
-
-  .luxury-line {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, hsl(var(--lumina-gold) / 0.4), transparent);
+  
+  .text-fluid-lg {
+    font-size: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
   }
-
-  .section-dark {
-    background: hsl(var(--lumina-dark));
-    color: hsl(var(--lumina-cream));
+  
+  .text-fluid-xl {
+    font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
   }
-
-  .section-playful {
-    background: hsl(var(--lumina-pink));
-    color: hsl(var(--lumina-coral));
+  
+  .text-fluid-2xl {
+    font-size: clamp(1.5rem, 1.25rem + 1.25vw, 2rem);
   }
-
-  .paper-texture {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.02;
+  
+  .text-fluid-3xl {
+    font-size: clamp(1.875rem, 1.5rem + 1.875vw, 2.5rem);
   }
-
-  /* Underline link animation */
-  .link-underline {
-    position: relative;
-    text-decoration: none;
+  
+  .text-fluid-4xl {
+    font-size: clamp(2.25rem, 1.75rem + 2.5vw, 3rem);
   }
-
-  .link-underline::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 100%;
-    height: 1px;
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  .text-fluid-5xl {
+    font-size: clamp(3rem, 2rem + 5vw, 4.5rem);
   }
+}
 
-  .link-underline:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
+/* Custom gradient utilities */
+@layer utilities {
+  .bg-gradient-radial {
+    background: radial-gradient(var(--tw-gradient-stops));
   }
+  
+  .bg-gradient-conic {
+    background: conic-gradient(var(--tw-gradient-stops));
+  }
+}
 
-  /* Scaling system - fluid typography */
-  .text-scale-xs { font-size: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem); }
-  .text-scale-sm { font-size: clamp(0.875rem, 0.8rem + 0.35vw, 1rem); }
-  .text-scale-base { font-size: clamp(1rem, 0.9rem + 0.5vw, 1.125rem); }
-  .text-scale-lg { font-size: clamp(1.125rem, 1rem + 0.625vw, 1.25rem); }
-  .text-scale-xl { font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem); }
-  .text-scale-2xl { font-size: clamp(1.5rem, 1.25rem + 1.25vw, 2rem); }
-  .text-scale-3xl { font-size: clamp(1.875rem, 1.5rem + 1.875vw, 2.5rem); }
-  .text-scale-4xl { font-size: clamp(2.25rem, 1.75rem + 2.5vw, 3rem); }
-  .text-scale-5xl { font-size: clamp(3rem, 2rem + 5vw, 4.5rem); }
-  .text-scale-hero { font-size: clamp(3rem, 2.5rem + 6vw, 6rem); }
+/* Perspective utilities for 3D effects */
+@layer utilities {
+  .perspective-500 {
+    perspective: 500px;
+  }
+  
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .perspective-2000 {
+    perspective: 2000px;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}
 
-  /* Hide scrollbar but keep functionality */
+/* Hide scrollbar but allow scrolling */
+@layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+  
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+}
 
-  /* Perspective for 3D transforms */
-  .perspective-1000 {
-    perspective: 1000px;
+/* Smooth scroll for Lenis */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Selection styling */
+::selection {
+  background-color: hsl(var(--lumina-gold) / 0.3);
+  color: hsl(var(--lumina-ink));
+}
+
+/* Focus visible styling */
+:focus-visible {
+  outline: 2px solid hsl(var(--lumina-gold));
+  outline-offset: 2px;
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
   }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--lumina-gold) / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--lumina-gold) / 0.5);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--lumina-gold) / 0.1) 0%,
+    hsl(var(--lumina-gold) / 0.3) 50%,
+    hsl(var(--lumina-gold) / 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
 }
