@@ -2,13 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Lumina Sites Co. Design System — Light Cream (Vizcom Inspired) */
+/* Lumina Sites Co. Design System — Multi-Style Showcase */
 
 @layer base {
   :root {
-    /* Light cream backgrounds */
-    --background: 40 20% 96%; /* Warm off-white cream */
-    --foreground: 20 15% 15%; /* Deep warm charcoal */
+    /* Base: Light cream (Vizcom style) */
+    --background: 40 20% 96%;
+    --foreground: 20 15% 15%;
 
     --card: 40 15% 94%;
     --card-foreground: 20 15% 15%;
@@ -16,19 +16,15 @@
     --popover: 40 15% 94%;
     --popover-foreground: 20 15% 15%;
 
-    /* Warm rose/terracotta primary */
-    --primary: 15 55% 55%; /* Warm terracotta */
+    --primary: 15 55% 55%;
     --primary-foreground: 40 20% 96%;
 
-    /* Soft sage secondary */
-    --secondary: 140 15% 70%; /* Soft sage */
+    --secondary: 140 15% 70%;
     --secondary-foreground: 20 15% 15%;
 
-    /* Muted tones */
     --muted: 35 10% 88%;
     --muted-foreground: 25 8% 45%;
 
-    /* Subtle accent */
     --accent: 35 15% 90%;
     --accent-foreground: 20 15% 15%;
 
@@ -41,19 +37,30 @@
 
     --radius: 0.75rem;
 
-    /* Custom Lumina light tokens */
-    --lumina-bg-cream: 40 20% 96%;
-    --lumina-bg-warm: 38 18% 93%;
-    --lumina-bg-soft: 35 15% 90%;
-    
+    /* Light cream tokens (Vizcom) */
+    --lumina-cream: 40 20% 96%;
+    --lumina-cream-warm: 38 18% 93%;
+    --lumina-cream-soft: 35 15% 90%;
     --lumina-ink: 20 15% 15%;
     --lumina-ink-muted: 25 8% 45%;
     --lumina-ink-subtle: 30 6% 65%;
+    --lumina-terracotta: 15 55% 55%;
     
-    --lumina-accent: 15 55% 55%;
-    --lumina-accent-soft: 15 45% 75%;
+    /* Dark luxury tokens (Jesko Jets) */
+    --lumina-dark: 20 10% 8%;
+    --lumina-dark-elevated: 20 10% 12%;
+    --lumina-gold: 38 45% 65%;
+    --lumina-gold-muted: 38 35% 50%;
+    
+    /* Playful tokens (dontboardme) */
+    --lumina-pink: 350 60% 88%;
+    --lumina-coral: 10 75% 55%;
+    --lumina-yellow: 50 90% 55%;
+    
+    /* Kinetics tokens */
+    --lumina-slate: 210 5% 45%;
 
-    /* Sidebar (keeping for compatibility) */
+    /* Sidebar */
     --sidebar-background: 40 20% 96%;
     --sidebar-foreground: 20 15% 15%;
     --sidebar-primary: 15 55% 55%;
@@ -81,28 +88,39 @@
 }
 
 @layer utilities {
-  /* Brush stroke text effect */
   .text-brush {
     font-family: 'Playfair Display', serif;
     font-style: italic;
     font-weight: 400;
   }
 
-  /* Subtle text gradient */
-  .text-gradient {
-    background: linear-gradient(135deg, hsl(var(--lumina-ink)), hsl(var(--lumina-accent)));
+  .text-gradient-gold {
+    background: linear-gradient(135deg, hsl(var(--lumina-gold)), hsl(var(--lumina-terracotta)));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Soft line separator */
   .soft-line {
     height: 1px;
     background: linear-gradient(90deg, transparent, hsl(var(--lumina-ink) / 0.15), transparent);
   }
 
-  /* Cream paper texture overlay */
+  .luxury-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--lumina-gold) / 0.4), transparent);
+  }
+
+  .section-dark {
+    background: hsl(var(--lumina-dark));
+    color: hsl(var(--lumina-cream));
+  }
+
+  .section-playful {
+    background: hsl(var(--lumina-pink));
+    color: hsl(var(--lumina-coral));
+  }
+
   .paper-texture {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     opacity: 0.02;

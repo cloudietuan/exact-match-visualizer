@@ -1,36 +1,25 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+// Vizcom-inspired: Centered brush typography + carousel
+// With dontboardme playful interactive element
+
 const showcaseItems = [
-  {
-    name: 'Sunset Nails',
-    sketch: '💅',
-    result: '+47% bookings',
-  },
-  {
-    name: 'Luxe Lounge',
-    sketch: '✨',
-    result: '+38% new clients',
-  },
-  {
-    name: 'Polished Studio',
-    sketch: '💎',
-    result: '+67% visibility',
-  },
-  {
-    name: 'Nail Bar',
-    sketch: '🌸',
-    result: '+52% revenue',
-  },
+  { name: 'Sunset Nails', emoji: '💅', result: '+47% bookings' },
+  { name: 'Luxe Lounge', emoji: '✨', result: '+38% new clients' },
+  { name: 'Polished Studio', emoji: '💎', result: '+67% visibility' },
+  { name: 'Nail Bar', emoji: '🌸', result: '+52% revenue' },
 ];
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [ballPosition, setBallPosition] = useState({ x: 50, y: 80 });
+  const [isBouncing, setIsBouncing] = useState(false);
+  
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  
   const springConfig = { stiffness: 100, damping: 20 };
   const textX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), springConfig);
   const textY = useSpring(useTransform(mouseY, [-0.5, 0.5], [-8, 8]), springConfig);
@@ -49,8 +38,26 @@ const HeroSection = () => {
     mouseY.set(0);
   };
 
+  // Auto-rotate carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % showcaseItems.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % showcaseItems.length);
   const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + showcaseItems.length) % showcaseItems.length);
+
+  // Playful bouncing ball (dontboardme inspired)
+  const handleBallClick = () => {
+    setIsBouncing(true);
+    setBallPosition({
+      x: Math.random() * 60 + 20,
+      y: Math.random() * 40 + 30,
+    });
+    setTimeout(() => setIsBouncing(false), 500);
+  };
 
   return (
     <section 
@@ -59,10 +66,10 @@ const HeroSection = () => {
       onMouseLeave={handleMouseLeave}
       className="relative min-h-screen overflow-hidden bg-background"
     >
-      {/* Paper texture overlay */}
+      {/* Paper texture (Vizcom) */}
       <div className="absolute inset-0 paper-texture pointer-events-none" />
 
-      {/* Subtle grid pattern */}
+      {/* Subtle grid */}
       <div 
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
@@ -74,43 +81,53 @@ const HeroSection = () => {
         }}
       />
 
-      {/* Main content - Centered layout */}
+      {/* Playful bouncing ball - dontboardme inspired */}
+      <motion.div
+        className="absolute z-20 cursor-pointer"
+        style={{ left: `${ballPosition.x}%`, top: `${ballPosition.y}%` }}
+        animate={{ 
+          y: isBouncing ? [0, -30, 0] : 0,
+          rotate: isBouncing ? [0, 360] : 0,
+        }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        onClick={handleBallClick}
+        whileHover={{ scale: 1.2 }}
+      >
+        <div className="w-12 h-12 rounded-full bg-lumina-yellow shadow-lg flex items-center justify-center text-2xl">
+          🎾
+        </div>
+      </motion.div>
+
+      {/* Main content - Centered (Vizcom) */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-8">
-        {/* Massive centered typography */}
-        <motion.div
-          style={{ x: textX, y: textY }}
-          className="text-center relative"
-        >
-          {/* Main headline with brush typography */}
+        {/* Massive brush typography */}
+        <motion.div style={{ x: textX, y: textY }} className="text-center relative">
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="font-display text-[15vw] md:text-[12vw] lg:text-[10vw] leading-[0.85] tracking-tight"
+            className="text-[14vw] md:text-[11vw] lg:text-[9vw] leading-[0.85] tracking-tight"
           >
-            <span className="text-brush text-lumina-accent">Make it</span>
+            <span className="text-brush text-lumina-terracotta">Make it</span>
             <span className="block font-sans font-bold text-foreground uppercase">Beautiful</span>
           </motion.h1>
         </motion.div>
 
-        {/* Carousel of showcase items */}
+        {/* Carousel (Vizcom) */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
           className="relative mt-8 w-full max-w-4xl"
         >
-          {/* Carousel container */}
-          <div className="relative h-64 flex items-center justify-center">
-            {/* Navigation arrows */}
+          <div className="relative h-48 flex items-center justify-center">
             <button 
               onClick={prevSlide}
-              className="absolute left-4 z-20 w-10 h-10 rounded-full border border-lumina-ink/20 flex items-center justify-center hover:bg-lumina-bg-warm transition-colors"
+              className="absolute left-4 z-20 w-10 h-10 rounded-full border border-lumina-ink/20 flex items-center justify-center hover:bg-lumina-cream-warm transition-colors"
             >
               <ChevronLeft className="w-5 h-5 text-lumina-ink" />
             </button>
             
-            {/* Slides */}
             <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
               {showcaseItems.map((item, index) => {
                 const offset = index - currentIndex;
@@ -121,16 +138,13 @@ const HeroSection = () => {
                     key={index}
                     className="absolute flex flex-col items-center"
                     animate={{
-                      x: offset * 300,
-                      scale: isActive ? 1 : 0.8,
-                      opacity: Math.abs(offset) > 1 ? 0 : isActive ? 1 : 0.4,
+                      x: offset * 250,
+                      scale: isActive ? 1 : 0.75,
+                      opacity: Math.abs(offset) > 1 ? 0 : isActive ? 1 : 0.3,
                     }}
                     transition={{ duration: 0.5 }}
                   >
-                    {/* Sketch-style icon */}
-                    <div className="text-8xl mb-4 filter grayscale opacity-80">
-                      {item.sketch}
-                    </div>
+                    <div className="text-7xl mb-3 filter grayscale-[30%]">{item.emoji}</div>
                     <p className="text-lumina-ink font-display text-xl">{item.name}</p>
                     <p className="text-lumina-ink-muted text-sm">{item.result}</p>
                   </motion.div>
@@ -140,7 +154,7 @@ const HeroSection = () => {
 
             <button 
               onClick={nextSlide}
-              className="absolute right-4 z-20 w-10 h-10 rounded-full border border-lumina-ink/20 flex items-center justify-center hover:bg-lumina-bg-warm transition-colors"
+              className="absolute right-4 z-20 w-10 h-10 rounded-full border border-lumina-ink/20 flex items-center justify-center hover:bg-lumina-cream-warm transition-colors"
             >
               <ChevronRight className="w-5 h-5 text-lumina-ink" />
             </button>
@@ -152,10 +166,10 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1 }}
-          className="text-center mt-8"
+          className="text-center mt-6"
         >
           <p className="text-lumina-ink-muted text-lg mb-8 max-w-md mx-auto">
-            A new way to design websites for nail salons
+            Premium web design for nail salons across Arizona
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">
@@ -167,11 +181,11 @@ const HeroSection = () => {
               Get Started
             </motion.button>
             <motion.button 
-              className="px-8 py-4 border border-foreground/20 rounded-full text-sm font-medium hover:bg-lumina-bg-warm transition-colors"
+              className="px-8 py-4 border border-foreground/20 rounded-full text-sm font-medium hover:bg-lumina-cream-warm transition-colors"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Book a Demo
+              View Our Work
             </motion.button>
           </div>
         </motion.div>

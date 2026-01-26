@@ -1,17 +1,19 @@
 import { motion } from 'framer-motion';
 
+// Vizcom-inspired: Clean logo trust bar
+
 const logos = [
-  { name: 'Sunset Nails', initial: 'S' },
-  { name: 'Luxe Lounge', initial: 'L' },
+  { name: 'Sunset Nails', initial: 'SN' },
+  { name: 'Luxe Lounge', initial: 'LL' },
   { name: 'Polished', initial: 'P' },
-  { name: 'Nail Bar', initial: 'N' },
-  { name: 'Glow Studio', initial: 'G' },
-  { name: 'Bliss Spa', initial: 'B' },
+  { name: 'Nail Bar', initial: 'NB' },
+  { name: 'Glow Studio', initial: 'GS' },
+  { name: 'Bliss Spa', initial: 'BS' },
 ];
 
 const SocialProofBar = () => {
   return (
-    <section className="py-16 bg-lumina-bg-warm border-y border-lumina-ink/5">
+    <section className="py-16 bg-lumina-cream-warm border-y border-lumina-ink/5">
       <div className="container mx-auto px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -32,9 +34,9 @@ const SocialProofBar = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-center gap-2 text-lumina-ink-muted hover:text-lumina-ink transition-colors"
+              className="flex items-center gap-3 text-lumina-ink-muted hover:text-lumina-ink transition-colors group"
             >
-              <div className="w-10 h-10 rounded-full bg-lumina-bg-soft flex items-center justify-center font-display text-lg">
+              <div className="w-12 h-12 rounded-full bg-lumina-cream-soft flex items-center justify-center font-display text-sm group-hover:bg-lumina-terracotta group-hover:text-white transition-colors">
                 {logo.initial}
               </div>
               <span className="text-sm font-medium hidden sm:block">{logo.name}</span>

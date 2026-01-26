@@ -62,20 +62,29 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
         lumina: {
-          bg: {
-            cream: "hsl(var(--lumina-bg-cream))",
-            warm: "hsl(var(--lumina-bg-warm))",
-            soft: "hsl(var(--lumina-bg-soft))",
+          cream: {
+            DEFAULT: "hsl(var(--lumina-cream))",
+            warm: "hsl(var(--lumina-cream-warm))",
+            soft: "hsl(var(--lumina-cream-soft))",
           },
           ink: {
             DEFAULT: "hsl(var(--lumina-ink))",
             muted: "hsl(var(--lumina-ink-muted))",
             subtle: "hsl(var(--lumina-ink-subtle))",
           },
-          accent: {
-            DEFAULT: "hsl(var(--lumina-accent))",
-            soft: "hsl(var(--lumina-accent-soft))",
+          terracotta: "hsl(var(--lumina-terracotta))",
+          dark: {
+            DEFAULT: "hsl(var(--lumina-dark))",
+            elevated: "hsl(var(--lumina-dark-elevated))",
           },
+          gold: {
+            DEFAULT: "hsl(var(--lumina-gold))",
+            muted: "hsl(var(--lumina-gold-muted))",
+          },
+          pink: "hsl(var(--lumina-pink))",
+          coral: "hsl(var(--lumina-coral))",
+          yellow: "hsl(var(--lumina-yellow))",
+          slate: "hsl(var(--lumina-slate))",
         },
       },
       borderRadius: {

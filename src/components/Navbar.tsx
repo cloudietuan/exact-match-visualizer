@@ -31,7 +31,7 @@ const Navbar = () => {
         <div className="container mx-auto px-8 py-6 flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center gap-3">
-            <div className="w-3 h-3 rounded-full bg-lumina-accent" />
+            <div className="w-3 h-3 rounded-full bg-lumina-terracotta" />
             <span className="text-foreground uppercase tracking-[0.25em] text-sm font-medium">
               Lumina
             </span>
@@ -63,7 +63,7 @@ const Navbar = () => {
           <div className="flex items-center gap-6">
             <button 
               onClick={() => scrollToSection('contact')}
-              className="hidden md:block text-lumina-accent text-xs uppercase tracking-[0.2em] hover:text-foreground transition-colors"
+              className="hidden md:block text-lumina-terracotta text-xs uppercase tracking-[0.2em] hover:text-foreground transition-colors"
             >
               Contact
             </button>
@@ -103,7 +103,7 @@ const Navbar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => scrollToSection(item)}
-                  className="block text-2xl font-display capitalize hover:text-lumina-accent transition-colors"
+                  className="block text-2xl font-display capitalize hover:text-lumina-terracotta transition-colors"
                 >
                   {item}
                 </motion.button>
