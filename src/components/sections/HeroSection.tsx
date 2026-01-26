@@ -1,129 +1,101 @@
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import PhoneMockup from '@/components/PhoneMockup';
-import type { Easing } from 'framer-motion';
 
 const HeroSection = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.3 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as Easing },
-    },
-  };
-
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Static background gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-lumina-rose/5 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] rounded-full bg-lumina-champagne/5 blur-3xl" />
-      </div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Deep vignette background */}
+      <div className="absolute inset-0 bg-lumina-bg-deep" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_hsl(var(--lumina-bg-deep))_70%)]" />
+      
+      {/* Subtle golden gradient accent */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_hsl(var(--lumina-gold)/0.03)_0%,_transparent_50%)]" />
 
-      <div className="container mx-auto px-6 pt-24 pb-12 relative z-10">
-        <div className="grid lg:grid-cols-5 gap-12 items-center">
-          {/* Left Content */}
-          <motion.div 
-            className="lg:col-span-3"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
+      <div className="container mx-auto px-8 relative z-10 text-center">
+        {/* Intro animation sequence */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+          className="mb-8"
+        >
+          <span className="text-lumina-cream-muted text-xs uppercase tracking-[0.4em]">
+            Lumina Sites Co.
+          </span>
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1 }}
+          className="text-lumina-cream-muted text-sm uppercase tracking-[0.3em] mb-6"
+        >
+          Premium web design for
+        </motion.p>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 1.3 }}
+          className="font-display text-5xl md:text-7xl lg:text-8xl mb-6 leading-[0.9]"
+        >
+          nail salons
+        </motion.h1>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.8 }}
+          className="w-16 h-px bg-gradient-to-r from-transparent via-lumina-gold/50 to-transparent mx-auto mb-8"
+        />
+
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 2 }}
+          className="font-display text-2xl md:text-3xl lg:text-4xl text-lumina-cream-muted italic mb-12"
+        >
+          Your freedom to shine
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 2.4 }}
+          className="text-lumina-cream-subtle text-base md:text-lg max-w-xl mx-auto leading-relaxed mb-16"
+        >
+          Every website is designed around your brand, your clients, and your vision — 
+          so you can focus on your craft, while we take care of everything else.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 2.8 }}
+          className="flex flex-col items-center gap-4"
+        >
+          <button 
+            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+            className="group flex flex-col items-center gap-3 text-lumina-cream-subtle hover:text-lumina-gold transition-colors"
           >
-            {/* Badge */}
-            <motion.div variants={itemVariants}>
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-lumina-cream-muted">
-                <span>✨</span>
-                Mesa's Premium Nail Salon Web Partner
-              </span>
+            <span className="text-xs uppercase tracking-[0.3em]">Scroll down</span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <svg width="20" height="30" viewBox="0 0 20 30" fill="none" className="stroke-current">
+                <rect x="1" y="1" width="18" height="28" rx="9" strokeWidth="1.5"/>
+                <motion.circle
+                  cx="10"
+                  cy="10"
+                  r="3"
+                  fill="currentColor"
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                />
+              </svg>
             </motion.div>
-
-            {/* Headline */}
-            <motion.h1 
-              variants={itemVariants}
-              className="mt-8 font-display text-4xl md:text-5xl lg:text-6xl leading-tight"
-            >
-              Websites That <span className="text-gradient-animated">Glow</span> As Bright As Your Work
-            </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p 
-              variants={itemVariants}
-              className="mt-6 text-lg md:text-xl text-lumina-cream-muted max-w-lg"
-            >
-              We create stunning, conversion-optimized websites for nail salons. 
-              No upfront cost. No tech headaches. Just more bookings.
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div 
-              variants={itemVariants}
-              className="mt-10 flex flex-wrap gap-4"
-            >
-              <Button variant="glow" size="lg">
-                See Our Work
-              </Button>
-              <Button variant="glass" size="lg">
-                Book Free Call
-              </Button>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Visual */}
-          <motion.div 
-            className="lg:col-span-2 relative"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <PhoneMockup />
-
-            {/* Static floating cards */}
-            <motion.div 
-              className="absolute -top-4 -right-4 glass px-4 py-2 rounded-xl"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.2 }}
-            >
-              <div className="text-sm">
-                <span className="text-lumina-champagne">📈 +47%</span>
-                <span className="text-lumina-cream-muted ml-1">More Bookings</span>
-              </div>
-            </motion.div>
-
-            <motion.div 
-              className="absolute bottom-20 -right-8 glass px-4 py-2 rounded-xl"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.4 }}
-            >
-              <div className="text-sm">
-                <span className="text-lumina-rose">⭐</span>
-                <span className="text-lumina-cream-muted ml-1">5-Star Reviews</span>
-              </div>
-            </motion.div>
-
-            <motion.div 
-              className="absolute top-1/3 -left-12 glass px-4 py-2 rounded-xl hidden lg:block"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.6 }}
-            >
-              <div className="text-sm">
-                <span className="text-lumina-blush">📱</span>
-                <span className="text-lumina-cream-muted ml-1">24/7 Online Booking</span>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
+          </button>
+        </motion.div>
       </div>
     </section>
   );

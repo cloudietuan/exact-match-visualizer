@@ -2,76 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Lumina Sites Co. Design System — Warm Dark Mode + Rose Gold Luxury */
+/* Lumina Sites Co. Design System — Ultra-Luxury Dark Mode (Jesko Jets Inspired) */
 
 @layer base {
   :root {
-    /* Warm Dark Mode Backgrounds */
-    --background: 0 0% 10%; /* #1A1A1A warm charcoal */
-    --foreground: 30 35% 91%; /* #F5E8D8 warm cream */
+    /* Ultra-dark warm backgrounds */
+    --background: 20 10% 8%; /* Deep warm charcoal-brown */
+    --foreground: 40 20% 95%; /* Warm off-white */
 
-    --card: 0 0% 13%; /* #222222 */
-    --card-foreground: 30 35% 91%;
+    --card: 20 10% 10%;
+    --card-foreground: 40 20% 95%;
 
-    --popover: 0 0% 13%;
-    --popover-foreground: 30 35% 91%;
+    --popover: 20 10% 10%;
+    --popover-foreground: 40 20% 95%;
 
-    /* Rose Gold Primary */
-    --primary: 11 51% 72%; /* #DEA193 rose gold */
-    --primary-foreground: 0 0% 10%;
+    /* Gold/Champagne Primary */
+    --primary: 38 45% 65%; /* Champagne gold */
+    --primary-foreground: 20 10% 8%;
 
-    /* Champagne Gold Secondary */
-    --secondary: 38 36% 63%; /* #C9A87C champagne */
-    --secondary-foreground: 0 0% 10%;
+    /* Rose Gold Secondary */
+    --secondary: 11 45% 70%; /* Rose gold */
+    --secondary-foreground: 20 10% 8%;
 
-    /* Muted Cream */
-    --muted: 30 15% 66%; /* #B8A89A */
-    --muted-foreground: 30 10% 45%; /* #7A7067 */
+    /* Muted tones */
+    --muted: 20 5% 25%;
+    --muted-foreground: 30 10% 55%;
 
-    /* Blush Pink Accent */
-    --accent: 353 47% 81%; /* #E8B4B8 soft blush */
-    --accent-foreground: 0 0% 10%;
+    /* Subtle accent */
+    --accent: 20 10% 15%;
+    --accent-foreground: 40 20% 95%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 30 35% 91%;
+    --destructive-foreground: 40 20% 95%;
 
-    --border: 0 0% 100% / 0.08;
-    --input: 0 0% 100% / 0.08;
-    --ring: 11 51% 72%;
+    --border: 20 10% 18%;
+    --input: 20 10% 18%;
+    --ring: 38 45% 65%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    /* Custom Lumina tokens */
-    --lumina-bg-primary: 0 0% 10%;
-    --lumina-bg-secondary: 0 0% 13%;
-    --lumina-bg-elevated: 0 0% 17%;
+    /* Custom Lumina luxury tokens */
+    --lumina-bg-deep: 20 10% 6%;
+    --lumina-bg-primary: 20 10% 8%;
+    --lumina-bg-elevated: 20 10% 12%;
     
-    --lumina-rose: 11 51% 72%;
-    --lumina-blush: 353 47% 81%;
-    --lumina-champagne: 38 36% 63%;
-    
-    --lumina-cream: 30 35% 91%;
-    --lumina-cream-muted: 30 15% 66%;
-    --lumina-cream-subtle: 30 10% 45%;
-
-    /* Glass Effect */
-    --glass-bg: 0 0% 100% / 0.03;
-    --glass-border: 0 0% 100% / 0.08;
-
-    /* Gradients */
-    --gradient-glow: linear-gradient(135deg, hsl(11 51% 72%), hsl(38 36% 63%));
-    --gradient-soft: linear-gradient(135deg, hsl(11 51% 72%), hsl(353 47% 81%));
-    --gradient-cta: linear-gradient(135deg, #DEA193 0%, #E8B4B8 50%, #C9A87C 100%);
+    --lumina-gold: 38 45% 65%;
+    --lumina-rose: 11 45% 70%;
+    --lumina-cream: 40 20% 95%;
+    --lumina-cream-muted: 30 10% 65%;
+    --lumina-cream-subtle: 30 8% 45%;
 
     /* Sidebar (keeping for compatibility) */
-    --sidebar-background: 0 0% 10%;
-    --sidebar-foreground: 30 35% 91%;
-    --sidebar-primary: 11 51% 72%;
-    --sidebar-primary-foreground: 0 0% 10%;
-    --sidebar-accent: 0 0% 17%;
-    --sidebar-accent-foreground: 30 35% 91%;
-    --sidebar-border: 0 0% 100% / 0.08;
-    --sidebar-ring: 11 51% 72%;
+    --sidebar-background: 20 10% 8%;
+    --sidebar-foreground: 40 20% 95%;
+    --sidebar-primary: 38 45% 65%;
+    --sidebar-primary-foreground: 20 10% 8%;
+    --sidebar-accent: 20 10% 15%;
+    --sidebar-accent-foreground: 40 20% 95%;
+    --sidebar-border: 20 10% 18%;
+    --sidebar-ring: 38 45% 65%;
   }
 }
 
@@ -88,75 +77,25 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
   }
-
-  /* Hide cursor on desktop for custom cursor */
-  @media (hover: hover) and (pointer: fine) {
-    body.custom-cursor * {
-      cursor: none !important;
-    }
-  }
 }
 
 @layer utilities {
-  /* Glass morphism effect */
-  .glass {
-    background: hsl(var(--glass-bg));
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--glass-border));
-  }
-
-  /* Rose gold glow */
-  .glow-rose {
-    box-shadow: 0 0 40px -10px hsl(var(--lumina-rose) / 0.4);
-  }
-
-  /* Text gradient */
+  /* Subtle text gradient */
   .text-gradient {
-    background: var(--gradient-glow);
+    background: linear-gradient(135deg, hsl(var(--lumina-gold)), hsl(var(--lumina-rose)));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .text-gradient-animated {
-    background: linear-gradient(
-      90deg,
-      hsl(var(--lumina-rose)),
-      hsl(var(--lumina-blush)),
-      hsl(var(--lumina-champagne)),
-      hsl(var(--lumina-rose))
-    );
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 4s ease infinite;
+  /* Luxury line separator */
+  .luxury-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--lumina-gold) / 0.4), transparent);
   }
 
-  @keyframes shimmer {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
-  /* Float animation */
-  .float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
-
-  /* Subtle noise texture */
-  .noise-overlay::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    opacity: 0.02;
-    pointer-events: none;
-    mix-blend-mode: overlay;
+  /* Subtle vignette overlay */
+  .vignette {
+    box-shadow: inset 0 0 150px 50px hsl(var(--lumina-bg-deep));
   }
 }

@@ -1,25 +1,22 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
-import type { Easing } from 'framer-motion';
 
 const plans = [
   {
-    tier: 'Starter',
     name: 'Glow',
     price: '$97',
     description: 'Perfect for new salons ready to shine online.',
     features: [
       'Beautiful 3-page website',
-      'Mobile responsive',
+      'Mobile responsive design',
       'Basic SEO setup',
       'Contact form',
-      '2 updates/month',
+      '2 updates per month',
     ],
     featured: false,
   },
   {
-    tier: 'Growth',
     name: 'Radiant',
     price: '$197',
     description: 'For salons ready to dominate their market.',
@@ -35,10 +32,9 @@ const plans = [
     featured: true,
   },
   {
-    tier: 'Premium',
     name: 'Brilliant',
     price: '$297',
-    description: 'The ultimate online presence for luxury salons.',
+    description: 'The ultimate presence for luxury salons.',
     features: [
       'Everything in Radiant',
       'E-commerce for products',
@@ -53,104 +49,70 @@ const plans = [
 ];
 
 const PricingSection = () => {
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.1 },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as Easing },
-    },
-  };
-
   return (
-    <section id="pricing" className="py-24">
-      <div className="container mx-auto px-6">
-        {/* Header */}
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
+    <section id="pricing" className="py-32 bg-lumina-bg-deep">
+      <div className="container mx-auto px-8">
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20"
         >
-          <span className="text-primary uppercase tracking-widest text-sm font-medium">
-            Simple Pricing
-          </span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl">
-            Transparent. No Surprises.
-          </h2>
-          <p className="mt-4 text-lumina-cream-muted text-lg max-w-md mx-auto">
-            Cancel anytime. Your content stays yours.
+          <span className="text-lumina-cream-subtle text-xs uppercase tracking-[0.3em]">Investment</span>
+          <h2 className="font-display text-4xl md:text-5xl mt-4 mb-6">Simple, Transparent Pricing</h2>
+          <p className="text-lumina-cream-muted max-w-lg mx-auto">
+            No upfront costs. Cancel anytime. Your content stays yours.
           </p>
         </motion.div>
 
-        {/* Pricing Cards */}
-        <motion.div 
-          className="grid md:grid-cols-3 gap-6 lg:gap-8 items-stretch"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
+        {/* Pricing cards */}
+        <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
           {plans.map((plan, index) => (
             <motion.div
               key={index}
-              variants={cardVariants}
-              whileHover={{ y: -8 }}
-              className={`relative glass rounded-2xl p-8 flex flex-col ${
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+              className={`relative p-10 border transition-colors ${
                 plan.featured 
-                  ? 'md:scale-105 border-2 border-lumina-rose/50 shadow-xl shadow-lumina-rose/20' 
-                  : ''
+                  ? 'border-lumina-gold/50 bg-lumina-gold/5' 
+                  : 'border-white/10 hover:border-white/20'
               }`}
             >
               {plan.featured && (
-                <span className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-glow text-background text-xs font-semibold uppercase tracking-wider">
+                <span className="absolute -top-3 left-10 px-4 py-1 bg-lumina-gold text-background text-xs uppercase tracking-[0.15em]">
                   Most Popular
                 </span>
               )}
 
+              <h3 className="font-display text-2xl mb-2">{plan.name}</h3>
               <div className="mb-6">
-                <span className="text-lumina-cream-subtle text-sm uppercase tracking-wider">
-                  {plan.tier}
-                </span>
-                <h3 className="font-display text-2xl mt-1">{plan.name}</h3>
-              </div>
-
-              <div className="mb-6">
-                <span className="text-gradient font-display text-5xl">{plan.price}</span>
+                <span className="font-display text-5xl">{plan.price}</span>
                 <span className="text-lumina-cream-muted">/month</span>
               </div>
+              <p className="text-lumina-cream-muted text-sm mb-8">{plan.description}</p>
 
-              <p className="text-lumina-cream-muted mb-8">
-                {plan.description}
-              </p>
-
-              <ul className="space-y-3 mb-8 flex-grow">
+              <ul className="space-y-4 mb-10">
                 {plan.features.map((feature, fIndex) => (
                   <li key={fIndex} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-lumina-rose flex-shrink-0 mt-0.5" />
-                    <span className="text-lumina-cream-muted">{feature}</span>
+                    <Check className="w-4 h-4 text-lumina-gold flex-shrink-0 mt-1" />
+                    <span className="text-lumina-cream-muted text-sm">{feature}</span>
                   </li>
                 ))}
               </ul>
 
               <Button 
-                variant={plan.featured ? 'glow' : 'glass'}
-                size="lg"
+                variant={plan.featured ? 'luxuryFilled' : 'luxury'}
                 className="w-full"
               >
                 Get Started
               </Button>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
