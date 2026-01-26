@@ -17,19 +17,21 @@ const HeroSection = () => {
     offset: ['start start', 'end start'],
   });
 
-  // Scroll-based animations (performant - no continuous state updates)
-  const sketchOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
-  const websiteOpacity = useTransform(scrollYProgress, [0.15, 0.4], [0, 1]);
-  const websiteScale = useTransform(scrollYProgress, [0.15, 0.5], [0.92, 1]);
-  const textY = useTransform(scrollYProgress, [0, 0.35], [0, -80]);
-  const textOpacity = useTransform(scrollYProgress, [0.2, 0.4], [1, 0]);
-  const badgeY = useTransform(scrollYProgress, [0.3, 0.5], [50, 0]);
-  const badgeOpacity = useTransform(scrollYProgress, [0.35, 0.5], [0, 1]);
+  // Improved scroll-based animations with better easing
+  const sketchOpacity = useTransform(scrollYProgress, [0, 0.18, 0.28], [1, 1, 0]);
+  const sketchScale = useTransform(scrollYProgress, [0, 0.28], [1, 0.9]);
+  const websiteOpacity = useTransform(scrollYProgress, [0.2, 0.35], [0, 1]);
+  const websiteScale = useTransform(scrollYProgress, [0.2, 0.45], [0.85, 1]);
+  const websiteY = useTransform(scrollYProgress, [0.2, 0.45], [30, 0]);
+  const textY = useTransform(scrollYProgress, [0, 0.3], [0, -60]);
+  const textOpacity = useTransform(scrollYProgress, [0.15, 0.3], [1, 0]);
+  const badgeY = useTransform(scrollYProgress, [0.35, 0.55], [40, 0]);
+  const badgeOpacity = useTransform(scrollYProgress, [0.4, 0.55], [0, 1]);
 
   return (
     <section 
       ref={containerRef} 
-      className="relative h-[220vh]"
+      className="relative h-[200vh]"
     >
       <div className="sticky top-0 h-screen overflow-hidden bg-lumina-cream">
         {/* Subtle grid - static, no animation */}
@@ -93,7 +95,7 @@ const HeroSection = () => {
             {/* SKETCH VERSION */}
             <motion.div
               className="relative mx-auto"
-              style={{ opacity: sketchOpacity }}
+              style={{ opacity: sketchOpacity, scale: sketchScale }}
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.96 }}
@@ -149,7 +151,7 @@ const HeroSection = () => {
             {/* REAL WEBSITE VERSION */}
             <motion.div
               className="absolute inset-0 flex items-center justify-center"
-              style={{ opacity: websiteOpacity, scale: websiteScale }}
+              style={{ opacity: websiteOpacity, scale: websiteScale, y: websiteY }}
             >
               <div className="relative">
                 {/* Phone mockup */}
