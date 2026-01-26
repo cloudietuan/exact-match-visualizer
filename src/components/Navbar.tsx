@@ -30,7 +30,7 @@ const Navbar = () => {
             : 'bg-transparent'
         }`}
       >
-        <div className="container mx-auto px-8 py-6 flex items-center justify-between">
+        <div className="container mx-auto px-6 sm:px-8 md:px-12 py-5 sm:py-6 flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center gap-3">
             <div className="w-3 h-3 rounded-full bg-lumina-terracotta" />

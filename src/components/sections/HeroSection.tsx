@@ -8,6 +8,7 @@ import {
   SparkleIcon, 
   DiamondIcon 
 } from '@/components/icons/CustomIcons';
+import RotatingText from '@/components/RotatingText';
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -43,8 +44,18 @@ const HeroSection = () => {
           }}
         />
 
+        {/* Rotating text decoration - top right */}
+        <motion.div
+          className="absolute top-24 right-8 sm:right-12 md:right-20 text-lumina-ink-subtle hidden md:block"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+        >
+          <RotatingText text="WEB DESIGN • LUMINA SITES • " size={100} />
+        </motion.div>
+
         {/* Main content container */}
-        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 sm:px-6 md:px-8">
+        <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 sm:px-8 md:px-12">
           {/* Intro text - Jesko style minimal */}
           <motion.div 
             className="text-center mb-6 md:mb-8"
