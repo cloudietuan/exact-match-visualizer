@@ -1,162 +1,176 @@
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 
-const plans = [
-  {
-    name: 'Glow',
-    price: '$97',
-    description: 'For new salons ready to shine.',
-    features: ['3-page website', 'Mobile responsive', 'Basic SEO', 'Contact form', '2 updates/mo'],
-    featured: false,
-  },
-  {
-    name: 'Radiant',
-    price: '$197',
-    description: 'For salons ready to dominate.',
-    features: ['5-7 page website', 'Booking integration', 'Google optimization', 'Portfolio gallery', 'Unlimited updates', 'Analytics report'],
-    featured: true,
-  },
-  {
-    name: 'Brilliant',
-    price: '$297',
-    description: 'The ultimate online presence.',
-    features: ['Everything in Radiant', 'E-commerce', 'Gift cards', 'Blog', 'Priority support', 'Strategy calls'],
-    featured: false,
-  },
-];
-
 const PricingSection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const bgY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
+  const plans = [
+    {
+      name: 'Starter',
+      price: '$0',
+      period: 'upfront',
+      description: 'Perfect for nail salons just getting started online',
+      monthly: '$149/mo',
+      features: [
+        '5-page custom website',
+        'Mobile-responsive design',
+        'Basic SEO setup',
+        'Contact form',
+        'Google Maps integration',
+        'SSL certificate included',
+        '30-day support',
+      ],
+      cta: 'Get Started',
+      popular: false,
+    },
+    {
+      name: 'Growth',
+      price: '$0',
+      period: 'upfront',
+      description: 'For salons ready to scale their online presence',
+      monthly: '$249/mo',
+      features: [
+        'Everything in Starter',
+        '10-page custom website',
+        'Online booking integration',
+        'Service menu with pricing',
+        'Photo gallery',
+        'Advanced SEO optimization',
+        'Monthly analytics reports',
+        'Priority support',
+      ],
+      cta: 'Most Popular',
+      popular: true,
+    },
+    {
+      name: 'Premium',
+      price: '$0',
+      period: 'upfront',
+      description: 'Full-service solution for ambitious salons',
+      monthly: '$399/mo',
+      features: [
+        'Everything in Growth',
+        'Unlimited pages',
+        'E-commerce for products',
+        'Loyalty program integration',
+        'Custom animations',
+        'Blog/content management',
+        'Social media integration',
+        'Dedicated account manager',
+      ],
+      cta: 'Go Premium',
+      popular: false,
+    },
+  ];
 
   return (
-    <section ref={containerRef} id="pricing" className="py-20 sm:py-24 md:py-32 section-dark relative overflow-hidden">
-      {/* Parallax background */}
-      <motion.div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{ y: bgY }}
-      >
-        <div className="absolute inset-0" style={{
-          backgroundImage: `
-            linear-gradient(to right, hsl(var(--lumina-gold)) 1px, transparent 1px),
-            linear-gradient(to bottom, hsl(var(--lumina-gold)) 1px, transparent 1px)
-          `,
-          backgroundSize: '100px 100px',
-        }} />
-      </motion.div>
+    <section id="pricing" className="relative py-24 md:py-32 bg-gradient-to-b from-lumina-dark via-lumina-dark-elevated to-lumina-dark overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-600/5 rounded-full blur-3xl" />
+      </div>
 
-      {/* Gold lines */}
-      <div className="absolute top-0 left-0 right-0 luxury-line" />
-
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
         {/* Header */}
-        <motion.div
+        <motion.div 
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-10 sm:mb-14 md:mb-20"
+          transition={{ duration: 0.6 }}
         >
-          <span className="text-lumina-gold/60 text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em]">Investment</span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-3 sm:mt-4 text-white">
-            Simple <span className="text-gradient-gold">Pricing</span>
+          <p className="text-amber-400/80 text-sm tracking-[0.3em] uppercase mb-4">Pricing</p>
+          <h2 className="text-4xl md:text-5xl font-display text-amber-100 mb-4">
+            Simple, transparent pricing
           </h2>
+          <p className="text-amber-200/60 max-w-2xl mx-auto">
+            No upfront costs. No hidden fees. Just a beautiful website that pays for itself.
+          </p>
         </motion.div>
 
-        {/* Cards */}
-        <div className="relative max-w-5xl mx-auto">
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
-            {plans.map((plan, index) => (
-              <PricingCard key={index} plan={plan} index={index} />
+        {/* Pricing Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {plans.map((plan, index) => (
+            <motion.div
+              key={plan.name}
+              className={`relative rounded-2xl p-8 ${
+                plan.popular 
+                  ? 'bg-gradient-to-b from-amber-900/40 to-amber-950/40 border-2 border-amber-500/50' 
+                  : 'bg-lumina-dark-elevated/50 border border-amber-900/20'
+              }`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+            >
+              {/* Popular badge */}
+              {plan.popular && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-amber-500 to-amber-400 text-lumina-dark text-xs font-bold tracking-wider rounded-full">
+                  MOST POPULAR
+                </div>
+              )}
+
+              {/* Plan header */}
+              <div className="mb-6">
+                <h3 className="text-xl font-display text-amber-100 mb-2">{plan.name}</h3>
+                <p className="text-amber-200/50 text-sm">{plan.description}</p>
+              </div>
+
+              {/* Price */}
+              <div className="mb-6">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-5xl font-display text-amber-100">{plan.price}</span>
+                  <span className="text-amber-400/60 text-sm">{plan.period}</span>
+                </div>
+                <p className="text-amber-400 text-lg mt-1">then {plan.monthly}</p>
+              </div>
+
+              {/* Features */}
+              <ul className="space-y-3 mb-8">
+                {plan.features.map((feature, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <span className="text-amber-200/70 text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA Button */}
+              <motion.button
+                className={`w-full py-3 rounded-full font-medium transition-all ${
+                  plan.popular
+                    ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-lumina-dark hover:shadow-lg hover:shadow-amber-500/25'
+                    : 'bg-amber-900/30 text-amber-200 border border-amber-700/30 hover:bg-amber-900/50'
+                }`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {plan.cta}
+              </motion.button>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Trust indicators */}
+        <motion.div 
+          className="mt-16 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+        >
+          <p className="text-amber-200/40 text-sm mb-4">Trusted by nail salons across the country</p>
+          <div className="flex flex-wrap justify-center gap-8">
+            {['30-day money back', 'Cancel anytime', 'Free migrations', '24/7 support'].map((item, i) => (
+              <span key={i} className="text-amber-300/60 text-sm flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full" />
+                {item}
+              </span>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
-
-      <div className="absolute bottom-0 left-0 right-0 luxury-line" />
     </section>
-  );
-};
-
-const PricingCard = ({ plan, index }: { plan: typeof plans[0]; index: number }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x, { stiffness: 200, damping: 25 });
-  const mouseYSpring = useSpring(y, { stiffness: 200, damping: 25 });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    x.set((e.clientX - centerX) / 25);
-    y.set((e.clientY - centerY) / 25);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: plan.featured ? -12 : 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`relative ${plan.featured ? 'md:-mt-4 md:mb-4' : ''}`}
-    >
-      <motion.div
-        style={{ x: mouseXSpring, y: mouseYSpring }}
-        whileHover={{ y: -8 }}
-        className={`h-full p-5 sm:p-6 md:p-8 border transition-all bg-lumina-dark-elevated ${
-          plan.featured 
-            ? 'border-lumina-gold shadow-lg shadow-lumina-gold/10' 
-            : 'border-white/10 hover:border-lumina-gold/30'
-        }`}
-      >
-        {plan.featured && (
-          <div className="absolute -top-px left-0 right-0 h-1 bg-lumina-gold" />
-        )}
-
-        <div className="mb-5 sm:mb-6">
-          <p className="text-lumina-gold/60 text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] mb-2">{plan.name}</p>
-          <div className="flex items-baseline gap-1">
-            <span className="font-display text-3xl sm:text-4xl md:text-5xl text-white">{plan.price}</span>
-            <span className="text-white/40 text-sm">/mo</span>
-          </div>
-        </div>
-
-        <p className="text-white/50 text-xs sm:text-sm mb-6 sm:mb-8">{plan.description}</p>
-
-        <ul className="space-y-2.5 sm:space-y-3 mb-6 sm:mb-8">
-          {plan.features.map((feature, fIndex) => (
-            <li key={fIndex} className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm">
-              <Check className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-lumina-gold flex-shrink-0" />
-              <span className="text-white/60">{feature}</span>
-            </li>
-          ))}
-        </ul>
-
-        <button className={`w-full py-3 sm:py-4 font-medium text-sm transition-colors ${
-          plan.featured 
-            ? 'bg-lumina-gold text-lumina-dark hover:bg-lumina-gold/90' 
-            : 'border border-lumina-gold/30 text-lumina-gold hover:bg-lumina-gold/10'
-        }`}>
-          Get Started
-        </button>
-      </motion.div>
-    </motion.div>
   );
 };
 
