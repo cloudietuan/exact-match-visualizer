@@ -25,13 +25,13 @@ const Navbar = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          hasScrolled ? 'bg-background/90 backdrop-blur-xl border-b border-white/5' : 'bg-transparent'
+          hasScrolled ? 'bg-background/90 backdrop-blur-xl border-b border-lumina-ink/5' : 'bg-transparent'
         }`}
       >
         <div className="container mx-auto px-8 py-6 flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center gap-3">
-            <div className="w-3 h-3 rounded-full bg-lumina-gold" />
+            <div className="w-3 h-3 rounded-full bg-lumina-accent" />
             <span className="text-foreground uppercase tracking-[0.25em] text-sm font-medium">
               Lumina
             </span>
@@ -41,19 +41,19 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-12">
             <button 
               onClick={() => scrollToSection('work')}
-              className="text-lumina-cream-muted hover:text-foreground transition-colors text-xs uppercase tracking-[0.2em]"
+              className="text-lumina-ink-muted hover:text-foreground transition-colors text-xs uppercase tracking-[0.2em]"
             >
               Work
             </button>
             <button 
               onClick={() => scrollToSection('services')}
-              className="text-lumina-cream-muted hover:text-foreground transition-colors text-xs uppercase tracking-[0.2em]"
+              className="text-lumina-ink-muted hover:text-foreground transition-colors text-xs uppercase tracking-[0.2em]"
             >
               Services
             </button>
             <button 
               onClick={() => scrollToSection('pricing')}
-              className="text-lumina-cream-muted hover:text-foreground transition-colors text-xs uppercase tracking-[0.2em]"
+              className="text-lumina-ink-muted hover:text-foreground transition-colors text-xs uppercase tracking-[0.2em]"
             >
               Pricing
             </button>
@@ -63,7 +63,7 @@ const Navbar = () => {
           <div className="flex items-center gap-6">
             <button 
               onClick={() => scrollToSection('contact')}
-              className="hidden md:block text-lumina-gold text-xs uppercase tracking-[0.2em] hover:text-foreground transition-colors"
+              className="hidden md:block text-lumina-accent text-xs uppercase tracking-[0.2em] hover:text-foreground transition-colors"
             >
               Contact
             </button>
@@ -103,7 +103,7 @@ const Navbar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => scrollToSection(item)}
-                  className="block text-2xl font-display capitalize hover:text-lumina-gold transition-colors"
+                  className="block text-2xl font-display capitalize hover:text-lumina-accent transition-colors"
                 >
                   {item}
                 </motion.button>
