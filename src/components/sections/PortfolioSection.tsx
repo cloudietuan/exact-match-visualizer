@@ -3,19 +3,28 @@ import type { Easing } from 'framer-motion';
 
 const projects = [
   {
-    name: 'Luxe Nails Mesa',
-    result: '+52% online bookings in 30 days',
-    gradient: 'from-lumina-rose/40 to-lumina-champagne/40',
+    name: 'Sunset Nails',
+    location: 'Gilbert, AZ',
+    result: '+47% online bookings in 30 days',
+    gradient: 'from-[#FAF7F2] to-[#F5EFE6]',
+    accentColor: '#C17F59',
+    style: 'light',
   },
   {
-    name: 'Sunset Nail Lounge',
+    name: 'Luxe Nail Lounge',
+    location: 'Tempe, AZ',
     result: '+38% new client acquisition',
-    gradient: 'from-lumina-blush/40 to-lumina-rose/40',
+    gradient: 'from-lumina-rose/40 to-lumina-champagne/40',
+    accentColor: '#DEA193',
+    style: 'dark',
   },
   {
     name: 'Polished & Pretty',
+    location: 'Scottsdale, AZ',
     result: '+67% Google visibility',
     gradient: 'from-lumina-champagne/40 to-lumina-blush/40',
+    accentColor: '#C9A87C',
+    style: 'dark',
   },
 ];
 
@@ -68,14 +77,48 @@ const PortfolioSection = () => {
               key={index}
               variants={cardVariants}
               whileHover={{ y: -8 }}
-              className="group cursor-hover"
+              className="group cursor-pointer"
             >
               {/* Mockup Image */}
-              <div className={`relative h-64 md:h-80 rounded-2xl bg-gradient-to-br ${project.gradient} overflow-hidden mb-6`}>
+              <div className={`relative h-64 md:h-80 rounded-2xl bg-gradient-to-br ${project.gradient} overflow-hidden mb-6 border border-white/5`}>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-[200px] h-[360px] bg-background/20 backdrop-blur-sm rounded-[32px] border border-white/10 p-2">
-                    <div className="w-full h-full bg-lumina-bg-primary rounded-[28px] flex items-center justify-center">
-                      <span className="font-display text-sm text-lumina-cream-muted">Preview</span>
+                  {/* Phone mockup preview */}
+                  <div 
+                    className={`w-[140px] h-[280px] rounded-[24px] border-4 border-[#1a1a1a] shadow-xl overflow-hidden ${
+                      project.style === 'light' ? 'bg-[#FAF7F2]' : 'bg-lumina-bg-primary'
+                    }`}
+                  >
+                    {/* Status bar */}
+                    <div className="h-6 flex items-center justify-center">
+                      <div className="w-16 h-4 bg-[#1a1a1a] rounded-full" />
+                    </div>
+                    
+                    {/* Content preview */}
+                    <div className="px-2 py-2 space-y-2">
+                      <p 
+                        className="text-center text-[8px] uppercase tracking-wider font-medium"
+                        style={{ color: project.accentColor }}
+                      >
+                        {project.name}
+                      </p>
+                      <div 
+                        className="h-12 rounded-lg"
+                        style={{ backgroundColor: `${project.accentColor}20` }}
+                      />
+                      <div className="flex gap-1">
+                        <div 
+                          className="flex-1 h-8 rounded"
+                          style={{ backgroundColor: `${project.accentColor}15` }}
+                        />
+                        <div 
+                          className="flex-1 h-8 rounded"
+                          style={{ backgroundColor: `${project.accentColor}15` }}
+                        />
+                      </div>
+                      <div 
+                        className="h-6 rounded-md"
+                        style={{ backgroundColor: project.accentColor }}
+                      />
                     </div>
                   </div>
                 </div>
@@ -89,7 +132,8 @@ const PortfolioSection = () => {
               </div>
 
               {/* Info */}
-              <h3 className="font-display text-xl mb-2">{project.name}</h3>
+              <h3 className="font-display text-xl mb-1">{project.name}</h3>
+              <p className="text-lumina-cream-subtle text-sm mb-2">{project.location}</p>
               <p className="text-lumina-champagne font-medium">{project.result}</p>
             </motion.div>
           ))}
