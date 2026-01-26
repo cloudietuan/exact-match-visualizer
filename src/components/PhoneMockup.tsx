@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import sunsetNailsHero from '@/assets/sunset-nails-hero.jpg';
 
 const PhoneMockup = () => {
   return (
@@ -24,30 +25,59 @@ const PhoneMockup = () => {
             {/* Logo area */}
             <div className="text-center py-3">
               <p className="text-[#C17F59] text-[10px] uppercase tracking-[0.2em]">Sunset Nails</p>
-              <p className="text-[#B8A89A] text-[8px] mt-0.5">Our Story</p>
+              <p className="text-[#B8A89A] text-[8px] mt-0.5">Gilbert, Arizona</p>
+            </div>
+
+            {/* Hero image */}
+            <div className="rounded-lg overflow-hidden">
+              <img 
+                src={sunsetNailsHero} 
+                alt="Beautiful nail art"
+                className="w-full h-20 object-cover"
+              />
             </div>
 
             {/* Hero tagline */}
             <div className="text-center py-2">
-              <p className="font-display text-[#8B7355] text-sm italic">"In the heart of Mesa"</p>
+              <p className="font-display text-[#8B7355] text-sm italic">"Where beauty meets artistry"</p>
             </div>
 
-            {/* Line art buildings - simplified */}
-            <div className="flex justify-center gap-2 py-2">
-              <div className="w-8 h-10 border border-[#C17F59]/40 rounded-t-lg" />
-              <div className="w-6 h-8 border border-[#C17F59]/40 rounded-t-full" />
-              <div className="w-8 h-12 border border-[#C17F59]/40" />
+            {/* Services icons - using custom SVG icons instead of emojis */}
+            <div className="flex justify-center gap-3 py-2">
+              <div className="w-9 h-9 rounded-full bg-[#C17F59]/10 flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 48 48" fill="none">
+                  <rect x="18" y="4" width="12" height="8" rx="2" fill="#C17F59" />
+                  <path d="M16 18 L16 38 C16 42 19 44 24 44 C29 44 32 42 32 38 L32 18 Z" fill="#C17F59" opacity="0.9" />
+                </svg>
+              </div>
+              <div className="w-9 h-9 rounded-full bg-[#C17F59]/10 flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 48 48" fill="none">
+                  <path d="M24 4 L26 20 L42 24 L26 28 L24 44 L22 28 L6 24 L22 20 Z" fill="#C17F59" />
+                </svg>
+              </div>
+              <div className="w-9 h-9 rounded-full bg-[#C17F59]/10 flex items-center justify-center">
+                <svg width="18" height="18" viewBox="0 0 44 44" fill="none">
+                  <path d="M22 4 L10 16 L22 12 Z" fill="#C17F59" opacity="0.9" />
+                  <path d="M22 4 L34 16 L22 12 Z" fill="#C17F59" opacity="0.7" />
+                  <path d="M6 16 L22 40 L22 20 Z" fill="#8B7355" opacity="0.9" />
+                  <path d="M38 16 L22 40 L22 20 Z" fill="#8B7355" opacity="0.7" />
+                </svg>
+              </div>
             </div>
 
             {/* Pricing preview */}
             <div className="flex gap-2 justify-center">
               <div className="bg-white/50 rounded-lg px-2 py-1.5 text-center">
-                <p className="text-[#C17F59] text-[10px] font-medium">$55</p>
-                <p className="text-[#8B7355] text-[7px]">Basic Bliss</p>
+                <p className="text-[#C17F59] text-[10px] font-medium">$35</p>
+                <p className="text-[#8B7355] text-[7px]">Basic</p>
+              </div>
+              <div className="bg-[#C17F59] rounded-lg px-2 py-1.5 text-center">
+                <p className="text-white text-[10px] font-medium">$55</p>
+                <p className="text-white/80 text-[7px]">Premium</p>
               </div>
               <div className="bg-white/50 rounded-lg px-2 py-1.5 text-center">
-                <p className="text-[#C17F59] text-[10px] font-medium">$70</p>
-                <p className="text-[#8B7355] text-[7px]">Premium</p>
+                <p className="text-[#C17F59] text-[10px] font-medium">$75</p>
+                <p className="text-[#8B7355] text-[7px]">Deluxe</p>
               </div>
             </div>
 
