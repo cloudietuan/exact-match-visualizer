@@ -3,8 +3,14 @@ import { useRef, useState, useEffect } from 'react';
 import sketchWireframe from '@/assets/sketch-phone-wireframe.png';
 import sunsetNailsHero from '@/assets/sunset-nails-hero.jpg';
 import nailGallery from '@/assets/nail-gallery.jpg';
-
-// Sketch-to-Website Hero with interactive elements and custom illustrations
+import { 
+  NailPolishIcon, 
+  SparkleIcon, 
+  PaletteIcon, 
+  PencilIcon,
+  DiamondIcon,
+  ManicureHandIcon 
+} from '@/components/icons/CustomIcons';
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -20,11 +26,10 @@ const HeroSection = () => {
   const floatX = useSpring(mouseX, springConfig);
   const floatY = useSpring(mouseY, springConfig);
 
-  // Bouncing ball state (dontboardme style)
+  // Bouncing ball state
   const [ballPosition, setBallPosition] = useState({ x: 100, y: 100 });
-  const [ballVelocity, setBallVelocity] = useState({ x: 3, y: 2 });
+  const [ballVelocity, setBallVelocity] = useState({ x: 2.5, y: 1.8 });
 
-  // Bouncing ball animation
   useEffect(() => {
     const interval = setInterval(() => {
       setBallPosition(prev => {
@@ -34,11 +39,11 @@ const HeroSection = () => {
         let newVelY = ballVelocity.y;
 
         if (newX <= 0 || newX >= 200) {
-          newVelX = -newVelX * 0.9;
+          newVelX = -newVelX * 0.95;
           newX = Math.max(0, Math.min(200, newX));
         }
         if (newY <= 0 || newY >= 150) {
-          newVelY = -newVelY * 0.9;
+          newVelY = -newVelY * 0.95;
           newY = Math.max(0, Math.min(150, newY));
         }
 
@@ -50,7 +55,6 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, [ballVelocity]);
 
-  // Handle mouse move
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left - rect.width / 2) / 30;
@@ -80,7 +84,7 @@ const HeroSection = () => {
         {/* Paper texture */}
         <div className="absolute inset-0 paper-texture pointer-events-none" />
 
-        {/* Animated grid lines (sketch paper feel) */}
+        {/* Animated grid lines */}
         <motion.div 
           className="absolute inset-0 pointer-events-none"
           style={{ opacity: sketchOpacity }}
@@ -97,7 +101,7 @@ const HeroSection = () => {
           />
         </motion.div>
 
-        {/* Playful bouncing ball (dontboardme inspired) */}
+        {/* Playful bouncing accent ball */}
         <motion.div
           className="absolute z-30 pointer-events-none"
           style={{ 
@@ -106,46 +110,44 @@ const HeroSection = () => {
             opacity: sketchOpacity 
           }}
         >
-          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-lumina-coral to-lumina-terracotta shadow-lg" />
+          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-lumina-coral to-lumina-terracotta shadow-lg" />
         </motion.div>
 
-        {/* Floating decorative elements */}
+        {/* Floating custom icons - replacing emojis */}
         <motion.div
-          className="absolute top-20 right-20 text-4xl pointer-events-none"
+          className="absolute top-20 right-20 pointer-events-none"
           style={{ 
             x: floatX,
             y: floatY,
             opacity: sketchOpacity 
           }}
-          animate={{ rotate: [0, 10, -10, 0] }}
-          transition={{ duration: 4, repeat: Infinity }}
         >
-          💅
+          <NailPolishIcon animate size={52} />
         </motion.div>
         
         <motion.div
-          className="absolute bottom-32 left-16 text-3xl pointer-events-none"
+          className="absolute bottom-32 left-16 pointer-events-none"
           style={{ 
             x: useSpring(useTransform(mouseX, v => -v * 0.5), springConfig),
             y: useSpring(useTransform(mouseY, v => -v * 0.5), springConfig),
             opacity: sketchOpacity 
           }}
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 3, repeat: Infinity }}
         >
-          ✨
+          <SparkleIcon animate size={44} />
         </motion.div>
 
         <motion.div
-          className="absolute top-40 left-24 text-2xl pointer-events-none"
+          className="absolute top-40 left-24 pointer-events-none"
           style={{ opacity: sketchOpacity }}
-          animate={{ 
-            scale: [1, 1.2, 1],
-            rotate: [0, 5, -5, 0]
-          }}
-          transition={{ duration: 5, repeat: Infinity }}
         >
-          🎨
+          <PaletteIcon animate size={40} />
+        </motion.div>
+
+        <motion.div
+          className="absolute top-1/3 right-32 pointer-events-none hidden md:block"
+          style={{ opacity: sketchOpacity }}
+        >
+          <DiamondIcon animate size={36} />
         </motion.div>
 
         {/* Main content container */}
@@ -184,7 +186,7 @@ const HeroSection = () => {
 
           {/* The transformation container */}
           <div className="relative w-full max-w-5xl mx-auto flex items-center justify-center">
-            {/* Floating pencil with drawing animation */}
+            {/* Floating pencil with drawing animation - custom icon */}
             <motion.div
               className="absolute -left-8 md:-left-24 top-1/2 -translate-y-1/2 z-20"
               style={{ x: pencilX, rotate: pencilRotate, opacity: sketchOpacity }}
@@ -192,22 +194,16 @@ const HeroSection = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 1.2, duration: 0.8 }}
             >
-              <motion.div
-                animate={{ y: [0, -8, 0], rotate: [0, 5, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="text-5xl md:text-7xl drop-shadow-lg"
-              >
-                ✏️
-              </motion.div>
+              <PencilIcon animate size={72} />
               {/* Drawing trail */}
               <motion.div
-                className="absolute -right-8 top-1/2 w-16 h-0.5 bg-gradient-to-r from-lumina-ink/40 to-transparent"
+                className="absolute -right-6 top-1/2 w-12 h-0.5 bg-gradient-to-r from-lumina-ink/40 to-transparent"
                 animate={{ scaleX: [0, 1, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
             </motion.div>
 
-            {/* SKETCH VERSION - Custom Illustration */}
+            {/* SKETCH VERSION */}
             <motion.div
               className="relative mx-auto"
               style={{ opacity: sketchOpacity }}
@@ -244,7 +240,7 @@ const HeroSection = () => {
                       transition={{ delay: 1.8, duration: 0.8 }}
                     />
                   </svg>
-                  <span className="block -mt-1 ml-12 italic">hero</span>
+                  <span className="block -mt-1 ml-12 italic font-display">hero</span>
                 </motion.div>
 
                 <motion.div
@@ -253,7 +249,7 @@ const HeroSection = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 1.7 }}
                 >
-                  <span className="block italic mb-1">pricing</span>
+                  <span className="block italic mb-1 font-display">pricing</span>
                   <svg className="w-16 h-8" viewBox="0 0 64 32">
                     <motion.path 
                       d="M64,16 Q30,32 5,16" 
@@ -334,18 +330,27 @@ const HeroSection = () => {
                         <p className="font-display text-[#8B7355] text-lg italic">"Where beauty meets artistry"</p>
                       </div>
 
-                      {/* Services preview */}
+                      {/* Services preview - using custom icons */}
                       <div className="bg-white/60 rounded-xl p-4 mb-4 backdrop-blur-sm">
-                        <div className="flex justify-center gap-3 mb-3">
-                          {['💅', '✨', '💎'].map((emoji, i) => (
-                            <motion.div 
-                              key={i} 
-                              className="w-11 h-11 rounded-full bg-[#C17F59]/10 flex items-center justify-center text-lg"
-                              whileHover={{ scale: 1.1, rotate: 5 }}
-                            >
-                              {emoji}
-                            </motion.div>
-                          ))}
+                        <div className="flex justify-center gap-4 mb-3">
+                          <motion.div 
+                            className="w-12 h-12 rounded-full bg-[#C17F59]/10 flex items-center justify-center"
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                          >
+                            <NailPolishIcon size={28} />
+                          </motion.div>
+                          <motion.div 
+                            className="w-12 h-12 rounded-full bg-[#C17F59]/10 flex items-center justify-center"
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                          >
+                            <SparkleIcon size={28} />
+                          </motion.div>
+                          <motion.div 
+                            className="w-12 h-12 rounded-full bg-[#C17F59]/10 flex items-center justify-center"
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                          >
+                            <DiamondIcon size={26} />
+                          </motion.div>
                         </div>
                         <p className="text-center text-[#8B7355] text-xs">Manicures • Pedicures • Nail Art</p>
                       </div>
@@ -403,7 +408,7 @@ const HeroSection = () => {
                   </div>
                 </motion.div>
 
-                {/* Floating result badges with spring animations */}
+                {/* Floating result badges */}
                 <motion.div
                   className="absolute -right-4 md:-right-20 top-16 bg-white rounded-2xl p-4 shadow-xl border border-lumina-cream-warm"
                   style={{ y: badgeY, opacity: badgeOpacity }}
