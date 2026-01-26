@@ -65,191 +65,79 @@ const CinematicHeroV2 = () => {
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         
-        {/* ============ SCENE 1: Hero with Abstract Frame ============ */}
+        {/* ============ SCENE 1: Clean Hero ============ */}
         <div className="absolute inset-0 bg-[#FAF8F5] flex items-center justify-center">
           {/* Subtle ambient gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F5] via-[#F5F2EE] to-[#FAF8F5]" />
           
           {/* Floating decorative particles */}
           <motion.div 
-            className="absolute top-[15%] left-[12%] w-2 h-2 rounded-full bg-lumina-gold/40"
-            animate={{ y: [0, -15, 0], opacity: [0.4, 0.7, 0.4] }}
+            className="absolute top-[20%] left-[15%] w-2 h-2 rounded-full bg-lumina-gold/30"
+            animate={{ y: [0, -15, 0], opacity: [0.3, 0.6, 0.3] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div 
-            className="absolute top-[28%] right-[18%] w-1.5 h-1.5 rounded-full bg-lumina-gold/30"
-            animate={{ y: [0, -20, 0], opacity: [0.3, 0.6, 0.3] }}
+            className="absolute top-[35%] right-[20%] w-1.5 h-1.5 rounded-full bg-lumina-gold/25"
+            animate={{ y: [0, -20, 0], opacity: [0.25, 0.5, 0.25] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           />
           <motion.div 
-            className="absolute bottom-[22%] left-[22%] w-1 h-1 rounded-full bg-lumina-coral/40"
-            animate={{ y: [0, -10, 0], opacity: [0.4, 0.7, 0.4] }}
+            className="absolute bottom-[25%] left-[25%] w-1 h-1 rounded-full bg-lumina-coral/30"
+            animate={{ y: [0, -10, 0], opacity: [0.3, 0.5, 0.3] }}
             transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
           />
           <motion.div 
-            className="absolute bottom-[35%] right-[14%] w-2.5 h-2.5 rounded-full bg-lumina-gold/20"
-            animate={{ y: [0, -12, 0], opacity: [0.2, 0.4, 0.2] }}
+            className="absolute bottom-[40%] right-[18%] w-2.5 h-2.5 rounded-full bg-lumina-gold/15"
+            animate={{ y: [0, -12, 0], opacity: [0.15, 0.3, 0.15] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
           />
 
-          {/* Abstract Frame - The centerpiece */}
-          <motion.div 
-            className="relative z-10"
-            style={{ scale: heroShapeScale }}
-          >
-            {/* Outer decorative frame */}
-            <motion.div 
-              className="absolute -inset-6 md:-inset-8 rounded-[55px] md:rounded-[70px] border-[10px] md:border-[14px] border-[#EBE7E2]"
-              style={{ opacity: heroFrameOpacity }}
-            />
-            
-            {/* Main abstract shape container */}
-            <div className="relative w-[280px] h-[380px] md:w-[340px] md:h-[460px] rounded-[44px] md:rounded-[56px] overflow-hidden shadow-[0_40px_100px_-30px_rgba(0,0,0,0.12)]">
-              {/* Gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#F0EBE5] via-[#E8E2DA] to-[#DDD5CA]" />
-              
-              {/* Animated gradient orbs */}
-              <motion.div 
-                className="absolute top-[10%] left-[15%] w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-lumina-gold/30 to-lumina-coral/20 blur-2xl"
-                animate={{ 
-                  x: [0, 20, 0], 
-                  y: [0, -15, 0],
-                  scale: [1, 1.1, 1] 
-                }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <motion.div 
-                className="absolute bottom-[15%] right-[10%] w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-tl from-lumina-pink/20 to-lumina-gold/25 blur-2xl"
-                animate={{ 
-                  x: [0, -15, 0], 
-                  y: [0, 20, 0],
-                  scale: [1, 1.15, 1] 
-                }}
-                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              />
-              <motion.div 
-                className="absolute top-[40%] left-[40%] w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-white/40 to-lumina-gold/10 blur-xl"
-                animate={{ 
-                  scale: [1, 1.2, 1],
-                  opacity: [0.5, 0.8, 0.5]
-                }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              />
-              
-              {/* Decorative lines */}
-              <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 340 460">
-                <motion.path
-                  d="M 50 230 Q 170 180 290 230"
-                  stroke="#B8A68C"
-                  strokeWidth="1"
-                  fill="none"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 2, delay: 0.5, ease: "easeOut" }}
-                />
-                <motion.path
-                  d="M 70 280 Q 170 320 270 280"
-                  stroke="#C4B8A8"
-                  strokeWidth="1"
-                  fill="none"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 2, delay: 0.8, ease: "easeOut" }}
-                />
-              </svg>
-              
-              {/* Center icon/symbol */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div 
-                  className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-[#C4B8A8]/40 flex items-center justify-center"
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                >
-                  <motion.div 
-                    className="w-2 h-2 rounded-full bg-lumina-gold"
-                    animate={{ scale: [1, 1.5, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Hero Typography */}
+          {/* Hero Typography - centered */}
           <motion.div 
             className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20"
             style={{ y: heroTextY, opacity: heroTextOpacity }}
           >
             {/* Top eyebrow */}
-            <div className="absolute top-[10%] md:top-[12%] left-0 right-0 text-center">
-              <motion.p 
-                className="text-[#9A8B7A] text-xs md:text-sm tracking-[0.5em] uppercase font-medium"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                Lumina Sites
-              </motion.p>
-            </div>
+            <motion.p 
+              className="text-[#9A8B7A] text-xs md:text-sm tracking-[0.5em] uppercase font-medium mb-6 md:mb-8"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              Lumina Sites
+            </motion.p>
             
-            {/* Left headline */}
-            <motion.div 
-              className="absolute left-[4%] md:left-[6%] top-1/2 -translate-y-1/2 hidden lg:block"
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
+            {/* Main headline - stacked */}
+            <motion.h1 
+              className="text-[#1C1917] text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-medium leading-[0.95] tracking-[-0.02em] text-center"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <h1 className="text-[#1C1917] text-5xl xl:text-6xl 2xl:text-7xl font-display font-medium leading-[0.95] tracking-[-0.02em]">
-                We build
-              </h1>
-            </motion.div>
-            
-            {/* Right headline */}
-            <motion.div 
-              className="absolute right-[4%] md:right-[6%] top-1/2 -translate-y-1/2 text-right hidden lg:block"
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-            >
-              <h1 className="text-[#1C1917] text-5xl xl:text-6xl 2xl:text-7xl font-display font-medium leading-[0.95] tracking-[-0.02em] italic">
-                stunning
-              </h1>
-            </motion.div>
-
-            {/* Mobile headline */}
-            <div className="absolute top-[20%] left-0 right-0 text-center lg:hidden px-6">
-              <motion.h1 
-                className="text-[#1C1917] text-4xl md:text-5xl font-display font-medium leading-[1.1] tracking-[-0.02em]"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                We build <span className="italic">stunning</span>
-              </motion.h1>
-            </div>
+              We build<br />
+              <span className="italic">stunning</span>
+            </motion.h1>
             
             {/* Bottom tagline */}
-            <div className="absolute bottom-[12%] md:bottom-[14%] left-0 right-0 text-center">
-              <motion.p 
-                className="text-[#6B645C] text-base md:text-lg font-light tracking-wide"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                websites for nail salons
-              </motion.p>
-              <motion.p 
-                className="text-[#A39E96] text-xs md:text-sm mt-3 flex items-center justify-center gap-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-              >
-                <span className="w-4 h-px bg-[#C4B8A8]" />
-                Scroll to explore
-                <span className="w-4 h-px bg-[#C4B8A8]" />
-              </motion.p>
-            </div>
+            <motion.p 
+              className="text-[#6B645C] text-base md:text-lg lg:text-xl font-light tracking-wide mt-6 md:mt-8"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              websites for nail salons
+            </motion.p>
+            
+            <motion.p 
+              className="text-[#A39E96] text-xs md:text-sm mt-12 md:mt-16 flex items-center justify-center gap-3"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <span className="w-6 h-px bg-[#C4B8A8]" />
+              Scroll to explore
+              <span className="w-6 h-px bg-[#C4B8A8]" />
+            </motion.p>
           </motion.div>
         </div>
 
