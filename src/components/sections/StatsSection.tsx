@@ -1,111 +1,86 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
-import type { Easing } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 const stats = [
-  { value: 76, suffix: '%', label: 'of consumers look up a business online before visiting', source: 'Google Consumer Insights' },
-  { value: 47, suffix: '%', label: 'more bookings with optimized websites', source: 'Industry Average' },
-  { value: 6.8, suffix: '%', label: 'beauty industry conversion rate (vs 2.9% average)', source: 'Shopify Data' },
-  { value: 24, suffix: '/7', label: 'online booking availability', source: 'Always On' },
+  { value: '50+', label: 'Salons Launched' },
+  { value: '47%', label: 'Avg. Booking Increase' },
+  { value: '7', label: 'Days to Launch' },
+  { value: '100%', label: '5-Star Reviews' },
 ];
 
-const AnimatedNumber = ({ value, suffix, inView }: { value: number; suffix: string; inView: boolean }) => {
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-
-    let startTime: number;
-    const duration = 2000;
-
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const easeProgress = 1 - Math.pow(1 - progress, 3);
-      setDisplayValue(Number((easeProgress * value).toFixed(1)));
-      
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    requestAnimationFrame(animate);
-  }, [inView, value]);
-
+const StatsSection = () => {
   return (
-    <span className="text-gradient font-display text-5xl md:text-6xl">
-      {value % 1 === 0 ? Math.floor(displayValue) : displayValue.toFixed(1)}
-      {suffix}
-    </span>
+    <section className="py-24 bg-lumina-bg-deep relative overflow-hidden">
+      {/* Animated background grid */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(to right, hsl(var(--lumina-gold)) 1px, transparent 1px),
+            linear-gradient(to bottom, hsl(var(--lumina-gold)) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px',
+        }} />
+      </div>
+
+      <div className="container mx-auto px-8 relative z-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {stats.map((stat, index) => (
+            <StatCard key={index} stat={stat} index={index} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 
-const StatsSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+const StatCard = ({ stat, index }: { stat: typeof stats[0]; index: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.1 },
-    },
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [10, -10]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [-10, 10]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    x.set((e.clientX - centerX) / rect.width);
+    y.set((e.clientY - centerY) / rect.height);
   };
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as Easing },
-    },
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
   };
 
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-b from-background to-lumina-bg-secondary">
-      <div className="container mx-auto px-6">
-        {/* Header */}
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="text-primary uppercase tracking-widest text-sm font-medium">
-            The Data
-          </span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl">Numbers Don't Lie</h2>
-          <p className="mt-4 text-lumina-cream-muted text-lg max-w-md mx-auto">
-            Our approach is backed by real industry research.
-          </p>
-        </motion.div>
-
-        {/* Stats Grid */}
-        <motion.div 
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              className="glass rounded-2xl p-8 text-center"
-            >
-              <AnimatedNumber value={stat.value} suffix={stat.suffix} inView={isInView} />
-              <p className="mt-4 text-lumina-cream-muted">
-                {stat.label}
-              </p>
-              <p className="mt-3 text-xs text-lumina-cream-subtle">
-                {stat.source}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="text-center perspective-1000"
+    >
+      <motion.div
+        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+        className="p-8 border border-lumina-gold/20 bg-lumina-bg-elevated/30 hover:border-lumina-gold/40 transition-colors"
+      >
+        <p className="font-display text-5xl md:text-6xl text-lumina-gold mb-3">
+          {stat.value}
+        </p>
+        <p className="text-lumina-cream-subtle text-sm uppercase tracking-[0.15em]">
+          {stat.label}
+        </p>
+      </motion.div>
+    </motion.div>
   );
 };
 
