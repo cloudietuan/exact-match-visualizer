@@ -55,12 +55,12 @@ const CinematicHeroV2 = () => {
   const stat3Y = useTransform(scrollYProgress, [0.46, 0.56], [40, 0]);
   const featuresY = useTransform(scrollYProgress, [0.48, 0.56], [30, 0]);
 
-  // Scroll progress indicator colors
-  const dot1Color = useTransform(scrollYProgress, [0, 0.1], ['hsl(var(--lumina-cream))', 'hsl(var(--lumina-ink))']);
-  const dot2Color = useTransform(scrollYProgress, [0.2, 0.3], ['hsl(var(--lumina-cream))', 'hsl(var(--lumina-ink))']);
-  const dot3Color = useTransform(scrollYProgress, [0.4, 0.5], ['hsl(var(--lumina-cream))', 'hsl(var(--lumina-ink))']);
-  const dot4Color = useTransform(scrollYProgress, [0.6, 0.7], ['hsl(var(--lumina-cream))', 'hsl(var(--lumina-ink))']);
-  const dot5Color = useTransform(scrollYProgress, [0.8, 0.9], ['hsl(var(--lumina-cream))', 'hsl(var(--lumina-ink))']);
+  // Scroll progress indicator colors (using hex for framer-motion compatibility)
+  const dot1Color = useTransform(scrollYProgress, [0, 0.1], ['#E8E4DF', '#1A1A1A']);
+  const dot2Color = useTransform(scrollYProgress, [0.2, 0.3], ['#E8E4DF', '#1A1A1A']);
+  const dot3Color = useTransform(scrollYProgress, [0.4, 0.5], ['#E8E4DF', '#1A1A1A']);
+  const dot4Color = useTransform(scrollYProgress, [0.6, 0.7], ['#E8E4DF', '#1A1A1A']);
+  const dot5Color = useTransform(scrollYProgress, [0.8, 0.9], ['#E8E4DF', '#1A1A1A']);
 
   const stats = [
     { value: '+47%', label: 'More Bookings', sublabel: 'in first month', y: stat1Y },

@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 
-const Footer = forwardRef<HTMLElement>((props, ref) => {
+const Footer = forwardRef<HTMLElement>((_, ref) => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
@@ -13,7 +13,7 @@ const Footer = forwardRef<HTMLElement>((props, ref) => {
     ],
     company: [
       { label: 'About', href: '#' },
-      { label: 'Portfolio', href: '#' },
+      { label: 'Portfolio', href: '#work' },
       { label: 'Pricing', href: '#pricing' },
       { label: 'Contact', href: '#contact' },
     ],
@@ -24,21 +24,21 @@ const Footer = forwardRef<HTMLElement>((props, ref) => {
   };
 
   return (
-    <footer ref={ref} className="relative bg-lumina-dark border-t border-amber-900/20">
+    <footer ref={ref} className="relative bg-lumina-cream border-t border-lumina-cream-warm">
       {/* Main footer content */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8">
           {/* Brand column */}
           <div className="lg:col-span-1">
             <a href="/" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-lumina-ink flex items-center justify-center">
                 <span className="text-white font-display text-lg font-bold">L</span>
               </div>
-              <span className="text-amber-100 font-display text-xl">
-                Lumina<span className="text-amber-400">Sites</span>
+              <span className="text-lumina-ink font-display text-xl">
+                Lumina<span className="text-lumina-gold">Sites</span>
               </span>
             </a>
-            <p className="text-amber-200/50 text-sm leading-relaxed mb-6">
+            <p className="text-lumina-ink-muted text-sm leading-relaxed mb-6">
               Premium websites for nail salons. No upfront cost. No tech headaches. Just more bookings.
             </p>
             <div className="flex gap-4">
@@ -46,7 +46,7 @@ const Footer = forwardRef<HTMLElement>((props, ref) => {
                 <a
                   key={social}
                   href={`#${social}`}
-                  className="w-10 h-10 rounded-full bg-amber-900/30 flex items-center justify-center text-amber-400/60 hover:text-amber-400 hover:bg-amber-900/50 transition-colors"
+                  className="w-10 h-10 rounded-full bg-lumina-cream-warm flex items-center justify-center text-lumina-ink-muted hover:text-lumina-ink hover:bg-lumina-gold/20 transition-colors"
                 >
                   <span className="sr-only">{social}</span>
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -67,11 +67,11 @@ const Footer = forwardRef<HTMLElement>((props, ref) => {
 
           {/* Services */}
           <div>
-            <h4 className="text-amber-100 font-medium mb-4">Services</h4>
+            <h4 className="text-lumina-ink font-medium mb-4">Services</h4>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-amber-200/50 text-sm hover:text-amber-300 transition-colors">
+                  <a href={link.href} className="text-lumina-ink-muted text-sm hover:text-lumina-ink transition-colors">
                     {link.label}
                   </a>
                 </li>
@@ -81,11 +81,11 @@ const Footer = forwardRef<HTMLElement>((props, ref) => {
 
           {/* Company */}
           <div>
-            <h4 className="text-amber-100 font-medium mb-4">Company</h4>
+            <h4 className="text-lumina-ink font-medium mb-4">Company</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-amber-200/50 text-sm hover:text-amber-300 transition-colors">
+                  <a href={link.href} className="text-lumina-ink-muted text-sm hover:text-lumina-ink transition-colors">
                     {link.label}
                   </a>
                 </li>
@@ -95,19 +95,19 @@ const Footer = forwardRef<HTMLElement>((props, ref) => {
 
           {/* Newsletter */}
           <div>
-            <h4 className="text-amber-100 font-medium mb-4">Stay Updated</h4>
-            <p className="text-amber-200/50 text-sm mb-4">
+            <h4 className="text-lumina-ink font-medium mb-4">Stay Updated</h4>
+            <p className="text-lumina-ink-muted text-sm mb-4">
               Get tips on improving your salon's online presence.
             </p>
             <form className="flex gap-2">
               <input
                 type="email"
                 placeholder="your@email.com"
-                className="flex-1 px-4 py-2 bg-amber-900/20 border border-amber-900/30 rounded-lg text-amber-100 placeholder-amber-400/40 text-sm focus:outline-none focus:border-amber-500/50"
+                className="flex-1 px-4 py-2 bg-white border border-lumina-cream-warm rounded-lg text-lumina-ink placeholder-lumina-ink-subtle text-sm focus:outline-none focus:border-lumina-gold"
               />
               <motion.button
                 type="submit"
-                className="px-4 py-2 bg-amber-500 text-lumina-dark font-medium rounded-lg text-sm"
+                className="px-4 py-2 bg-lumina-ink text-white font-medium rounded-lg text-sm hover:bg-lumina-ink-muted transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -119,14 +119,14 @@ const Footer = forwardRef<HTMLElement>((props, ref) => {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-amber-900/20">
+      <div className="border-t border-lumina-cream-warm">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-amber-200/40 text-sm">
+          <p className="text-lumina-ink-subtle text-sm">
             © {currentYear} Lumina Sites Co. All rights reserved.
           </p>
           <div className="flex gap-6">
             {footerLinks.legal.map((link) => (
-              <a key={link.label} href={link.href} className="text-amber-200/40 text-sm hover:text-amber-300 transition-colors">
+              <a key={link.label} href={link.href} className="text-lumina-ink-subtle text-sm hover:text-lumina-ink transition-colors">
                 {link.label}
               </a>
             ))}
