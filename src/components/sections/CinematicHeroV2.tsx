@@ -108,15 +108,12 @@ const CinematicHeroV2 = () => {
             </motion.p>
             
             {/* Main headline - stacked */}
-            <motion.h1 
-              className="text-[#1C1917] text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-medium leading-[0.95] tracking-[-0.02em] text-center"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+            <h1 
+              className="text-lumina-ink text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-medium leading-[0.95] tracking-[-0.02em] text-center"
             >
               We build<br />
               <span className="italic">stunning</span>
-            </motion.h1>
+            </h1>
             
             {/* Bottom tagline */}
             <motion.p 
