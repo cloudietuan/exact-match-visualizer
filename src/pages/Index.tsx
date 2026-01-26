@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import Lenis from 'lenis';
-import CinematicHero from '@/components/sections/CinematicHero';
+import CinematicHeroV2 from '@/components/sections/CinematicHeroV2';
 import PricingSection from '@/components/sections/PricingSection';
 import CTASection from '@/components/sections/CTASection';
 import Footer from '@/components/sections/Footer';
-import Navbar from '@/components/Navbar';
 
 const Index = () => {
   // Initialize Lenis smooth scroll
@@ -29,12 +28,9 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="relative bg-lumina-dark min-h-screen">
-      {/* Navbar - transparent over hero */}
-      <Navbar />
-      
-      {/* Cinematic Scroll Journey */}
-      <CinematicHero />
+    <div className="relative bg-lumina-cream min-h-screen">
+      {/* Cinematic Scroll Journey V2 - Jesko Style */}
+      <CinematicHeroV2 />
       
       {/* Pricing Section */}
       <PricingSection />
