@@ -3,43 +3,33 @@ import { Button } from '@/components/ui/button';
 
 const CTASection = () => {
   return (
-    <section className="py-32 relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#2D1B3D] to-[#3D2B35]" />
-      
-      {/* Radial glow - static */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_hsl(var(--lumina-rose)/0.2)_0%,_transparent_60%)]" />
-      
-      {/* Static orbs */}
-      <div className="absolute top-20 left-1/4 w-64 h-64 rounded-full bg-lumina-rose/10 blur-3xl" />
-      <div className="absolute bottom-20 right-1/4 w-48 h-48 rounded-full bg-lumina-champagne/10 blur-3xl" />
+    <section id="contact" className="py-32 bg-lumina-bg-deep relative overflow-hidden">
+      {/* Subtle gradient accent */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_hsl(var(--lumina-gold)/0.05)_0%,_transparent_60%)]" />
 
-      <div className="container mx-auto px-6 relative z-10">
-        <motion.div 
-          className="text-center max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 30 }}
+      <div className="container mx-auto px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-3xl mx-auto text-center"
         >
-          <span className="text-primary uppercase tracking-widest text-sm font-medium">
-            Ready to Glow?
-          </span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl leading-tight">
-            Your Salon Deserves a Website as Beautiful as Your Work
+          <span className="text-lumina-cream-subtle text-xs uppercase tracking-[0.3em]">Start Your Journey</span>
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl mt-6 mb-8 leading-tight">
+            Your salon deserves a website as beautiful as your work
           </h2>
-          <p className="mt-6 text-lumina-cream-muted text-lg">
-            Join 50+ nail salons who've transformed their online presence. 
-            First month is risk-free.
+          <p className="text-lumina-cream-muted text-lg mb-12 max-w-xl mx-auto">
+            Join 50+ salons who've transformed their online presence. 
+            Schedule a free consultation to see what we can create for you.
           </p>
 
-          <div className="mt-10">
-            <Button 
-              variant="glow" 
-              size="lg" 
-              className="text-lg px-10 py-6 h-auto"
-            >
-              Book Your Free Consultation →
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button variant="luxuryFilled" size="lg">
+              Book Consultation
+            </Button>
+            <Button variant="luxury" size="lg">
+              View Our Work
             </Button>
           </div>
         </motion.div>

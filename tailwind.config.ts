@@ -61,16 +61,14 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Custom Lumina colors
         lumina: {
           bg: {
+            deep: "hsl(var(--lumina-bg-deep))",
             primary: "hsl(var(--lumina-bg-primary))",
-            secondary: "hsl(var(--lumina-bg-secondary))",
             elevated: "hsl(var(--lumina-bg-elevated))",
           },
+          gold: "hsl(var(--lumina-gold))",
           rose: "hsl(var(--lumina-rose))",
-          blush: "hsl(var(--lumina-blush))",
-          champagne: "hsl(var(--lumina-champagne))",
           cream: {
             DEFAULT: "hsl(var(--lumina-cream))",
             muted: "hsl(var(--lumina-cream-muted))",
@@ -92,28 +90,15 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "pulse-glow": {
-          "0%, 100%": { 
-            boxShadow: "0 0 20px -5px hsl(var(--lumina-rose) / 0.5)",
-          },
-          "50%": { 
-            boxShadow: "0 0 40px -5px hsl(var(--lumina-rose) / 0.8)",
-          },
-        },
-        "count-up": {
-          from: { opacity: "0", transform: "translateY(10px)" },
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(40px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
-      },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-glow": "linear-gradient(135deg, hsl(var(--lumina-rose)), hsl(var(--lumina-champagne)))",
-        "gradient-soft": "linear-gradient(135deg, hsl(var(--lumina-rose)), hsl(var(--lumina-blush)))",
+        "fade-up": "fade-up 0.8s ease-out forwards",
       },
     },
   },
