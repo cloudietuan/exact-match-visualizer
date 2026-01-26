@@ -63,16 +63,18 @@ export default {
         },
         lumina: {
           bg: {
-            deep: "hsl(var(--lumina-bg-deep))",
-            primary: "hsl(var(--lumina-bg-primary))",
-            elevated: "hsl(var(--lumina-bg-elevated))",
+            cream: "hsl(var(--lumina-bg-cream))",
+            warm: "hsl(var(--lumina-bg-warm))",
+            soft: "hsl(var(--lumina-bg-soft))",
           },
-          gold: "hsl(var(--lumina-gold))",
-          rose: "hsl(var(--lumina-rose))",
-          cream: {
-            DEFAULT: "hsl(var(--lumina-cream))",
-            muted: "hsl(var(--lumina-cream-muted))",
-            subtle: "hsl(var(--lumina-cream-subtle))",
+          ink: {
+            DEFAULT: "hsl(var(--lumina-ink))",
+            muted: "hsl(var(--lumina-ink-muted))",
+            subtle: "hsl(var(--lumina-ink-subtle))",
+          },
+          accent: {
+            DEFAULT: "hsl(var(--lumina-accent))",
+            soft: "hsl(var(--lumina-accent-soft))",
           },
         },
       },

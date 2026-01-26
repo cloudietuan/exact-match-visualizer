@@ -10,13 +10,13 @@ const stats = [
 
 const StatsSection = () => {
   return (
-    <section className="py-24 bg-lumina-bg-deep relative overflow-hidden">
-      {/* Animated background grid */}
-      <div className="absolute inset-0 opacity-5">
+    <section className="py-24 bg-lumina-bg-warm relative overflow-hidden">
+      {/* Subtle grid */}
+      <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute inset-0" style={{
           backgroundImage: `
-            linear-gradient(to right, hsl(var(--lumina-gold)) 1px, transparent 1px),
-            linear-gradient(to bottom, hsl(var(--lumina-gold)) 1px, transparent 1px)
+            linear-gradient(to right, hsl(var(--lumina-ink)) 1px, transparent 1px),
+            linear-gradient(to bottom, hsl(var(--lumina-ink)) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px',
         }} />
@@ -41,8 +41,8 @@ const StatCard = ({ stat, index }: { stat: typeof stats[0]; index: number }) => 
   const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
   const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [10, -10]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [-10, 10]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [8, -8]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [-8, 8]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!ref.current) return;
@@ -71,12 +71,12 @@ const StatCard = ({ stat, index }: { stat: typeof stats[0]; index: number }) => 
     >
       <motion.div
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        className="p-8 border border-lumina-gold/20 bg-lumina-bg-elevated/30 hover:border-lumina-gold/40 transition-colors"
+        className="p-8 border border-lumina-ink/10 bg-background hover:border-lumina-accent/30 transition-colors rounded-lg"
       >
-        <p className="font-display text-5xl md:text-6xl text-lumina-gold mb-3">
+        <p className="font-display text-5xl md:text-6xl text-lumina-accent mb-3">
           {stat.value}
         </p>
-        <p className="text-lumina-cream-subtle text-sm uppercase tracking-[0.15em]">
+        <p className="text-lumina-ink-subtle text-sm uppercase tracking-[0.15em]">
           {stat.label}
         </p>
       </motion.div>

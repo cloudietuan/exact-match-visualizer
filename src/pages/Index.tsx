@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
+import SocialProofBar from '@/components/sections/SocialProofBar';
 import HorizontalScrollSection from '@/components/sections/HorizontalScrollSection';
 import StatsSection from '@/components/sections/StatsSection';
 import ServicesSection from '@/components/sections/ServicesSection';
@@ -29,6 +30,7 @@ const Index = () => {
       >
         <Navbar />
         <HeroSection />
+        <SocialProofBar />
         <div id="work">
           <HorizontalScrollSection />
         </div>

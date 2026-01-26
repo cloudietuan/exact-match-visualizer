@@ -30,8 +30,8 @@ const services = [
 const ServicesSection = () => {
   return (
     <section id="services" className="py-32 bg-background relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-lumina-gold/20 to-transparent" />
+      {/* Decorative line */}
+      <div className="absolute top-0 left-0 w-full h-px soft-line" />
       
       <div className="container mx-auto px-8">
         {/* Header */}
@@ -42,11 +42,11 @@ const ServicesSection = () => {
           transition={{ duration: 0.8 }}
           className="mb-20 max-w-2xl"
         >
-          <span className="text-lumina-cream-subtle text-xs uppercase tracking-[0.3em]">Services</span>
-          <h2 className="font-display text-4xl md:text-5xl mt-4 mb-6">What We Deliver</h2>
+          <span className="text-lumina-ink-subtle text-xs uppercase tracking-[0.3em]">Services</span>
+          <h2 className="font-display text-4xl md:text-5xl mt-4 mb-6 text-foreground">What We Deliver</h2>
         </motion.div>
 
-        {/* Services grid - Interactive cards */}
+        {/* Services grid */}
         <div className="grid md:grid-cols-2 gap-6">
           {services.map((service, index) => (
             <ServiceCard key={index} service={service} index={index} />
@@ -89,40 +89,40 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
     >
       <motion.div
         style={{ x: mouseXSpring, y: mouseYSpring }}
-        className="relative p-8 border border-white/10 bg-lumina-bg-elevated/50 hover:border-lumina-gold/30 transition-colors overflow-hidden"
+        className="relative p-8 border border-lumina-ink/10 bg-lumina-bg-warm hover:border-lumina-accent/30 transition-colors overflow-hidden rounded-lg"
       >
-        {/* Background glow on hover */}
-        <div className="absolute inset-0 bg-gradient-to-br from-lumina-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+        {/* Background hover */}
+        <div className="absolute inset-0 bg-gradient-to-br from-lumina-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
         <div className="relative z-10 flex gap-6">
           {/* Number & Icon */}
           <div className="flex flex-col items-center gap-4">
-            <span className="text-lumina-gold font-display text-xl">{service.number}</span>
-            <span className="text-lumina-gold text-2xl">{service.icon}</span>
+            <span className="text-lumina-accent font-display text-xl">{service.number}</span>
+            <span className="text-lumina-accent text-2xl">{service.icon}</span>
           </div>
 
           {/* Content */}
           <div className="flex-1">
-            <h3 className="font-display text-2xl mb-3 group-hover:text-lumina-gold transition-colors">
+            <h3 className="font-display text-2xl mb-3 group-hover:text-lumina-accent transition-colors text-foreground">
               {service.title}
             </h3>
-            <p className="text-lumina-cream-muted">
+            <p className="text-lumina-ink-muted">
               {service.description}
             </p>
           </div>
 
           {/* Arrow */}
           <motion.div
-            className="self-center w-10 h-10 rounded-full border border-lumina-gold/30 flex items-center justify-center text-lumina-gold opacity-0 group-hover:opacity-100 transition-opacity"
+            className="self-center w-10 h-10 rounded-full border border-lumina-accent/30 flex items-center justify-center text-lumina-accent opacity-0 group-hover:opacity-100 transition-opacity"
             whileHover={{ scale: 1.1 }}
           >
             →
           </motion.div>
         </div>
 
-        {/* Gold accent line */}
+        {/* Accent line */}
         <motion.div
-          className="absolute bottom-0 left-0 h-1 bg-lumina-gold"
+          className="absolute bottom-0 left-0 h-1 bg-lumina-accent rounded-full"
           initial={{ width: 0 }}
           whileHover={{ width: '100%' }}
           transition={{ duration: 0.4 }}
