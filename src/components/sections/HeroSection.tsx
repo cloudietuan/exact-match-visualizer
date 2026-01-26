@@ -1,7 +1,10 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import sketchWireframe from '@/assets/sketch-phone-wireframe.png';
+import sunsetNailsHero from '@/assets/sunset-nails-hero.jpg';
+import nailGallery from '@/assets/nail-gallery.jpg';
 
-// Sketch-to-Website Hero: Drawing transforms into real website on scroll
+// Sketch-to-Website Hero with interactive elements and custom illustrations
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -10,43 +13,146 @@ const HeroSection = () => {
     offset: ['start start', 'end start'],
   });
 
+  // Mouse tracking for interactive elements
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springConfig = { damping: 25, stiffness: 150 };
+  const floatX = useSpring(mouseX, springConfig);
+  const floatY = useSpring(mouseY, springConfig);
+
+  // Bouncing ball state (dontboardme style)
+  const [ballPosition, setBallPosition] = useState({ x: 100, y: 100 });
+  const [ballVelocity, setBallVelocity] = useState({ x: 3, y: 2 });
+
+  // Bouncing ball animation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBallPosition(prev => {
+        let newX = prev.x + ballVelocity.x;
+        let newY = prev.y + ballVelocity.y;
+        let newVelX = ballVelocity.x;
+        let newVelY = ballVelocity.y;
+
+        if (newX <= 0 || newX >= 200) {
+          newVelX = -newVelX * 0.9;
+          newX = Math.max(0, Math.min(200, newX));
+        }
+        if (newY <= 0 || newY >= 150) {
+          newVelY = -newVelY * 0.9;
+          newY = Math.max(0, Math.min(150, newY));
+        }
+
+        setBallVelocity({ x: newVelX, y: newVelY });
+        return { x: newX, y: newY };
+      });
+    }, 30);
+
+    return () => clearInterval(interval);
+  }, [ballVelocity]);
+
+  // Handle mouse move
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width / 2) / 30;
+    const y = (e.clientY - rect.top - rect.height / 2) / 30;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
   // Animation values based on scroll
   const sketchOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const websiteOpacity = useTransform(scrollYProgress, [0.2, 0.5], [0, 1]);
-  const websiteScale = useTransform(scrollYProgress, [0.2, 0.6], [0.8, 1]);
-  const pencilX = useTransform(scrollYProgress, [0, 0.3], [0, 100]);
-  const pencilRotate = useTransform(scrollYProgress, [0, 0.3], [0, 45]);
-  const textY = useTransform(scrollYProgress, [0, 0.4], [0, -50]);
+  const websiteScale = useTransform(scrollYProgress, [0.2, 0.6], [0.85, 1]);
+  const pencilX = useTransform(scrollYProgress, [0, 0.3], [0, 150]);
+  const pencilRotate = useTransform(scrollYProgress, [0, 0.3], [-15, 60]);
+  const textY = useTransform(scrollYProgress, [0, 0.4], [0, -80]);
   const textOpacity = useTransform(scrollYProgress, [0.3, 0.5], [1, 0]);
+  const badgeY = useTransform(scrollYProgress, [0.3, 0.6], [50, 0]);
+  const badgeOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
 
   return (
-    <section ref={containerRef} className="relative h-[250vh]">
+    <section 
+      ref={containerRef} 
+      className="relative h-[280vh]"
+      onMouseMove={handleMouseMove}
+    >
       <div className="sticky top-0 h-screen overflow-hidden bg-lumina-cream">
         {/* Paper texture */}
         <div className="absolute inset-0 paper-texture pointer-events-none" />
 
-        {/* Grid lines (sketch paper feel) */}
+        {/* Animated grid lines (sketch paper feel) */}
         <motion.div 
           className="absolute inset-0 pointer-events-none"
           style={{ opacity: sketchOpacity }}
         >
           <div 
-            className="absolute inset-0 opacity-[0.03]"
+            className="absolute inset-0 opacity-[0.04]"
             style={{
               backgroundImage: `
                 linear-gradient(to right, hsl(var(--lumina-ink)) 1px, transparent 1px),
                 linear-gradient(to bottom, hsl(var(--lumina-ink)) 1px, transparent 1px)
               `,
-              backgroundSize: '40px 40px',
+              backgroundSize: '50px 50px',
             }}
           />
+        </motion.div>
+
+        {/* Playful bouncing ball (dontboardme inspired) */}
+        <motion.div
+          className="absolute z-30 pointer-events-none"
+          style={{ 
+            left: ballPosition.x + 50, 
+            top: ballPosition.y + 50,
+            opacity: sketchOpacity 
+          }}
+        >
+          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-lumina-coral to-lumina-terracotta shadow-lg" />
+        </motion.div>
+
+        {/* Floating decorative elements */}
+        <motion.div
+          className="absolute top-20 right-20 text-4xl pointer-events-none"
+          style={{ 
+            x: floatX,
+            y: floatY,
+            opacity: sketchOpacity 
+          }}
+          animate={{ rotate: [0, 10, -10, 0] }}
+          transition={{ duration: 4, repeat: Infinity }}
+        >
+          💅
+        </motion.div>
+        
+        <motion.div
+          className="absolute bottom-32 left-16 text-3xl pointer-events-none"
+          style={{ 
+            x: useSpring(useTransform(mouseX, v => -v * 0.5), springConfig),
+            y: useSpring(useTransform(mouseY, v => -v * 0.5), springConfig),
+            opacity: sketchOpacity 
+          }}
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 3, repeat: Infinity }}
+        >
+          ✨
+        </motion.div>
+
+        <motion.div
+          className="absolute top-40 left-24 text-2xl pointer-events-none"
+          style={{ opacity: sketchOpacity }}
+          animate={{ 
+            scale: [1, 1.2, 1],
+            rotate: [0, 5, -5, 0]
+          }}
+          transition={{ duration: 5, repeat: Infinity }}
+        >
+          🎨
         </motion.div>
 
         {/* Main content container */}
         <div className="relative z-10 h-full flex flex-col items-center justify-center px-8">
           {/* Intro text */}
           <motion.div 
-            className="text-center mb-12"
+            className="text-center mb-8 md:mb-12"
             style={{ y: textY, opacity: textOpacity }}
           >
             <motion.span
@@ -61,72 +167,128 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.8 }}
-              className="font-display text-5xl md:text-7xl mt-4 text-lumina-ink"
+              className="font-display text-4xl md:text-7xl mt-4 text-lumina-ink"
             >
               From <span className="text-brush text-lumina-terracotta">Sketch</span>
               <span className="block">to Reality</span>
             </motion.h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="text-lumina-ink-muted mt-4 max-w-md mx-auto"
+            >
+              Watch your vision transform from concept to stunning website
+            </motion.p>
           </motion.div>
 
           {/* The transformation container */}
-          <div className="relative w-full max-w-4xl mx-auto">
-            {/* Floating pencil */}
+          <div className="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+            {/* Floating pencil with drawing animation */}
             <motion.div
-              className="absolute -left-20 top-1/2 -translate-y-1/2 text-6xl z-20"
+              className="absolute -left-8 md:-left-24 top-1/2 -translate-y-1/2 z-20"
               style={{ x: pencilX, rotate: pencilRotate, opacity: sketchOpacity }}
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -80 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
             >
-              ✏️
+              <motion.div
+                animate={{ y: [0, -8, 0], rotate: [0, 5, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="text-5xl md:text-7xl drop-shadow-lg"
+              >
+                ✏️
+              </motion.div>
+              {/* Drawing trail */}
+              <motion.div
+                className="absolute -right-8 top-1/2 w-16 h-0.5 bg-gradient-to-r from-lumina-ink/40 to-transparent"
+                animate={{ scaleX: [0, 1, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
             </motion.div>
 
-            {/* SKETCH VERSION */}
+            {/* SKETCH VERSION - Custom Illustration */}
             <motion.div
-              className="relative mx-auto w-full max-w-md"
+              className="relative mx-auto"
               style={{ opacity: sketchOpacity }}
             >
-              {/* Sketch phone frame */}
-              <div className="relative bg-transparent border-4 border-dashed border-lumina-ink/30 rounded-[40px] p-4 mx-auto w-[300px] h-[550px]">
-                {/* Hand-drawn style elements */}
-                <div className="h-full border-2 border-lumina-ink/20 rounded-[32px] p-4 relative">
-                  {/* Sketch header */}
-                  <div className="border-b-2 border-dashed border-lumina-ink/20 pb-4 mb-4">
-                    <div className="w-24 h-3 bg-lumina-ink/10 rounded mb-2 mx-auto" />
-                    <div className="w-16 h-2 bg-lumina-ink/10 rounded mx-auto" />
-                  </div>
-                  
-                  {/* Sketch hero area */}
-                  <div className="h-24 border-2 border-dashed border-lumina-ink/20 rounded-lg mb-4 flex items-center justify-center">
-                    <span className="text-lumina-ink/30 text-xs">Hero Image</span>
-                  </div>
-                  
-                  {/* Sketch content blocks */}
-                  <div className="space-y-3">
-                    <div className="h-3 bg-lumina-ink/10 rounded w-3/4" />
-                    <div className="h-3 bg-lumina-ink/10 rounded w-1/2" />
-                    <div className="h-3 bg-lumina-ink/10 rounded w-2/3" />
-                  </div>
-                  
-                  {/* Sketch button */}
-                  <div className="mt-6 h-10 border-2 border-dashed border-lumina-ink/20 rounded-lg flex items-center justify-center">
-                    <span className="text-lumina-ink/30 text-xs">Book Now</span>
-                  </div>
-                  
-                  {/* Sketch pricing cards */}
-                  <div className="mt-6 flex gap-2">
-                    {[1, 2, 3].map((i) => (
-                      <div key={i} className="flex-1 h-16 border-2 border-dashed border-lumina-ink/20 rounded" />
-                    ))}
-                  </div>
-
-                  {/* Scribble annotations */}
-                  <svg className="absolute -right-16 top-10 w-32 h-20 opacity-40" viewBox="0 0 100 60">
-                    <path d="M10,30 Q30,10 50,30 T90,30" stroke="currentColor" fill="none" strokeWidth="1" className="text-lumina-ink/30" strokeDasharray="4,4"/>
-                    <text x="50" y="55" fontSize="8" fill="currentColor" className="text-lumina-ink/40" textAnchor="middle">hero section</text>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.8, duration: 0.6 }}
+                className="relative"
+              >
+                {/* Custom sketch wireframe image */}
+                <img 
+                  src={sketchWireframe} 
+                  alt="Website wireframe sketch"
+                  className="w-[280px] md:w-[340px] h-auto drop-shadow-xl"
+                />
+                
+                {/* Animated annotation arrows */}
+                <motion.div
+                  className="absolute -right-4 top-1/4 text-lumina-ink-muted text-xs hidden md:block"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.5 }}
+                >
+                  <svg className="w-20 h-12" viewBox="0 0 80 48">
+                    <motion.path 
+                      d="M0,24 Q40,0 75,24" 
+                      stroke="currentColor" 
+                      fill="none" 
+                      strokeWidth="1.5"
+                      strokeDasharray="4,4"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ delay: 1.8, duration: 0.8 }}
+                    />
                   </svg>
-                </div>
-              </div>
+                  <span className="block -mt-1 ml-12 italic">hero</span>
+                </motion.div>
+
+                <motion.div
+                  className="absolute -left-8 bottom-1/3 text-lumina-ink-muted text-xs hidden md:block"
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.7 }}
+                >
+                  <span className="block italic mb-1">pricing</span>
+                  <svg className="w-16 h-8" viewBox="0 0 64 32">
+                    <motion.path 
+                      d="M64,16 Q30,32 5,16" 
+                      stroke="currentColor" 
+                      fill="none" 
+                      strokeWidth="1.5"
+                      strokeDasharray="4,4"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ delay: 2, duration: 0.8 }}
+                    />
+                  </svg>
+                </motion.div>
+
+                {/* Sparkle decorations */}
+                {[...Array(5)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-2 h-2 rounded-full bg-lumina-terracotta/40"
+                    style={{
+                      left: `${20 + i * 15}%`,
+                      top: `${10 + (i % 3) * 30}%`,
+                    }}
+                    animate={{
+                      scale: [0, 1, 0],
+                      opacity: [0, 0.8, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      delay: i * 0.3,
+                      repeat: Infinity,
+                    }}
+                  />
+                ))}
+              </motion.div>
             </motion.div>
 
             {/* REAL WEBSITE VERSION */}
@@ -135,102 +297,154 @@ const HeroSection = () => {
               style={{ opacity: websiteOpacity, scale: websiteScale }}
             >
               {/* Real phone mockup with Sunset Nails */}
-              <div className="relative bg-[#1a1a1a] rounded-[50px] p-3 shadow-2xl shadow-black/30 w-[320px]">
-                <div className="bg-gradient-to-b from-[#FAF7F2] to-[#F5EFE6] rounded-[42px] overflow-hidden">
-                  {/* Status bar */}
-                  <div className="flex justify-between items-center px-6 py-3 text-xs text-[#C17F59]">
-                    <span className="font-medium">9:41</span>
-                    <div className="w-24 h-7 bg-[#1a1a1a] rounded-full" />
-                    <span>100%</span>
+              <div className="relative">
+                <motion.div
+                  className="relative bg-[#1a1a1a] rounded-[50px] p-3 shadow-2xl shadow-black/40"
+                  style={{ width: '340px' }}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                >
+                  <div className="bg-gradient-to-b from-[#FAF7F2] to-[#F5EFE6] rounded-[42px] overflow-hidden">
+                    {/* Status bar */}
+                    <div className="flex justify-between items-center px-6 py-3 text-xs text-[#C17F59]">
+                      <span className="font-medium">9:41</span>
+                      <div className="w-24 h-7 bg-[#1a1a1a] rounded-full" />
+                      <span>100%</span>
+                    </div>
+
+                    {/* Sunset Nails content */}
+                    <div className="px-5 pb-8">
+                      {/* Logo */}
+                      <div className="text-center py-3">
+                        <p className="text-[#C17F59] text-sm uppercase tracking-[0.25em] font-semibold">Sunset Nails</p>
+                        <p className="text-[#B8A89A] text-xs mt-1">Gilbert, Arizona</p>
+                      </div>
+
+                      {/* Hero image */}
+                      <div className="rounded-xl overflow-hidden mb-4 shadow-md">
+                        <img 
+                          src={sunsetNailsHero} 
+                          alt="Beautiful nail art"
+                          className="w-full h-32 object-cover"
+                        />
+                      </div>
+
+                      {/* Hero tagline */}
+                      <div className="text-center py-2">
+                        <p className="font-display text-[#8B7355] text-lg italic">"Where beauty meets artistry"</p>
+                      </div>
+
+                      {/* Services preview */}
+                      <div className="bg-white/60 rounded-xl p-4 mb-4 backdrop-blur-sm">
+                        <div className="flex justify-center gap-3 mb-3">
+                          {['💅', '✨', '💎'].map((emoji, i) => (
+                            <motion.div 
+                              key={i} 
+                              className="w-11 h-11 rounded-full bg-[#C17F59]/10 flex items-center justify-center text-lg"
+                              whileHover={{ scale: 1.1, rotate: 5 }}
+                            >
+                              {emoji}
+                            </motion.div>
+                          ))}
+                        </div>
+                        <p className="text-center text-[#8B7355] text-xs">Manicures • Pedicures • Nail Art</p>
+                      </div>
+
+                      {/* Pricing preview */}
+                      <div className="flex gap-2 mb-4">
+                        <div className="flex-1 bg-white/50 rounded-lg p-2.5 text-center backdrop-blur-sm">
+                          <p className="text-[#C17F59] text-base font-semibold">$35</p>
+                          <p className="text-[#8B7355] text-[10px]">Basic</p>
+                        </div>
+                        <div className="flex-1 bg-[#C17F59] rounded-lg p-2.5 text-center shadow-lg">
+                          <p className="text-white text-base font-semibold">$55</p>
+                          <p className="text-white/80 text-[10px]">Premium</p>
+                        </div>
+                        <div className="flex-1 bg-white/50 rounded-lg p-2.5 text-center backdrop-blur-sm">
+                          <p className="text-[#C17F59] text-base font-semibold">$75</p>
+                          <p className="text-[#8B7355] text-[10px]">Deluxe</p>
+                        </div>
+                      </div>
+
+                      {/* Gallery preview */}
+                      <div className="rounded-xl overflow-hidden mb-4">
+                        <img 
+                          src={nailGallery} 
+                          alt="Nail art gallery"
+                          className="w-full h-20 object-cover"
+                        />
+                      </div>
+
+                      {/* CTA button */}
+                      <motion.button 
+                        className="w-full py-3.5 rounded-xl bg-[#C17F59] text-white font-semibold text-sm shadow-lg"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        Book Your Appointment
+                      </motion.button>
+
+                      {/* Stats */}
+                      <div className="flex justify-center gap-8 mt-4 pt-4 border-t border-[#C17F59]/10">
+                        <div className="text-center">
+                          <p className="text-[#C17F59] font-semibold">+47%</p>
+                          <p className="text-[#8B7355] text-[10px]">Bookings</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-[#C17F59] font-semibold">5.0★</p>
+                          <p className="text-[#8B7355] text-[10px]">Rating</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-[#C17F59] font-semibold">7 Days</p>
+                          <p className="text-[#8B7355] text-[10px]">Delivery</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                </motion.div>
 
-                  {/* Sunset Nails content */}
-                  <div className="px-5 pb-8">
-                    {/* Logo */}
-                    <div className="text-center py-4">
-                      <p className="text-[#C17F59] text-sm uppercase tracking-[0.25em] font-medium">Sunset Nails</p>
-                      <p className="text-[#B8A89A] text-xs mt-1">Gilbert, Arizona</p>
-                    </div>
+                {/* Floating result badges with spring animations */}
+                <motion.div
+                  className="absolute -right-4 md:-right-20 top-16 bg-white rounded-2xl p-4 shadow-xl border border-lumina-cream-warm"
+                  style={{ y: badgeY, opacity: badgeOpacity }}
+                  whileHover={{ scale: 1.05, rotate: 2 }}
+                >
+                  <p className="text-lumina-terracotta font-display text-2xl md:text-3xl">+47%</p>
+                  <p className="text-lumina-ink-muted text-xs">More Bookings</p>
+                </motion.div>
 
-                    {/* Hero tagline */}
-                    <div className="text-center py-3">
-                      <p className="font-display text-[#8B7355] text-xl italic">"Where beauty meets artistry"</p>
-                    </div>
+                <motion.div
+                  className="absolute -left-4 md:-left-20 top-32 bg-lumina-dark text-white rounded-2xl p-4 shadow-xl"
+                  style={{ 
+                    y: useTransform(badgeY, v => v * 1.2),
+                    opacity: useTransform(badgeOpacity, [0, 1], [0, 1])
+                  }}
+                  whileHover={{ scale: 1.05, rotate: -2 }}
+                >
+                  <p className="text-lumina-gold font-display text-2xl md:text-3xl">7 Days</p>
+                  <p className="text-white/60 text-xs">To Launch</p>
+                </motion.div>
 
-                    {/* Services preview */}
-                    <div className="bg-white/60 rounded-xl p-4 mb-4">
-                      <div className="flex justify-center gap-3 mb-3">
-                        {['💅', '✨', '💎'].map((emoji, i) => (
-                          <div key={i} className="w-12 h-12 rounded-full bg-[#C17F59]/10 flex items-center justify-center text-xl">
-                            {emoji}
-                          </div>
-                        ))}
-                      </div>
-                      <p className="text-center text-[#8B7355] text-xs">Manicures • Pedicures • Nail Art</p>
-                    </div>
-
-                    {/* Pricing preview */}
-                    <div className="flex gap-2 mb-4">
-                      <div className="flex-1 bg-white/50 rounded-lg p-3 text-center">
-                        <p className="text-[#C17F59] text-lg font-semibold">$35</p>
-                        <p className="text-[#8B7355] text-[10px]">Basic</p>
-                      </div>
-                      <div className="flex-1 bg-[#C17F59] rounded-lg p-3 text-center">
-                        <p className="text-white text-lg font-semibold">$55</p>
-                        <p className="text-white/80 text-[10px]">Premium</p>
-                      </div>
-                      <div className="flex-1 bg-white/50 rounded-lg p-3 text-center">
-                        <p className="text-[#C17F59] text-lg font-semibold">$75</p>
-                        <p className="text-[#8B7355] text-[10px]">Deluxe</p>
-                      </div>
-                    </div>
-
-                    {/* CTA button */}
-                    <button className="w-full py-4 rounded-xl bg-[#C17F59] text-white font-semibold text-sm shadow-lg">
-                      Book Your Appointment
-                    </button>
-
-                    {/* Stats */}
-                    <div className="flex justify-center gap-8 mt-4 pt-4 border-t border-[#C17F59]/10">
-                      <div className="text-center">
-                        <p className="text-[#C17F59] font-semibold">+47%</p>
-                        <p className="text-[#8B7355] text-[10px]">Bookings</p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-[#C17F59] font-semibold">5.0★</p>
-                        <p className="text-[#8B7355] text-[10px]">Rating</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <motion.div
+                  className="absolute -right-2 md:-right-16 bottom-24 bg-gradient-to-br from-lumina-coral to-lumina-terracotta text-white rounded-2xl p-3 shadow-xl"
+                  style={{ 
+                    y: useTransform(badgeY, v => v * 0.8),
+                    opacity: useTransform(badgeOpacity, [0, 1], [0, 1])
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  animate={{ y: [0, -5, 0] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                >
+                  <p className="font-display text-xl">5.0★</p>
+                  <p className="text-white/80 text-[10px]">Client Rating</p>
+                </motion.div>
               </div>
-
-              {/* Floating result badges */}
-              <motion.div
-                className="absolute -right-8 top-20 bg-white rounded-xl p-4 shadow-xl"
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-              >
-                <p className="text-lumina-terracotta font-display text-2xl">+47%</p>
-                <p className="text-lumina-ink-muted text-xs">More Bookings</p>
-              </motion.div>
-
-              <motion.div
-                className="absolute -left-8 bottom-20 bg-lumina-dark text-white rounded-xl p-4 shadow-xl"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.7 }}
-              >
-                <p className="text-lumina-gold font-display text-2xl">7 Days</p>
-                <p className="text-white/60 text-xs">To Launch</p>
-              </motion.div>
             </motion.div>
           </div>
 
           {/* Scroll prompt */}
           <motion.div
-            className="absolute bottom-12 left-1/2 -translate-x-1/2"
+            className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2"
             style={{ opacity: sketchOpacity }}
           >
             <motion.div

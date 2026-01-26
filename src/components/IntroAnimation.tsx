@@ -5,15 +5,15 @@ interface IntroAnimationProps {
   onComplete: () => void;
 }
 
-// Sketch-to-website intro animation
+// Enhanced sketch-to-website intro animation with playful elements
 
 const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
   const [phase, setPhase] = useState<'sketch' | 'drawing' | 'reveal'>('sketch');
 
   useEffect(() => {
     const drawTimer = setTimeout(() => setPhase('drawing'), 600);
-    const revealTimer = setTimeout(() => setPhase('reveal'), 2200);
-    const completeTimer = setTimeout(() => onComplete(), 2800);
+    const revealTimer = setTimeout(() => setPhase('reveal'), 2400);
+    const completeTimer = setTimeout(() => onComplete(), 3000);
 
     return () => {
       clearTimeout(drawTimer);
@@ -24,7 +24,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
 
   return (
     <AnimatePresence>
-      {phase !== 'reveal' ? null : (
+      {phase === 'reveal' && (
         <motion.div
           key="fade-out"
           className="fixed inset-0 z-[100] bg-lumina-cream pointer-events-none"
@@ -45,7 +45,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
           <div className="absolute inset-0 paper-texture" />
 
           {/* Grid lines */}
-          <div 
+          <motion.div 
             className="absolute inset-0 opacity-[0.03]"
             style={{
               backgroundImage: `
@@ -56,65 +56,142 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
             }}
           />
 
+          {/* Bouncing decorative elements */}
+          <motion.div
+            className="absolute top-20 right-32 text-3xl"
+            animate={{ 
+              y: [0, -20, 0],
+              rotate: [0, 10, -10, 0]
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            💅
+          </motion.div>
+          
+          <motion.div
+            className="absolute bottom-32 left-24 text-2xl"
+            animate={{ 
+              y: [0, 15, 0],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
+          >
+            ✨
+          </motion.div>
+
+          <motion.div
+            className="absolute top-40 left-40 text-xl"
+            animate={{ 
+              rotate: [0, 360],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+          >
+            🎨
+          </motion.div>
+
           {/* Center content */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              {/* Pencil drawing animation */}
+              {/* Pencil with enhanced animation */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                className="mb-8"
+                transition={{ duration: 0.5, type: 'spring' }}
+                className="mb-8 relative"
               >
                 <motion.div
                   animate={phase === 'drawing' ? { 
-                    x: [0, 20, -10, 30, 0],
-                    y: [0, -5, 10, -10, 0],
+                    x: [0, 30, -20, 40, 10, 0],
+                    y: [0, -10, 15, -5, 10, 0],
+                    rotate: [0, 5, -5, 10, -10, 0]
                   } : {}}
-                  transition={{ duration: 1.5, ease: 'easeInOut' }}
-                  className="text-6xl"
+                  transition={{ duration: 1.8, ease: 'easeInOut' }}
+                  className="text-6xl md:text-7xl drop-shadow-lg"
                 >
                   ✏️
                 </motion.div>
+                
+                {/* Drawing trail */}
+                <motion.div
+                  className="absolute left-1/2 top-full w-0.5 bg-gradient-to-b from-lumina-ink/40 to-transparent"
+                  initial={{ height: 0 }}
+                  animate={phase === 'drawing' ? { height: 30 } : { height: 0 }}
+                  transition={{ duration: 0.5 }}
+                />
               </motion.div>
 
-              {/* Drawing lines appearing */}
-              <div className="relative w-64 h-32 mx-auto mb-8">
-                {[0, 1, 2, 3].map((i) => (
+              {/* Drawing canvas */}
+              <div className="relative w-72 md:w-80 h-40 mx-auto mb-8">
+                {/* Progressive lines */}
+                {[0, 1, 2, 3, 4].map((i) => (
                   <motion.div
                     key={i}
-                    className="absolute left-0 right-0 h-px bg-lumina-ink/30"
-                    style={{ top: `${i * 30 + 10}%` }}
-                    initial={{ scaleX: 0 }}
+                    className="absolute left-0 right-0 h-px bg-lumina-ink/25"
+                    style={{ top: `${i * 22 + 10}%` }}
+                    initial={{ scaleX: 0, originX: 0 }}
                     animate={phase === 'drawing' ? { scaleX: 1 } : { scaleX: 0 }}
-                    transition={{ duration: 0.4, delay: i * 0.2 }}
+                    transition={{ duration: 0.35, delay: i * 0.15 }}
                   />
                 ))}
                 
-                {/* Box shapes */}
+                {/* Wireframe boxes appearing */}
                 <motion.div
-                  className="absolute left-4 top-4 w-20 h-16 border-2 border-dashed border-lumina-ink/20"
-                  initial={{ opacity: 0 }}
-                  animate={phase === 'drawing' ? { opacity: 1 } : { opacity: 0 }}
-                  transition={{ duration: 0.3, delay: 0.8 }}
+                  className="absolute left-6 top-4 w-24 h-20 border-2 border-dashed border-lumina-ink/20 rounded-lg"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={phase === 'drawing' ? { opacity: 1, scale: 1 } : { opacity: 0 }}
+                  transition={{ duration: 0.4, delay: 0.7 }}
                 />
                 <motion.div
-                  className="absolute right-4 top-4 w-32 h-8 border-2 border-dashed border-lumina-ink/20"
-                  initial={{ opacity: 0 }}
-                  animate={phase === 'drawing' ? { opacity: 1 } : { opacity: 0 }}
-                  transition={{ duration: 0.3, delay: 1 }}
+                  className="absolute right-6 top-4 w-36 h-10 border-2 border-dashed border-lumina-ink/20 rounded-lg"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={phase === 'drawing' ? { opacity: 1, scale: 1 } : { opacity: 0 }}
+                  transition={{ duration: 0.4, delay: 0.9 }}
                 />
+                <motion.div
+                  className="absolute left-1/2 -translate-x-1/2 bottom-4 w-28 h-8 border-2 border-dashed border-lumina-terracotta/40 rounded-full flex items-center justify-center"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={phase === 'drawing' ? { opacity: 1, scale: 1 } : { opacity: 0 }}
+                  transition={{ duration: 0.4, delay: 1.1 }}
+                >
+                  <span className="text-lumina-terracotta/50 text-xs">CTA</span>
+                </motion.div>
+
+                {/* Sparkle effects */}
+                {[...Array(6)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1.5 h-1.5 rounded-full bg-lumina-terracotta/50"
+                    style={{
+                      left: `${15 + i * 15}%`,
+                      top: `${20 + (i % 3) * 25}%`,
+                    }}
+                    animate={phase === 'drawing' ? {
+                      scale: [0, 1.2, 0],
+                      opacity: [0, 1, 0],
+                    } : {}}
+                    transition={{
+                      duration: 1.5,
+                      delay: 0.8 + i * 0.15,
+                      repeat: Infinity,
+                      repeatDelay: 1,
+                    }}
+                  />
+                ))}
               </div>
 
-              {/* Text */}
+              {/* Text with staggered animation */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <span className="text-lumina-ink-subtle text-xs uppercase tracking-[0.4em]">
+                <motion.span 
+                  className="text-lumina-ink-subtle text-xs uppercase tracking-[0.4em] block"
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
                   Lumina Sites Co.
-                </span>
+                </motion.span>
                 <motion.h1
                   className="font-display text-4xl md:text-5xl text-lumina-ink mt-4"
                   initial={{ opacity: 0 }}
@@ -122,9 +199,35 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
                   transition={{ delay: 0.5 }}
                 >
                   <span className="text-brush text-lumina-terracotta">Sketching</span>
-                  <span className="block font-sans font-bold uppercase text-2xl mt-2">Your Vision</span>
+                  <motion.span 
+                    className="block font-sans font-bold uppercase text-xl md:text-2xl mt-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.8 }}
+                  >
+                    Your Vision
+                  </motion.span>
                 </motion.h1>
               </motion.div>
+
+              {/* Loading dots */}
+              <div className="flex justify-center gap-2 mt-8">
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={i}
+                    className="w-2 h-2 rounded-full bg-lumina-terracotta/60"
+                    animate={{
+                      scale: [1, 1.3, 1],
+                      opacity: [0.4, 1, 0.4],
+                    }}
+                    transition={{
+                      duration: 1,
+                      delay: i * 0.2,
+                      repeat: Infinity,
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
