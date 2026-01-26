@@ -1,36 +1,12 @@
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 const PhoneMockup = () => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(mouseY, [-300, 300], [10, -10]), { stiffness: 100, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-10, 10]), { stiffness: 100, damping: 20 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      mouseX.set(e.clientX - centerX);
-      mouseY.set(e.clientY - centerY);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
-
   return (
     <motion.div
       className="relative mx-auto w-[280px] md:w-[320px]"
-      style={{ 
-        rotateX, 
-        rotateY,
-        transformStyle: 'preserve-3d',
-        perspective: 1000,
-      }}
-      animate={{ y: [0, -15, 0] }}
-      transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
     >
       {/* Phone frame */}
       <div className="relative bg-[#1a1a1a] rounded-[40px] p-3 shadow-2xl shadow-lumina-rose/20 border border-white/10">
@@ -55,33 +31,21 @@ const PhoneMockup = () => {
 
             {/* Service icons */}
             <div className="flex justify-center gap-6 py-2">
-              <motion.div 
-                className="w-12 h-12 rounded-full bg-lumina-rose/20 flex items-center justify-center text-xl"
-                whileHover={{ scale: 1.1 }}
-              >
+              <div className="w-12 h-12 rounded-full bg-lumina-rose/20 flex items-center justify-center text-xl">
                 💅
-              </motion.div>
-              <motion.div 
-                className="w-12 h-12 rounded-full bg-lumina-blush/20 flex items-center justify-center text-xl"
-                whileHover={{ scale: 1.1 }}
-              >
+              </div>
+              <div className="w-12 h-12 rounded-full bg-lumina-blush/20 flex items-center justify-center text-xl">
                 ✨
-              </motion.div>
-              <motion.div 
-                className="w-12 h-12 rounded-full bg-lumina-champagne/20 flex items-center justify-center text-xl"
-                whileHover={{ scale: 1.1 }}
-              >
+              </div>
+              <div className="w-12 h-12 rounded-full bg-lumina-champagne/20 flex items-center justify-center text-xl">
                 💆
-              </motion.div>
+              </div>
             </div>
 
             {/* Book Now button */}
-            <motion.button
-              className="w-full py-3 rounded-xl bg-gradient-glow text-primary-foreground font-medium text-sm"
-              whileHover={{ scale: 1.02 }}
-            >
+            <button className="w-full py-3 rounded-xl bg-gradient-glow text-primary-foreground font-medium text-sm">
               Book Now
-            </motion.button>
+            </button>
           </div>
         </div>
       </div>
