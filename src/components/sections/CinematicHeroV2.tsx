@@ -5,11 +5,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
  * CinematicHero V2 - Jesko Jets Inspired
  * 
  * Design Philosophy:
- * - Real photography, not illustrations
- * - Cream/white backgrounds (not dark)
- * - Massive typography that interacts with images
+ * - Abstract visuals, no photography
+ * - Cream/white backgrounds
+ * - Massive typography
  * - Clean luxury minimalism
- * - Text clips through images like Jesko
  */
 
 const CinematicHeroV2 = () => {
@@ -20,13 +19,13 @@ const CinematicHeroV2 = () => {
     offset: ['start start', 'end end']
   });
 
-  // Scene 1: Hero with framed image (0-20%)
-  const heroImageScale = useTransform(scrollYProgress, [0, 0.2], [1, 2.5]);
+  // Scene 1: Hero with abstract frame (0-20%)
+  const heroShapeScale = useTransform(scrollYProgress, [0, 0.2], [1, 2.5]);
   const heroFrameOpacity = useTransform(scrollYProgress, [0.1, 0.2], [1, 0]);
   const heroTextY = useTransform(scrollYProgress, [0, 0.15], [0, -100]);
   const heroTextOpacity = useTransform(scrollYProgress, [0.1, 0.18], [1, 0]);
   
-  // Scene 2: Image becomes background, big text appears (20-40%)
+  // Scene 2: Big text appears (20-40%)
   const scene2Opacity = useTransform(scrollYProgress, [0.18, 0.22, 0.38, 0.42], [0, 1, 1, 0]);
   const bigTextScale = useTransform(scrollYProgress, [0.2, 0.35], [0.8, 1]);
   
@@ -66,66 +65,118 @@ const CinematicHeroV2 = () => {
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         
-        {/* ============ SCENE 1: Hero with Framed Image ============ */}
+        {/* ============ SCENE 1: Hero with Abstract Frame ============ */}
         <div className="absolute inset-0 bg-[#FAF8F5] flex items-center justify-center">
           {/* Subtle ambient gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F5] via-[#F5F2EE] to-[#FAF8F5]" />
           
-          {/* Floating decorative elements */}
+          {/* Floating decorative particles */}
           <motion.div 
-            className="absolute top-[15%] left-[10%] w-2 h-2 rounded-full bg-lumina-gold/40"
-            animate={{ y: [0, -15, 0], opacity: [0.4, 0.8, 0.4] }}
+            className="absolute top-[15%] left-[12%] w-2 h-2 rounded-full bg-lumina-gold/40"
+            animate={{ y: [0, -15, 0], opacity: [0.4, 0.7, 0.4] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div 
-            className="absolute top-[25%] right-[15%] w-1.5 h-1.5 rounded-full bg-lumina-gold/30"
+            className="absolute top-[28%] right-[18%] w-1.5 h-1.5 rounded-full bg-lumina-gold/30"
             animate={{ y: [0, -20, 0], opacity: [0.3, 0.6, 0.3] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           />
           <motion.div 
-            className="absolute bottom-[20%] left-[20%] w-1 h-1 rounded-full bg-lumina-gold/50"
-            animate={{ y: [0, -10, 0], opacity: [0.5, 0.9, 0.5] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            className="absolute bottom-[22%] left-[22%] w-1 h-1 rounded-full bg-lumina-coral/40"
+            animate={{ y: [0, -10, 0], opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
           />
           <motion.div 
-            className="absolute bottom-[30%] right-[12%] w-2.5 h-2.5 rounded-full bg-lumina-coral/20"
-            animate={{ y: [0, -12, 0], opacity: [0.2, 0.5, 0.2] }}
+            className="absolute bottom-[35%] right-[14%] w-2.5 h-2.5 rounded-full bg-lumina-gold/20"
+            animate={{ y: [0, -12, 0], opacity: [0.2, 0.4, 0.2] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
           />
 
-          {/* The Frame - inspired by Jesko's window */}
+          {/* Abstract Frame - The centerpiece */}
           <motion.div 
             className="relative z-10"
-            style={{ scale: heroImageScale }}
+            style={{ scale: heroShapeScale }}
           >
             {/* Outer decorative frame */}
             <motion.div 
-              className="absolute -inset-5 md:-inset-7 rounded-[55px] md:rounded-[65px] border-[12px] md:border-[14px] border-[#EBE7E2] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.15)]"
+              className="absolute -inset-6 md:-inset-8 rounded-[55px] md:rounded-[70px] border-[10px] md:border-[14px] border-[#EBE7E2]"
               style={{ opacity: heroFrameOpacity }}
             />
             
-            {/* Inner glow ring */}
-            <motion.div 
-              className="absolute -inset-1 rounded-[48px] md:rounded-[52px] bg-gradient-to-br from-white/80 to-transparent"
-              style={{ opacity: heroFrameOpacity }}
-            />
-            
-            {/* Main image container */}
-            <div className="relative w-[300px] h-[420px] md:w-[380px] md:h-[520px] rounded-[44px] md:rounded-[50px] overflow-hidden shadow-[0_40px_100px_-30px_rgba(0,0,0,0.25)]">
-              {/* High-quality nail art image */}
-              <img 
-                src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=90"
-                alt="Luxury nail art"
-                className="w-full h-full object-cover"
+            {/* Main abstract shape container */}
+            <div className="relative w-[280px] h-[380px] md:w-[340px] md:h-[460px] rounded-[44px] md:rounded-[56px] overflow-hidden shadow-[0_40px_100px_-30px_rgba(0,0,0,0.12)]">
+              {/* Gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#F0EBE5] via-[#E8E2DA] to-[#DDD5CA]" />
+              
+              {/* Animated gradient orbs */}
+              <motion.div 
+                className="absolute top-[10%] left-[15%] w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-lumina-gold/30 to-lumina-coral/20 blur-2xl"
+                animate={{ 
+                  x: [0, 20, 0], 
+                  y: [0, -15, 0],
+                  scale: [1, 1.1, 1] 
+                }}
+                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div 
+                className="absolute bottom-[15%] right-[10%] w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-tl from-lumina-pink/20 to-lumina-gold/25 blur-2xl"
+                animate={{ 
+                  x: [0, -15, 0], 
+                  y: [0, 20, 0],
+                  scale: [1, 1.15, 1] 
+                }}
+                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              />
+              <motion.div 
+                className="absolute top-[40%] left-[40%] w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-white/40 to-lumina-gold/10 blur-xl"
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  opacity: [0.5, 0.8, 0.5]
+                }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               />
               
-              {/* Sophisticated gradient overlays */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-white/5" />
-              <div className="absolute inset-0 bg-gradient-to-br from-lumina-gold/5 via-transparent to-lumina-coral/5" />
+              {/* Decorative lines */}
+              <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 340 460">
+                <motion.path
+                  d="M 50 230 Q 170 180 290 230"
+                  stroke="#B8A68C"
+                  strokeWidth="1"
+                  fill="none"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 2, delay: 0.5, ease: "easeOut" }}
+                />
+                <motion.path
+                  d="M 70 280 Q 170 320 270 280"
+                  stroke="#C4B8A8"
+                  strokeWidth="1"
+                  fill="none"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 2, delay: 0.8, ease: "easeOut" }}
+                />
+              </svg>
+              
+              {/* Center icon/symbol */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div 
+                  className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-[#C4B8A8]/40 flex items-center justify-center"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                >
+                  <motion.div 
+                    className="w-2 h-2 rounded-full bg-lumina-gold"
+                    animate={{ scale: [1, 1.5, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                </motion.div>
+              </div>
             </div>
           </motion.div>
 
-          {/* Hero Typography - refined positioning */}
+          {/* Hero Typography */}
           <motion.div 
             className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20"
             style={{ y: heroTextY, opacity: heroTextOpacity }}
@@ -202,19 +253,24 @@ const CinematicHeroV2 = () => {
           </motion.div>
         </div>
 
-        {/* ============ SCENE 2: Big Typography Over Image ============ */}
+        {/* ============ SCENE 2: Big Typography ============ */}
         <motion.div 
-          className="absolute inset-0"
+          className="absolute inset-0 bg-[#FAF8F5]"
           style={{ opacity: scene2Opacity }}
         >
-          {/* Full bleed background image */}
+          {/* Abstract background */}
           <div className="absolute inset-0">
-            <img 
-              src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=1600&q=85"
-              alt="Nail art detail"
-              className="w-full h-full object-cover"
+            <div className="absolute inset-0 bg-gradient-to-br from-[#F5F0EA] via-[#FAF8F5] to-[#EFE9E1]" />
+            <motion.div 
+              className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-lumina-gold/10 blur-3xl"
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 8, repeat: Infinity }}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/40 to-white/75" />
+            <motion.div 
+              className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-lumina-coral/10 blur-3xl"
+              animate={{ scale: [1.2, 1, 1.2] }}
+              transition={{ duration: 10, repeat: Infinity }}
+            />
           </div>
           
           {/* Massive text */}
