@@ -12,9 +12,9 @@ import Marquee from '@/components/Marquee';
 import DrawPathOnScroll from '@/components/DrawPathOnScroll';
 import ScrollGlobe from '@/components/ScrollGlobe';
 import SmoothScroll from '@/components/SmoothScroll';
-import DynamicCursor from '@/components/DynamicCursor';
 import AnimatedAccordion from '@/components/AnimatedAccordion';
 import LiveContactForm from '@/components/LiveContactForm';
+import VideoShowcaseSection from '@/components/sections/VideoShowcaseSection';
 
 const Index = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -27,9 +27,6 @@ const Index = () => {
           <IntroAnimation onComplete={() => setShowIntro(false)} />
         )}
       </AnimatePresence>
-      
-      {/* Dynamic cursor - hidden on mobile */}
-      <DynamicCursor />
       
       <motion.div 
         className="min-h-screen bg-background text-foreground overflow-x-hidden"
@@ -57,6 +54,9 @@ const Index = () => {
         <div id="work">
           <WebsiteShowcase />
         </div>
+        
+        {/* Video showcase with Bunny HLS */}
+        <VideoShowcaseSection />
         
         {/* Marquee - opposite direction */}
         <div className="py-6 sm:py-10 bg-lumina-cream overflow-hidden">

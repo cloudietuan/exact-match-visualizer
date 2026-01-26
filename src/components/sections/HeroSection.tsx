@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import sketchWireframe from '@/assets/sketch-phone-wireframe.png';
 import sunsetNailsHero from '@/assets/sunset-nails-hero.jpg';
 import nailGallery from '@/assets/nail-gallery.jpg';
@@ -9,9 +9,12 @@ import {
   DiamondIcon 
 } from '@/components/icons/CustomIcons';
 import RotatingText from '@/components/RotatingText';
+import BunnyVideoBackground from '@/components/BunnyVideoBackground';
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [showVideo, setShowVideo] = useState(false);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start'],
@@ -34,6 +37,16 @@ const HeroSection = () => {
       className="relative h-[200vh]"
     >
       <div className="sticky top-0 h-screen overflow-hidden bg-lumina-cream">
+        {/* Optional video background - uncomment to enable */}
+        {showVideo && (
+          <div className="absolute inset-0 z-0">
+            <BunnyVideoBackground 
+              videoUrl="https://vz-cac74041-8b3.b-cdn.net/sample/playlist.m3u8"
+              showPlayButton={false}
+            />
+          </div>
+        )}
+
         {/* Subtle grid - static, no animation */}
         <div 
           className="absolute inset-0 opacity-[0.02] pointer-events-none"
@@ -46,18 +59,18 @@ const HeroSection = () => {
           }}
         />
 
-        {/* Rotating text decoration - top right */}
+        {/* Rotating text decoration - positioned below navbar */}
         <motion.div
-          className="absolute top-24 right-8 sm:right-12 md:right-20 text-lumina-ink-subtle hidden md:block"
+          className="absolute top-28 right-8 sm:right-12 md:right-16 text-lumina-ink-subtle hidden lg:block"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1.2, duration: 0.6 }}
         >
-          <RotatingText text="WEB DESIGN • LUMINA SITES • " size={100} />
+          <RotatingText text="WEB DESIGN • LUMINA SITES • " size={90} />
         </motion.div>
 
-        {/* Main content container */}
-        <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 sm:px-8 md:px-12">
+        {/* Main content container - added pt for navbar clearance */}
+        <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 sm:px-8 md:px-12 pt-16">
           {/* Intro text - Jesko style minimal */}
           <motion.div 
             className="text-center mb-6 md:mb-8"
