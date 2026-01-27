@@ -287,7 +287,7 @@ const CinematicHeroV2 = () => {
               </div>
               
               {/* Browser content - iframe */}
-              <div className="relative w-full h-[50vh] md:h-[60vh] lg:h-[65vh] bg-lumina-dark rounded-b-xl md:rounded-b-2xl overflow-hidden border border-lumina-cream/10 border-t-0">
+              <div className="relative w-full h-[55vh] md:h-[65vh] lg:h-[70vh] bg-lumina-dark rounded-b-xl md:rounded-b-2xl overflow-hidden border border-lumina-cream/10 border-t-0">
                 <iframe 
                   src="https://sunsetnails.lovable.app" 
                   className="w-full h-full border-0"
