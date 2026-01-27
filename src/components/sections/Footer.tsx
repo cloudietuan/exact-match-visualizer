@@ -30,10 +30,12 @@ const Footer = forwardRef<HTMLElement>((_, ref) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8">
           {/* Brand column */}
           <div className="lg:col-span-1">
-            <a href="/" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-lumina-ink flex items-center justify-center">
-                <span className="text-white font-display text-lg font-bold">L</span>
-              </div>
+            <a href="/" className="flex items-center gap-3 mb-6">
+              <svg width="40" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+                <rect x="8" y="8" width="64" height="64" rx="18" fill="#1A1A1A"/>
+                <path d="M28 24 L28 56 L52 56 L52 50 L34 50 L34 24 Z" fill="#FAF9F6"/>
+                <circle cx="52" cy="24" r="5" fill="#C4A87C"/>
+              </svg>
               <span className="text-lumina-ink font-display text-xl">
                 Lumina<span className="text-lumina-gold">Sites</span>
               </span>

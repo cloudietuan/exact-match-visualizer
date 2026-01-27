@@ -36,10 +36,12 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-2 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
-                <span className="text-white font-display text-lg font-bold">L</span>
-              </div>
+            <a href="/" className="flex items-center gap-3 group">
+              <svg width="40" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+                <rect x="8" y="8" width="64" height="64" rx="18" fill="#1A1A1A"/>
+                <path d="M28 24 L28 56 L52 56 L52 50 L34 50 L34 24 Z" fill="#FAF9F6"/>
+                <circle cx="52" cy="24" r="5" fill="#C4A87C"/>
+              </svg>
               <span className="text-amber-100 font-display text-xl hidden sm:block">
                 Lumina<span className="text-amber-400">Sites</span>
               </span>
