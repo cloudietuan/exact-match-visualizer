@@ -234,7 +234,7 @@ const CinematicHeroV2 = () => {
 
         {/* ============ SCENE 4: Transformation ============ */}
         <motion.div 
-          className="absolute inset-0 bg-lumina-dark flex items-center justify-center overflow-hidden"
+          className="absolute inset-0 bg-lumina-dark flex items-start justify-center overflow-hidden pt-24 md:pt-28"
           style={{ opacity: scene4Opacity }}
         >
           {/* Ambient lighting - larger, more dramatic */}

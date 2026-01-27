@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import LandmarkMark from '@/components/BrandMark';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -42,20 +43,9 @@ const Navbar = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <svg width="44" height="44" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
-                  <rect x="8" y="8" width="64" height="64" rx="18" fill="#1A1A1A" className="transition-all duration-300 group-hover:fill-[#2C2926]"/>
-                  <path d="M28 24 L28 56 L52 56 L52 50 L34 50 L34 24 Z" fill="#FAF9F6"/>
-                  <motion.circle 
-                    cx="52" 
-                    cy="24" 
-                    r="5" 
-                    fill="#C4A87C"
-                    animate={{ scale: [1, 1.2, 1], opacity: [1, 0.8, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                </svg>
+                <LandmarkMark size={40} animated variant="thin" className="block" />
                 {/* Subtle glow on hover */}
-                <div className="absolute inset-0 rounded-2xl bg-lumina-gold/0 group-hover:bg-lumina-gold/10 transition-all duration-300 blur-xl" />
+                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-lumina-gold/0 group-hover:bg-lumina-gold/10 transition-all duration-300 blur-xl" />
               </motion.div>
             </a>
 
@@ -105,7 +95,7 @@ const Navbar = () => {
             exit={{ opacity: 0 }}
           >
             <div 
-              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+              className="absolute inset-0 bg-lumina-ink/40 backdrop-blur-sm"
               onClick={() => setMobileMenuOpen(false)}
             />
             <motion.div
