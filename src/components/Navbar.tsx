@@ -35,13 +35,28 @@ const Navbar = () => {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex items-center justify-between h-20">
-            {/* Logo - Just the landmark icon */}
+            {/* Logo - Enhanced landmark icon with hover effects */}
             <a href="/" className="flex items-center group">
-              <svg width="40" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
-                <rect x="8" y="8" width="64" height="64" rx="18" fill="#1A1A1A"/>
-                <path d="M28 24 L28 56 L52 56 L52 50 L34 50 L34 24 Z" fill="#FAF9F6"/>
-                <circle cx="52" cy="24" r="5" fill="#C4A87C"/>
-              </svg>
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <svg width="44" height="44" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+                  <rect x="8" y="8" width="64" height="64" rx="18" fill="#1A1A1A" className="transition-all duration-300 group-hover:fill-[#2C2926]"/>
+                  <path d="M28 24 L28 56 L52 56 L52 50 L34 50 L34 24 Z" fill="#FAF9F6"/>
+                  <motion.circle 
+                    cx="52" 
+                    cy="24" 
+                    r="5" 
+                    fill="#C4A87C"
+                    animate={{ scale: [1, 1.2, 1], opacity: [1, 0.8, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                </svg>
+                {/* Subtle glow on hover */}
+                <div className="absolute inset-0 rounded-2xl bg-lumina-gold/0 group-hover:bg-lumina-gold/10 transition-all duration-300 blur-xl" />
+              </motion.div>
             </a>
 
             {/* Desktop Navigation */}
