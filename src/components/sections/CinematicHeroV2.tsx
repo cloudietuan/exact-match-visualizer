@@ -360,24 +360,6 @@ const CinematicHeroV2 = () => {
         </motion.div>
 
         {/* ============ Persistent Elements ============ */}
-        
-        {/* Logo */}
-        <div className="fixed top-5 md:top-6 left-5 md:left-6 z-50">
-          <a href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-[#1C1917] flex items-center justify-center">
-              <span className="text-white font-display text-base md:text-lg font-medium">L</span>
-            </div>
-          </a>
-        </div>
-
-        {/* Nav */}
-        <div className="fixed top-5 md:top-6 right-5 md:right-6 z-50 hidden md:flex items-center gap-6">
-          <a href="#work" className="text-[#6B645C] hover:text-[#1C1917] text-sm font-medium transition-colors">Work</a>
-          <a href="#pricing" className="text-[#6B645C] hover:text-[#1C1917] text-sm font-medium transition-colors">Pricing</a>
-          <a href="#contact" className="px-5 py-2 bg-[#1C1917] text-white text-sm font-medium rounded-full hover:bg-[#2C2926] transition-colors">
-            Contact
-          </a>
-        </div>
 
         {/* Scroll progress */}
         <div className="fixed right-5 md:right-6 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-2.5">
