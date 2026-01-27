@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import LandmarkMark from '@/components/BrandMark';
 
 interface LoadingIntroProps {
   onComplete: () => void;
@@ -41,7 +42,7 @@ const LoadingIntro = ({ onComplete }: LoadingIntroProps) => {
     <AnimatePresence>
       {!isExiting && (
         <motion.div
-          className="fixed inset-0 z-[100] bg-[#FAF8F5] flex flex-col items-center justify-center"
+          className="fixed inset-0 z-[100] bg-lumina-cream flex flex-col items-center justify-center"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
@@ -52,9 +53,7 @@ const LoadingIntro = ({ onComplete }: LoadingIntroProps) => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            <div className="w-10 h-10 rounded-xl bg-[#1C1917] flex items-center justify-center">
-              <span className="text-white font-display text-lg font-medium">L</span>
-            </div>
+            <LandmarkMark size={40} variant="thin" animated />
           </motion.div>
 
           {/* Counter */}
@@ -64,20 +63,20 @@ const LoadingIntro = ({ onComplete }: LoadingIntroProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="text-[#1C1917] text-8xl md:text-9xl font-display font-medium tracking-[-0.04em] tabular-nums">
+            <span className="text-lumina-ink text-8xl md:text-9xl font-display font-medium tracking-[-0.04em] tabular-nums">
               {count.toString().padStart(3, '0')}
             </span>
           </motion.div>
 
           {/* Progress bar */}
           <motion.div 
-            className="mt-8 w-48 h-px bg-[#E5E0DA] overflow-hidden"
+            className="mt-8 w-48 h-px bg-lumina-cream-warm overflow-hidden"
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 1, scaleX: 1 }}
             transition={{ delay: 0.3, duration: 0.4 }}
           >
             <motion.div 
-              className="h-full bg-[#1C1917] origin-left"
+              className="h-full bg-lumina-ink origin-left"
               style={{ scaleX: count / 100 }}
               transition={{ duration: 0.05 }}
             />
@@ -85,7 +84,7 @@ const LoadingIntro = ({ onComplete }: LoadingIntroProps) => {
 
           {/* Tagline */}
           <motion.p
-            className="mt-6 text-[#9A948C] text-sm tracking-[0.3em] uppercase"
+            className="mt-6 text-lumina-ink-subtle text-sm tracking-[0.3em] uppercase"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.6 }}
@@ -95,14 +94,14 @@ const LoadingIntro = ({ onComplete }: LoadingIntroProps) => {
 
           {/* Decorative elements */}
           <motion.div 
-            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-3 text-[#C4B8A8] text-xs tracking-widest"
+            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-3 text-lumina-ink-subtle text-xs tracking-widest"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.6 }}
           >
-            <span className="w-8 h-px bg-[#D9D4CD]" />
+            <span className="w-8 h-px bg-lumina-cream-warm" />
             <span>Loading</span>
-            <span className="w-8 h-px bg-[#D9D4CD]" />
+            <span className="w-8 h-px bg-lumina-cream-warm" />
           </motion.div>
         </motion.div>
       )}
