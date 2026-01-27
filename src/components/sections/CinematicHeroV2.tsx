@@ -246,13 +246,13 @@ const CinematicHeroV2 = () => {
           <div className="relative z-10 w-full max-w-6xl mx-auto px-6">
             {/* Header text */}
             <motion.div 
-              className="text-center mb-8 md:mb-12"
+              className="text-center mb-4 md:mb-6"
               style={{ y: phoneEnter }}
             >
-              <p className="text-lumina-gold text-xs md:text-sm tracking-[0.4em] uppercase font-medium mb-4">
+              <p className="text-lumina-gold text-xs tracking-[0.4em] uppercase font-medium mb-2">
                 The Result
               </p>
-              <h2 className="text-lumina-cream text-4xl md:text-6xl lg:text-7xl font-display font-medium leading-[1.1] tracking-[-0.02em]">
+              <h2 className="text-lumina-cream text-2xl md:text-4xl lg:text-5xl font-display font-medium leading-[1.1] tracking-[-0.02em]">
                 From concept <span className="italic">to launch</span>
               </h2>
             </motion.div>
