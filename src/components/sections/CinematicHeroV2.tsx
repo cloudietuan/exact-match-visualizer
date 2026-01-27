@@ -257,42 +257,45 @@ const CinematicHeroV2 = () => {
               </h2>
             </motion.div>
 
-            {/* Large browser frame */}
+            {/* Large browser frame - Frosted glass effect */}
             <motion.div 
               className="relative w-full max-w-5xl mx-auto"
               style={{ scale: finalScale }}
             >
-              {/* Browser chrome */}
-              <div className="bg-lumina-dark-elevated rounded-t-xl md:rounded-t-2xl p-3 md:p-4 flex items-center gap-2 border border-lumina-cream/10 border-b-0">
-                <div className="flex gap-1.5 md:gap-2">
-                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-lumina-cream/20" />
-                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-lumina-cream/20" />
-                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-lumina-cream/20" />
-                </div>
-                <div className="flex-1 mx-4 md:mx-8">
-                  <div className="bg-lumina-dark rounded-full px-4 py-1.5 md:py-2 flex items-center justify-center">
-                    <span className="text-lumina-cream/50 text-xs md:text-sm font-mono">sunsetnails.lovable.app</span>
+              {/* Frosted glass container */}
+              <div className="relative rounded-xl md:rounded-2xl overflow-hidden bg-lumina-cream/5 backdrop-blur-xl border border-lumina-cream/15 shadow-2xl shadow-black/20">
+                {/* Browser chrome */}
+                <div className="bg-lumina-dark/40 backdrop-blur-sm p-3 md:p-4 flex items-center gap-2 border-b border-lumina-cream/10">
+                  <div className="flex gap-1.5 md:gap-2">
+                    <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-lumina-cream/20" />
+                    <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-lumina-cream/20" />
+                    <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-lumina-cream/20" />
                   </div>
+                  <div className="flex-1 mx-4 md:mx-8">
+                    <div className="bg-lumina-dark/50 backdrop-blur-sm rounded-full px-4 py-1.5 md:py-2 flex items-center justify-center border border-lumina-cream/5">
+                      <span className="text-lumina-cream/50 text-xs md:text-sm font-mono">sunsetnails.lovable.app</span>
+                    </div>
+                  </div>
+                  <motion.a
+                    href="https://sunsetnails.lovable.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 md:px-4 md:py-2 bg-lumina-gold text-lumina-dark text-xs md:text-sm font-medium rounded-full hover:bg-lumina-gold/90 transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Visit Live ↗
+                  </motion.a>
                 </div>
-                <motion.a
-                  href="https://sunsetnails.lovable.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 md:px-4 md:py-2 bg-lumina-gold text-lumina-dark text-xs md:text-sm font-medium rounded-full hover:bg-lumina-gold/90 transition-colors"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Visit Live ↗
-                </motion.a>
-              </div>
-              
-              {/* Browser content - iframe */}
-              <div className="relative w-full h-[55vh] md:h-[65vh] lg:h-[70vh] bg-lumina-dark rounded-b-xl md:rounded-b-2xl overflow-hidden border border-lumina-cream/10 border-t-0">
-                <iframe 
-                  src="https://sunsetnails.lovable.app" 
-                  className="w-full h-full border-0"
-                  title="Sunset Nails Preview"
-                />
+                
+                {/* Browser content - iframe */}
+                <div className="relative w-full h-[55vh] md:h-[65vh] lg:h-[70vh] overflow-hidden">
+                  <iframe 
+                    src="https://sunsetnails.lovable.app" 
+                    className="w-full h-full border-0"
+                    title="Sunset Nails Preview"
+                  />
+                </div>
               </div>
 
               {/* Decorative glow under browser */}

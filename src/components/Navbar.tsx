@@ -1,17 +1,36 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import LandmarkMark from '@/components/BrandMark';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [inDarkSection, setInDarkSection] = useState(false);
+  
+  // Track scroll progress for adaptive styling
+  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 100);
+      
+      // Calculate scroll progress (0-1) based on total scrollable height
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
+      
+      // Scene 4 (dark section) is roughly at 60-80% of the cinematic journey
+      // The cinematic section is 500vh, so we need to account for that
+      // Dark section appears when progress is between ~0.12 and ~0.16 of total page
+      // (500vh * 0.6 = 300vh for start, 500vh * 0.8 = 400vh for end)
+      const cinematicHeight = 500 * window.innerHeight / 100; // 500vh in pixels
+      const darkSectionStart = cinematicHeight * 0.58;
+      const darkSectionEnd = cinematicHeight * 0.82;
+      
+      setInDarkSection(window.scrollY >= darkSectionStart && window.scrollY <= darkSectionEnd);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -22,14 +41,25 @@ const Navbar = () => {
     { label: 'Contact', href: '#contact' },
   ];
 
+  // Dynamic classes based on section
+  const navBgClass = inDarkSection
+    ? 'bg-lumina-dark/60 backdrop-blur-xl border-b border-lumina-cream/10'
+    : scrolled
+      ? 'bg-lumina-cream/90 backdrop-blur-lg border-b border-lumina-ink/5'
+      : 'bg-transparent';
+
+  const linkClass = inDarkSection
+    ? 'text-lumina-cream/70 hover:text-lumina-cream'
+    : 'text-lumina-ink-muted hover:text-lumina-ink';
+
+  const mobileMenuBtnClass = inDarkSection
+    ? 'bg-lumina-cream'
+    : 'bg-lumina-ink';
+
   return (
     <>
       <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled 
-            ? 'bg-lumina-cream/90 backdrop-blur-lg border-b border-lumina-ink/5' 
-            : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${navBgClass}`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -55,7 +85,7 @@ const Navbar = () => {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-lumina-ink-muted hover:text-lumina-ink text-sm font-medium tracking-wide transition-colors relative group"
+                  className={`${linkClass} text-sm font-medium tracking-wide transition-colors duration-300 relative group`}
                 >
                   {link.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-px bg-lumina-gold group-hover:w-full transition-all duration-300" />
@@ -69,15 +99,15 @@ const Navbar = () => {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <motion.span
-                className="w-6 h-0.5 bg-lumina-ink block"
+                className={`w-6 h-0.5 ${mobileMenuBtnClass} block transition-colors duration-300`}
                 animate={{ rotate: mobileMenuOpen ? 45 : 0, y: mobileMenuOpen ? 4 : 0 }}
               />
               <motion.span
-                className="w-6 h-0.5 bg-lumina-ink block"
+                className={`w-6 h-0.5 ${mobileMenuBtnClass} block transition-colors duration-300`}
                 animate={{ opacity: mobileMenuOpen ? 0 : 1 }}
               />
               <motion.span
-                className="w-6 h-0.5 bg-lumina-ink block"
+                className={`w-6 h-0.5 ${mobileMenuBtnClass} block transition-colors duration-300`}
                 animate={{ rotate: mobileMenuOpen ? -45 : 0, y: mobileMenuOpen ? -4 : 0 }}
               />
             </button>
@@ -99,7 +129,7 @@ const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
             />
             <motion.div
-              className="absolute top-20 left-4 right-4 bg-lumina-cream border border-lumina-ink/10 rounded-2xl p-6 shadow-2xl"
+              className={`absolute top-20 left-4 right-4 ${inDarkSection ? 'bg-lumina-dark-elevated border-lumina-cream/10' : 'bg-lumina-cream border-lumina-ink/10'} border rounded-2xl p-6 shadow-2xl`}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -109,7 +139,7 @@ const Navbar = () => {
                   <motion.a
                     key={link.label}
                     href={link.href}
-                    className="text-lumina-ink text-lg font-medium py-2 border-b border-lumina-ink/10"
+                    className={`${inDarkSection ? 'text-lumina-cream border-lumina-cream/10' : 'text-lumina-ink border-lumina-ink/10'} text-lg font-medium py-2 border-b transition-colors duration-300`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
