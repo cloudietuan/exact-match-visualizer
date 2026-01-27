@@ -1,5 +1,6 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import sunsetNailsWebsite from '@/assets/sunset-nails-website.jpg';
 
 /**
  * CinematicHero V2 - Jesko Jets Inspired
@@ -13,7 +14,18 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 
 const CinematicHeroV2 = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+  const browserRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!browserRef.current) return;
+    const rect = browserRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ x: y * -8, y: x * 8 }); // subtle tilt: max ±4 degrees
+  };
+
+  const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end']
@@ -257,10 +269,20 @@ const CinematicHeroV2 = () => {
               </h2>
             </motion.div>
 
-            {/* Large browser frame */}
+            {/* Large browser frame with parallax tilt */}
             <motion.div 
+              ref={browserRef}
               className="relative w-full max-w-5xl mx-auto"
-              style={{ scale: finalScale }}
+              style={{ 
+                scale: finalScale,
+                rotateX: tilt.x,
+                rotateY: tilt.y,
+                transformStyle: 'preserve-3d',
+                perspective: 1000,
+              }}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             >
               {/* Browser chrome */}
               <div className="bg-lumina-dark-elevated rounded-t-xl md:rounded-t-2xl p-3 md:p-4 flex items-center gap-2 border border-lumina-cream/10 border-b-0">
@@ -286,12 +308,12 @@ const CinematicHeroV2 = () => {
                 </motion.a>
               </div>
               
-              {/* Browser content - iframe */}
-              <div className="relative w-full h-[50vh] md:h-[60vh] lg:h-[65vh] bg-lumina-dark rounded-b-xl md:rounded-b-2xl overflow-hidden border border-lumina-cream/10 border-t-0">
-                <iframe 
-                  src="https://sunsetnails.lovable.app" 
-                  className="w-full h-full border-0"
-                  title="Sunset Nails Preview"
+              {/* Browser content - static image */}
+              <div className="relative w-full aspect-video bg-lumina-dark rounded-b-xl md:rounded-b-2xl overflow-hidden border border-lumina-cream/10 border-t-0">
+                <img 
+                  src={sunsetNailsWebsite} 
+                  alt="Sunset Nails Website Preview"
+                  className="w-full h-full object-cover object-top"
                 />
               </div>
 
