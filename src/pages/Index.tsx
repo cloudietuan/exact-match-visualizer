@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
+import Navbar from '@/components/Navbar';
 import CinematicHeroV2 from '@/components/sections/CinematicHeroV2';
 import PricingSection from '@/components/sections/PricingSection';
 import CTASection from '@/components/sections/CTASection';
@@ -37,6 +38,9 @@ const Index = () => {
       {isLoading && <LoadingIntro onComplete={() => setIsLoading(false)} />}
       
       <div className={`relative bg-lumina-cream min-h-screen ${isLoading ? 'overflow-hidden' : ''}`}>
+        {/* Navbar */}
+        <Navbar />
+        
         {/* Cinematic Scroll Journey V2 */}
         <CinematicHeroV2 />
         
