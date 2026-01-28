@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import Navbar from '@/components/Navbar';
-import CinematicHeroV2 from '@/components/sections/CinematicHeroV2';
+import CinematicHeroV4 from '@/components/sections/CinematicHeroV4';
 import WhatYouGetSection from '@/components/sections/WhatYouGetSection';
 import HowItWorksSection from '@/components/sections/HowItWorksSection';
 import WhyChooseUsSection from '@/components/sections/WhyChooseUsSection';
@@ -46,7 +46,7 @@ const Index = () => {
         <Navbar />
         
         {/* Cinematic Scroll Journey */}
-        <CinematicHeroV2 />
+        <CinematicHeroV4 />
         
         {/* What You Get */}
         <WhatYouGetSection />
