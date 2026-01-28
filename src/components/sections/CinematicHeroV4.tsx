@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import BookingModal from '@/components/BookingModal';
-import LandmarkMark from '@/components/BrandMark';
+import AnimatedBrandMark from '@/components/AnimatedBrandMark';
 
 const CinematicHeroV4 = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,22 +45,23 @@ const CinematicHeroV4 = () => {
             className="absolute inset-0 bg-[#FAF8F5] flex items-center justify-center flex-col"
             style={{ opacity: scene0Opacity }}
           >
-            {/* Animated Logo */}
+            {/* Animated Logo with draw-in effect */}
             <motion.div
               className="relative"
               style={{ scale: logoScale, rotate: logoRotate }}
             >
-              {/* Large L Mark */}
-              <LandmarkMark size={120} animated variant="thin" />
+              {/* Large L Mark with drawing animation */}
+              <AnimatedBrandMark size={140} />
               
-              {/* Glowing ring effect */}
+              {/* Outer glow ring that pulses */}
               <motion.div
-                className="absolute inset-0 rounded-[28px] border-2 border-lumina-gold/30"
+                className="absolute -inset-4 rounded-[36px] border border-lumina-gold/20"
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ 
-                  scale: [1, 1.2, 1],
-                  opacity: [0.5, 0, 0.5]
+                  scale: [1, 1.15, 1],
+                  opacity: [0.3, 0, 0.3]
                 }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ delay: 2, duration: 3, repeat: Infinity, ease: "easeInOut" }}
               />
             </motion.div>
 
@@ -113,10 +114,10 @@ const CinematicHeroV4 = () => {
 
           {/* Scene 1: Empty Browser */}
           <motion.div 
-            className="absolute inset-0 bg-[#FAF8F5] flex items-center justify-center flex-col"
+            className="absolute inset-0 bg-[#FAF8F5] flex items-center justify-center flex-col pt-20"
             style={{ opacity: scene1Opacity }}
           >
-            {/* Browser window */}
+            {/* Browser window - positioned lower to avoid navbar */}
             <motion.div 
               className="w-[90vw] max-w-4xl aspect-[16/10] rounded-xl overflow-hidden shadow-2xl border border-[#E5E0DA]"
               style={{ scale: browserInitialScale }}
