@@ -9,6 +9,30 @@ const features = [
   'Optional ongoing care and updates',
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -30, filter: 'blur(4px)' },
+  visible: { 
+    opacity: 1, 
+    x: 0, 
+    filter: 'blur(0px)',
+    transition: { 
+      duration: 0.5, 
+      ease: 'easeOut' as const
+    } 
+  },
+};
+
 const WhatYouGetSection = () => {
   return (
     <section className="relative py-24 md:py-32 bg-[#FAF8F5] overflow-hidden">
@@ -21,10 +45,10 @@ const WhatYouGetSection = () => {
         {/* Header */}
         <motion.div 
           className="text-center mb-12 md:mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <p className="text-lumina-gold text-sm tracking-[0.3em] uppercase mb-4">What's Included</p>
           <h2 className="text-4xl md:text-5xl font-display text-lumina-ink">
@@ -35,36 +59,43 @@ const WhatYouGetSection = () => {
         {/* Checklist */}
         <motion.div 
           className="bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-lumina-cream-warm"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          initial={{ opacity: 0, y: 50, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6 }}
         >
-          <ul className="space-y-5">
+          <motion.ul 
+            className="space-y-5"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             {features.map((feature, i) => (
               <motion.li 
                 key={i} 
                 className="flex items-start gap-4"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
+                variants={itemVariants}
               >
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-lumina-gold/10 flex items-center justify-center">
+                <motion.div 
+                  className="flex-shrink-0 w-6 h-6 rounded-full bg-lumina-gold/10 flex items-center justify-center"
+                  whileHover={{ scale: 1.15, backgroundColor: 'rgba(197, 165, 114, 0.25)' }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Check className="w-4 h-4 text-lumina-gold" />
-                </div>
+                </motion.div>
                 <span className="text-lumina-ink text-lg">{feature}</span>
               </motion.li>
             ))}
-          </ul>
+          </motion.ul>
           
           {/* Reassurance line */}
           <motion.p 
             className="mt-8 pt-6 border-t border-lumina-cream-warm text-lumina-ink-muted text-center"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
           >
             No confusing dashboards. No DIY work.
           </motion.p>

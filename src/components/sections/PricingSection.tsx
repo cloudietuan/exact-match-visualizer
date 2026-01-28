@@ -1,13 +1,21 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
+import BookingModal from '@/components/BookingModal';
 
 const PricingSection = () => {
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+  
+  // Replace with your actual Calendly URL
+  const calendlyUrl = 'https://calendly.com/your-calendly-link';
+
   return (
-    <section id="pricing" className="relative py-24 md:py-32 bg-lumina-cream overflow-hidden">
-      {/* Subtle texture */}
-      <div className="absolute inset-0 opacity-[0.02]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
-      }} />
+    <>
+      <section id="pricing" className="relative py-24 md:py-32 bg-lumina-cream overflow-hidden">
+        {/* Subtle texture */}
+        <div className="absolute inset-0 opacity-[0.02]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+        }} />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12">
         {/* Header */}
@@ -91,14 +99,14 @@ const PricingSection = () => {
               </div>
               
               {/* CTA */}
-              <motion.a
-                href="#contact"
-                className="block w-full py-4 bg-lumina-gold text-lumina-ink font-semibold rounded-full text-center text-lg hover:shadow-lg hover:shadow-lumina-gold/25 transition-all"
+              <motion.button
+                onClick={() => setIsBookingOpen(true)}
+                className="block w-full py-4 bg-lumina-gold text-lumina-ink font-semibold rounded-full text-center text-lg hover:shadow-lg hover:shadow-lumina-gold/25 transition-all cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 Get My Website
-              </motion.a>
+              </motion.button>
               
               {/* Add-on note */}
               <p className="mt-6 text-center text-white/40 text-sm">
@@ -127,6 +135,13 @@ const PricingSection = () => {
         </motion.div>
       </div>
     </section>
+      
+      <BookingModal 
+        isOpen={isBookingOpen} 
+        onClose={() => setIsBookingOpen(false)}
+        calendlyUrl={calendlyUrl}
+      />
+    </>
   );
 };
 
