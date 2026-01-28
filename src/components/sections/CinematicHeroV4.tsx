@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import BookingModal from '@/components/BookingModal';
+import LandmarkMark from '@/components/BrandMark';
 
 const CinematicHeroV4 = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -11,44 +12,110 @@ const CinematicHeroV4 = () => {
     offset: ['start start', 'end end']
   });
 
-  // Scene 1: Empty Browser (0% - 15%)
-  const scene1Opacity = useTransform(scrollYProgress, [0, 0.12, 0.15], [1, 1, 0]);
-  const browserInitialScale = useTransform(scrollYProgress, [0, 0.05], [0.95, 1]);
+  // Scene 0: Logo Animation (0% - 10%)
+  const scene0Opacity = useTransform(scrollYProgress, [0, 0.07, 0.10], [1, 1, 0]);
+  const logoScale = useTransform(scrollYProgress, [0, 0.05], [0.8, 1]);
+  const logoRotate = useTransform(scrollYProgress, [0, 0.05], [-5, 0]);
 
-  // Scene 2: Wireframe Draws In (15% - 38%)
-  const scene2Opacity = useTransform(scrollYProgress, [0.13, 0.17, 0.35, 0.38], [0, 1, 1, 0]);
-  const wireframeProgress = useTransform(scrollYProgress, [0.17, 0.33], [1000, 0]);
+  // Scene 1: Empty Browser (10% - 20%)
+  const scene1Opacity = useTransform(scrollYProgress, [0.08, 0.12, 0.18, 0.20], [0, 1, 1, 0]);
+  const browserInitialScale = useTransform(scrollYProgress, [0.10, 0.15], [0.95, 1]);
 
-  // Scene 3: Design Fills In (38% - 58%)
-  const scene3Opacity = useTransform(scrollYProgress, [0.38, 0.45, 0.55, 0.58], [0, 1, 1, 0]);
-  const designProgress = useTransform(scrollYProgress, [0.45, 0.55], [0, 1]);
+  // Scene 2: Wireframe Draws In (20% - 40%)
+  const scene2Opacity = useTransform(scrollYProgress, [0.18, 0.22, 0.37, 0.40], [0, 1, 1, 0]);
+  const wireframeProgress = useTransform(scrollYProgress, [0.22, 0.35], [1000, 0]);
+
+  // Scene 3: Design Fills In (40% - 58%)
+  const scene3Opacity = useTransform(scrollYProgress, [0.38, 0.43, 0.55, 0.58], [0, 1, 1, 0]);
+  const designProgress = useTransform(scrollYProgress, [0.43, 0.53], [0, 1]);
 
   // Scene 4: Final Website (58% - 85%)
-  const scene4Opacity = useTransform(scrollYProgress, [0.58, 0.70, 0.82, 0.85], [0, 1, 1, 0]);
+  const scene4Opacity = useTransform(scrollYProgress, [0.56, 0.62, 0.82, 0.85], [0, 1, 1, 0]);
 
   // Scene 5: CTA (85% - 100%)
-  const scene5Opacity = useTransform(scrollYProgress, [0.85, 0.90, 0.98, 1], [0, 1, 1, 0]);
+  const scene5Opacity = useTransform(scrollYProgress, [0.83, 0.88, 0.98, 1], [0, 1, 1, 0]);
 
   return (
     <>
-      <div ref={containerRef} className="h-[700vh] relative">
+      <div ref={containerRef} className="h-[800vh] relative">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           
+          {/* Scene 0: Logo Animation */}
+          <motion.div 
+            className="absolute inset-0 bg-[#FAF8F5] flex items-center justify-center flex-col"
+            style={{ opacity: scene0Opacity }}
+          >
+            {/* Animated Logo */}
+            <motion.div
+              className="relative"
+              style={{ scale: logoScale, rotate: logoRotate }}
+            >
+              {/* Large L Mark */}
+              <LandmarkMark size={120} animated variant="thin" />
+              
+              {/* Glowing ring effect */}
+              <motion.div
+                className="absolute inset-0 rounded-[28px] border-2 border-lumina-gold/30"
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  opacity: [0.5, 0, 0.5]
+                }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </motion.div>
+
+            {/* Brand name with staggered reveal */}
+            <motion.div
+              className="mt-8 overflow-hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              <motion.h1
+                className="text-lumina-ink text-2xl md:text-3xl font-display font-medium tracking-[0.2em] uppercase"
+                initial={{ y: 40 }}
+                animate={{ y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              >
+                Lumina Sites
+              </motion.h1>
+            </motion.div>
+
+            {/* Tagline */}
+            <motion.p
+              className="mt-4 text-lumina-ink-subtle text-sm tracking-[0.15em]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7, duration: 0.5 }}
+            >
+              Premium websites for beauty professionals
+            </motion.p>
+
+            {/* Scroll indicator */}
+            <motion.div 
+              className="absolute bottom-12 flex flex-col items-center gap-2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+            >
+              <span className="text-[#9A948C] text-xs tracking-widest uppercase">Scroll</span>
+              <motion.div
+                className="text-[#B8A990] w-4 h-4"
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <svg viewBox="0 0 20 20" fill="none" className="w-full h-full">
+                  <path d="M10 4v12M10 16l-4-4M10 16l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+
           {/* Scene 1: Empty Browser */}
           <motion.div 
             className="absolute inset-0 bg-[#FAF8F5] flex items-center justify-center flex-col"
             style={{ opacity: scene1Opacity }}
           >
-            {/* Eyebrow text */}
-            <motion.p
-              className="text-[#B8A990] text-xs tracking-[0.5em] uppercase font-medium mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              LUMINA SITES
-            </motion.p>
-
             {/* Browser window */}
             <motion.div 
               className="w-[90vw] max-w-4xl aspect-[16/10] rounded-xl overflow-hidden shadow-2xl border border-[#E5E0DA]"
