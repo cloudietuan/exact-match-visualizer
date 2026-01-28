@@ -411,13 +411,14 @@ const CinematicHeroV4 = () => {
                     </div>
                   </div>
                 </div>
-                {/* Live site iframe - scrollable */}
-                <div className="bg-white h-[calc(100%-2.5rem)] md:h-[calc(100%-3rem)] overflow-hidden">
+                {/* Live site iframe - interactive and scrollable */}
+                <div className="bg-white h-[calc(100%-2.5rem)] md:h-[calc(100%-3rem)]">
                   <iframe
                     src="https://sunsetnails.lovable.app"
                     className="w-full h-full border-0"
                     style={{ pointerEvents: 'auto' }}
                     title="Demo salon website"
+                    scrolling="yes"
                   />
                 </div>
               </div>
