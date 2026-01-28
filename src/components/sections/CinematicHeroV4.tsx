@@ -65,29 +65,39 @@ const CinematicHeroV4 = () => {
               />
             </motion.div>
 
-            {/* Brand name with staggered reveal */}
+            {/* Brand name with typewriter effect */}
             <motion.div
               className="mt-8 overflow-hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 1.8 }}
             >
               <motion.h1
-                className="text-lumina-ink text-2xl md:text-3xl font-display font-medium tracking-[0.2em] uppercase"
-                initial={{ y: 40 }}
-                animate={{ y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="text-lumina-ink text-2xl md:text-3xl font-display font-medium tracking-[0.2em] uppercase flex"
               >
-                Lumina Sites
+                {"Lumina Sites".split("").map((char, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                      delay: 2 + i * 0.08,
+                      duration: 0.3,
+                      ease: [0.22, 1, 0.36, 1]
+                    }}
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </motion.span>
+                ))}
               </motion.h1>
             </motion.div>
 
-            {/* Tagline */}
+            {/* Tagline - appears after typewriter */}
             <motion.p
               className="mt-4 text-lumina-ink-subtle text-sm tracking-[0.15em]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.5 }}
+              transition={{ delay: 3.2, duration: 0.5 }}
             >
               Premium websites for beauty professionals
             </motion.p>
@@ -397,17 +407,17 @@ const CinematicHeroV4 = () => {
                   </div>
                   <div className="flex-1 mx-4">
                     <div className="bg-[#2C2926] rounded-md px-4 py-1.5 flex items-center justify-center">
-                      <span className="text-[#28C840] text-sm font-mono">● yoursalon.com — Live</span>
+                      <span className="text-[#28C840] text-sm font-mono">● sunsetnails.lovable.app — Live</span>
                     </div>
                   </div>
                 </div>
-                {/* Live site iframe - scrollable */}
-                <div className="bg-white flex-1 h-[calc(100%-2.5rem)] md:h-[calc(100%-3rem)] overflow-auto">
+                {/* Live site iframe - scrollable with increased height */}
+                <div className="bg-white flex-1 h-[calc(100%-2.5rem)] md:h-[calc(100%-3rem)] overflow-auto" style={{ minHeight: '300px' }}>
                   <iframe
                     src="https://sunsetnails.lovable.app"
-                    className="w-full h-full border-0"
+                    className="w-full border-0"
+                    style={{ pointerEvents: 'auto', height: '150%', minHeight: '600px' }}
                     title="Demo salon website"
-                    style={{ pointerEvents: 'auto' }}
                   />
                 </div>
               </div>
