@@ -63,7 +63,7 @@ const Navbar = () => {
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-14">
             {/* Logo - Enhanced landmark icon with hover effects */}
             <a href="/" className="flex items-center group">
               <motion.div
@@ -127,7 +127,7 @@ const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
             />
             <motion.div
-              className={`absolute top-20 left-4 right-4 ${inDarkSection ? 'bg-lumina-dark-elevated border-lumina-cream/10' : 'bg-lumina-cream border-lumina-ink/10'} border rounded-2xl p-6 shadow-2xl`}
+              className={`absolute top-14 left-4 right-4 ${inDarkSection ? 'bg-lumina-dark-elevated border-lumina-cream/10' : 'bg-lumina-cream border-lumina-ink/10'} border rounded-2xl p-6 shadow-2xl`}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}

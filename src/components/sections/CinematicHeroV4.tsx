@@ -333,12 +333,13 @@ const CinematicHeroV4 = () => {
                     </div>
                   </div>
                 </div>
-                {/* Live site iframe */}
-                <div className="bg-white flex-1 h-[calc(100%-2.5rem)] md:h-[calc(100%-3rem)]">
+                {/* Live site iframe - scrollable */}
+                <div className="bg-white flex-1 h-[calc(100%-2.5rem)] md:h-[calc(100%-3rem)] overflow-auto">
                   <iframe
                     src="https://sunsetnails.lovable.app"
                     className="w-full h-full border-0"
                     title="Demo salon website"
+                    style={{ pointerEvents: 'auto' }}
                   />
                 </div>
               </div>
