@@ -41,16 +41,16 @@ const Navbar = () => {
     { label: 'Contact', href: '#contact' },
   ];
 
-  // Dynamic classes based on section
+  // Dynamic classes based on section - always transparent with seamless blur
   const navBgClass = inDarkSection
-    ? 'bg-lumina-dark/60 backdrop-blur-xl border-b border-lumina-cream/10'
+    ? 'bg-lumina-dark/30 backdrop-blur-2xl'
     : scrolled
-      ? 'bg-lumina-cream/90 backdrop-blur-lg border-b border-lumina-ink/5'
-      : 'bg-transparent';
+      ? 'bg-lumina-cream/30 backdrop-blur-2xl'
+      : 'bg-transparent backdrop-blur-none';
 
   const linkClass = inDarkSection
-    ? 'text-lumina-cream/70 hover:text-lumina-cream'
-    : 'text-lumina-ink-muted hover:text-lumina-ink';
+    ? 'text-lumina-cream/80 hover:text-lumina-cream'
+    : 'text-lumina-ink/70 hover:text-lumina-ink';
 
   const mobileMenuBtnClass = inDarkSection
     ? 'bg-lumina-cream'
