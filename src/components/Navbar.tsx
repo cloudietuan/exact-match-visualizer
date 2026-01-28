@@ -14,17 +14,15 @@ const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 100);
       
-      // Calculate scroll progress (0-1) based on total scrollable height
+      // Calculate scroll progress based on total scrollable height
       const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
       
-      // Scene 4 (dark section) is roughly at 60-80% of the cinematic journey
-      // The cinematic section is 500vh, so we need to account for that
-      // Dark section appears when progress is between ~0.12 and ~0.16 of total page
-      // (500vh * 0.6 = 300vh for start, 500vh * 0.8 = 400vh for end)
-      const cinematicHeight = 500 * window.innerHeight / 100; // 500vh in pixels
-      const darkSectionStart = cinematicHeight * 0.58;
-      const darkSectionEnd = cinematicHeight * 0.82;
+      // CinematicHeroV4 uses 700vh container
+      // Scene 5 (dark CTA) is at 85-100% of that container
+      const cinematicHeight = 700 * window.innerHeight / 100; // 700vh in pixels
+      const darkSectionStart = cinematicHeight * 0.85;
+      const darkSectionEnd = cinematicHeight; // Goes to the end of cinematic section
       
       setInDarkSection(window.scrollY >= darkSectionStart && window.scrollY <= darkSectionEnd);
     };
