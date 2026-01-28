@@ -2,13 +2,12 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 /**
- * CinematicHero V2 - Jesko Jets Inspired
+ * CinematicHero V2 - Salon-focused Landing
  * 
  * Design Philosophy:
- * - Abstract visuals, no photography
- * - Cream/white backgrounds
- * - Massive typography
- * - Clean luxury minimalism
+ * - Clean, conversion-focused hero
+ * - Problem/Solution narrative
+ * - Cream/white backgrounds with dark accents
  */
 
 const CinematicHeroV2 = () => {
@@ -19,9 +18,7 @@ const CinematicHeroV2 = () => {
     offset: ['start start', 'end end']
   });
 
-  // Scene 1: Hero with abstract frame (0-20%)
-  const heroShapeScale = useTransform(scrollYProgress, [0, 0.2], [1, 2.5]);
-  const heroFrameOpacity = useTransform(scrollYProgress, [0.1, 0.2], [1, 0]);
+  // Scene 1: Hero (0-20%)
   const heroTextY = useTransform(scrollYProgress, [0, 0.15], [0, -100]);
   const heroTextOpacity = useTransform(scrollYProgress, [0.1, 0.18], [1, 0]);
   
@@ -33,7 +30,7 @@ const CinematicHeroV2 = () => {
   const scene3Opacity = useTransform(scrollYProgress, [0.38, 0.42, 0.58, 0.62], [0, 1, 1, 0]);
   const statsStagger = useTransform(scrollYProgress, [0.42, 0.55], [50, 0]);
   
-  // Scene 4: Transformation (60-80%)
+  // Scene 4: Demo (60-80%)
   const scene4Opacity = useTransform(scrollYProgress, [0.58, 0.62, 0.78, 0.82], [0, 1, 1, 0]);
   const phoneEnter = useTransform(scrollYProgress, [0.62, 0.75], [200, 0]);
   
@@ -65,7 +62,7 @@ const CinematicHeroV2 = () => {
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         
-        {/* ============ SCENE 1: Clean Hero ============ */}
+        {/* ============ SCENE 1: Hero ============ */}
         <div className="absolute inset-0 bg-[#FAF8F5] flex items-center justify-center">
           {/* Subtle ambient gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F5] via-[#F5F2EE] to-[#FAF8F5]" />
@@ -94,7 +91,7 @@ const CinematicHeroV2 = () => {
 
           {/* Hero Typography - centered */}
           <motion.div 
-            className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20"
+            className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20 px-6"
             style={{ y: heroTextY, opacity: heroTextOpacity }}
           >
             {/* Top eyebrow */}
@@ -107,29 +104,56 @@ const CinematicHeroV2 = () => {
               Lumina Sites
             </motion.p>
             
-            {/* Main headline - stacked */}
+            {/* Main headline */}
             <h1 
-              className="text-lumina-ink text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-medium leading-[0.95] tracking-[-0.02em] text-center"
+              className="text-lumina-ink text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-medium leading-[1.05] tracking-[-0.02em] text-center max-w-5xl"
             >
-              We build<br />
-              <span className="italic">stunning</span>
+              Modern websites for salons that bring in{' '}
+              <span className="italic text-lumina-gold">more bookings</span>
             </h1>
             
-            {/* Bottom tagline */}
+            {/* Subheadline */}
             <motion.p 
-              className="text-[#6B645C] text-base md:text-lg lg:text-xl font-light tracking-wide mt-6 md:mt-8"
+              className="text-[#6B645C] text-base md:text-lg lg:text-xl font-light tracking-wide mt-6 md:mt-8 max-w-2xl text-center"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              websites for nail salons
+              We design, launch, and maintain your salon's website so clients can book easily — and you don't have to deal with tech.
+            </motion.p>
+            
+            {/* CTA Button */}
+            <motion.div
+              className="pointer-events-auto mt-8 md:mt-10"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <motion.a
+                href="#contact"
+                className="inline-block px-8 py-4 bg-[#1C1917] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#2C2926] transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Get My Website
+              </motion.a>
+            </motion.div>
+            
+            {/* Micro-trust line */}
+            <motion.p 
+              className="text-[#A39E96] text-xs md:text-sm mt-4 flex items-center justify-center gap-3"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 1 }}
+            >
+              Built for salons • Mobile-first • No contracts
             </motion.p>
             
             <motion.p 
               className="text-[#A39E96] text-xs md:text-sm mt-12 md:mt-16 flex items-center justify-center gap-3"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
             >
               <span className="w-6 h-px bg-[#C4B8A8]" />
               Scroll to explore
@@ -138,7 +162,7 @@ const CinematicHeroV2 = () => {
           </motion.div>
         </div>
 
-        {/* ============ SCENE 2: Big Typography ============ */}
+        {/* ============ SCENE 2: Problem Statement ============ */}
         <motion.div 
           className="absolute inset-0 bg-[#FAF8F5]"
           style={{ opacity: scene2Opacity }}
@@ -158,24 +182,41 @@ const CinematicHeroV2 = () => {
             />
           </div>
           
-          {/* Massive text */}
+          {/* Problem content */}
           <motion.div 
-            className="absolute inset-0 flex items-center justify-center"
+            className="absolute inset-0 flex items-center justify-center px-6"
             style={{ scale: bigTextScale }}
           >
-            <div className="text-center px-6">
-              <h2 className="text-[#1C1917] text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-medium leading-[0.9] tracking-[-0.03em]">
-                More<br />
-                <span className="text-lumina-gold italic">Bookings</span>
+            <div className="text-center max-w-4xl">
+              <p className="text-lumina-gold text-xs md:text-sm tracking-[0.4em] uppercase font-medium mb-6">
+                The Problem
+              </p>
+              <h2 className="text-[#1C1917] text-4xl md:text-6xl lg:text-7xl font-display font-medium leading-[0.95] tracking-[-0.03em] mb-8">
+                Most salon websites are<br />
+                <span className="text-lumina-gold italic">costing you clients</span>
               </h2>
-              <p className="mt-8 md:mt-10 text-[#5C564F] text-lg md:text-xl lg:text-2xl font-light max-w-lg mx-auto">
-                Beautiful websites that turn visitors into clients
+              <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-12 text-left max-w-3xl mx-auto">
+                <div className="flex items-start gap-3">
+                  <span className="text-lumina-gold text-lg">✕</span>
+                  <p className="text-[#5C564F] text-base md:text-lg">Missed calls while you're busy with appointments</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-lumina-gold text-lg">✕</span>
+                  <p className="text-[#5C564F] text-base md:text-lg">Clients confused about services, prices, or hours</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-lumina-gold text-lg">✕</span>
+                  <p className="text-[#5C564F] text-base md:text-lg">Outdated websites that don't work on phones</p>
+                </div>
+              </div>
+              <p className="mt-10 text-[#9A948C] text-base md:text-lg font-light italic">
+                If your website makes booking hard, clients move on.
               </p>
             </div>
           </motion.div>
         </motion.div>
 
-        {/* ============ SCENE 3: Results/Stats ============ */}
+        {/* ============ SCENE 3: Solution/Results ============ */}
         <motion.div 
           className="absolute inset-0 bg-[#FAF8F5] flex items-center justify-center"
           style={{ opacity: scene3Opacity }}
@@ -232,17 +273,17 @@ const CinematicHeroV2 = () => {
           </div>
         </motion.div>
 
-        {/* ============ SCENE 4: Transformation ============ */}
+        {/* ============ SCENE 4: Demo ============ */}
         <motion.div 
           className="absolute inset-0 bg-lumina-dark flex items-start justify-center overflow-hidden pt-24 md:pt-28"
           style={{ opacity: scene4Opacity }}
         >
-          {/* Ambient lighting - larger, more dramatic */}
+          {/* Ambient lighting */}
           <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-lumina-gold/10 rounded-full blur-[150px]" />
           <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-lumina-coral/8 rounded-full blur-[180px]" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-lumina-gold/5 rounded-full blur-[200px]" />
 
-          {/* Full-width browser mockup */}
+          {/* Demo content */}
           <div className="relative z-10 w-full max-w-6xl mx-auto px-6">
             {/* Header text */}
             <motion.div 
@@ -250,14 +291,14 @@ const CinematicHeroV2 = () => {
               style={{ y: phoneEnter }}
             >
               <p className="text-lumina-gold text-xs tracking-[0.4em] uppercase font-medium mb-2">
-                The Result
+                Designed for Salons
               </p>
               <h2 className="text-lumina-cream text-2xl md:text-4xl lg:text-5xl font-display font-medium leading-[1.1] tracking-[-0.02em]">
-                From concept <span className="italic">to launch</span>
+                Here's what a modern, booking-focused<br /><span className="italic">salon website</span> looks like
               </h2>
             </motion.div>
 
-            {/* Large browser frame - Frosted glass effect */}
+            {/* Browser frame */}
             <motion.div 
               className="relative w-full max-w-5xl mx-auto"
               style={{ scale: finalScale }}
@@ -323,7 +364,7 @@ const CinematicHeroV2 = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
             >
-              Ready to transform your salon?
+              Ready to upgrade your salon's website?
             </motion.p>
             
             <h2 className="text-[#1C1917] text-3xl md:text-5xl lg:text-6xl font-display font-medium leading-[1.1] tracking-[-0.02em] mb-8">
@@ -332,32 +373,34 @@ const CinematicHeroV2 = () => {
             </h2>
             
             <p className="text-[#6B645C] text-base md:text-lg font-light mb-10 md:mb-12 max-w-xl mx-auto">
-              Join the nail salons that have transformed their online presence and seen real results.
+              Free 15-minute walkthrough. No pressure.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <motion.button
+              <motion.a
+                href="#contact"
                 className="px-7 py-3.5 md:px-8 md:py-4 bg-[#1C1917] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#2C2926] transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Book Free Consultation
-              </motion.button>
+                Get My Website
+              </motion.a>
               
-              <motion.button
+              <motion.a
+                href="#pricing"
                 className="px-7 py-3.5 md:px-8 md:py-4 border border-[#D9D4CD] text-[#1C1917] text-base md:text-lg font-medium rounded-full hover:border-[#1C1917] transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 View Pricing
-              </motion.button>
+              </motion.a>
             </div>
 
             {/* Trust indicators */}
             <div className="mt-12 md:mt-16 flex flex-wrap justify-center gap-6 md:gap-8 text-[#9A948C] text-sm">
-              <span>✓ No upfront costs</span>
-              <span>✓ 7-day delivery</span>
-              <span>✓ Cancel anytime</span>
+              <span>✓ Built for salons</span>
+              <span>✓ Mobile-first</span>
+              <span>✓ No contracts</span>
             </div>
           </div>
         </motion.div>
