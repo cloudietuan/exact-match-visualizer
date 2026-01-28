@@ -1,5 +1,6 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import BookingModal from '@/components/BookingModal';
 
 /**
  * CinematicHero V2 - Salon-focused Landing
@@ -12,6 +13,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 
 const CinematicHeroV2 = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+  
+  // Replace with your actual Calendly URL
+  const calendlyUrl = 'https://calendly.com/your-calendly-link';
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -129,14 +134,14 @@ const CinematicHeroV2 = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <motion.a
-                href="#contact"
-                className="inline-block px-8 py-4 bg-[#1C1917] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#2C2926] transition-colors"
+              <motion.button
+                onClick={() => setIsBookingOpen(true)}
+                className="inline-block px-8 py-4 bg-[#1C1917] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#2C2926] transition-colors cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 Get My Website
-              </motion.a>
+              </motion.button>
             </motion.div>
             
             {/* Micro-trust line */}
@@ -377,14 +382,14 @@ const CinematicHeroV2 = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <motion.a
-                href="#contact"
-                className="px-7 py-3.5 md:px-8 md:py-4 bg-[#1C1917] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#2C2926] transition-colors"
+              <motion.button
+                onClick={() => setIsBookingOpen(true)}
+                className="px-7 py-3.5 md:px-8 md:py-4 bg-[#1C1917] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#2C2926] transition-colors cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 Get My Website
-              </motion.a>
+              </motion.button>
               
               <motion.a
                 href="#pricing"
@@ -417,6 +422,12 @@ const CinematicHeroV2 = () => {
         </div>
 
       </div>
+      
+      <BookingModal 
+        isOpen={isBookingOpen} 
+        onClose={() => setIsBookingOpen(false)}
+        calendlyUrl={calendlyUrl}
+      />
     </div>
   );
 };

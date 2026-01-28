@@ -18,6 +18,42 @@ const steps = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const stepVariants = {
+  hidden: { opacity: 0, y: 50, scale: 0.9 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    scale: 1,
+    transition: { 
+      duration: 0.6, 
+      ease: 'easeOut' as const
+    } 
+  },
+};
+
+const lineVariants = {
+  hidden: { scaleX: 0 },
+  visible: { 
+    scaleX: 1,
+    transition: { 
+      duration: 0.8, 
+      delay: 0.5,
+      ease: 'easeOut' as const
+    } 
+  },
+};
+
 const HowItWorksSection = () => {
   return (
     <section className="relative py-24 md:py-32 bg-lumina-cream overflow-hidden">
@@ -25,10 +61,10 @@ const HowItWorksSection = () => {
         {/* Header */}
         <motion.div 
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <p className="text-lumina-gold text-sm tracking-[0.3em] uppercase mb-4">Process</p>
           <h2 className="text-4xl md:text-5xl font-display text-lumina-ink">
@@ -37,24 +73,34 @@ const HowItWorksSection = () => {
         </motion.div>
 
         {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {steps.map((step, index) => (
             <motion.div
               key={index}
               className="relative text-center"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
+              variants={stepVariants}
             >
               {/* Step number */}
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-lumina-ink text-white font-display text-xl mb-6">
+              <motion.div 
+                className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-lumina-ink text-white font-display text-xl mb-6"
+                whileHover={{ scale: 1.1, backgroundColor: '#C5A572' }}
+                transition={{ duration: 0.3 }}
+              >
                 {step.number}
-              </div>
+              </motion.div>
               
               {/* Connector line (hidden on mobile) */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-px bg-lumina-cream-warm" />
+                <motion.div 
+                  className="hidden md:block absolute top-8 left-[60%] w-[80%] h-px bg-lumina-cream-warm origin-left"
+                  variants={lineVariants}
+                />
               )}
               
               <h3 className="text-xl font-display text-lumina-ink mb-3">
@@ -65,15 +111,15 @@ const HowItWorksSection = () => {
               </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Subtext */}
         <motion.p 
           className="text-center mt-12 text-lumina-gold text-base md:text-lg font-medium"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
         >
           Most sites are live within a week.
         </motion.p>
