@@ -18,10 +18,10 @@ const Navbar = () => {
       const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
       
-      // CinematicHeroV4 uses 700vh container
+      // CinematicHeroV4 uses 800vh container
       // Scene 5 (dark CTA) is at 85-100% of that container
-      const cinematicHeight = 700 * window.innerHeight / 100; // 700vh in pixels
-      const darkSectionStart = cinematicHeight * 0.85;
+      const cinematicHeight = 800 * window.innerHeight / 100; // 800vh in pixels
+      const darkSectionStart = cinematicHeight * 0.83;
       const darkSectionEnd = cinematicHeight; // Goes to the end of cinematic section
       
       setInDarkSection(window.scrollY >= darkSectionStart && window.scrollY <= darkSectionEnd);
