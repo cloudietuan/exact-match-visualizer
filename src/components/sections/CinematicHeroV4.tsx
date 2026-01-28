@@ -20,14 +20,14 @@ const CinematicHeroV4 = () => {
   const wireframeProgress = useTransform(scrollYProgress, [0.17, 0.33], [1000, 0]);
 
   // Scene 3: Design Fills In (38% - 58%)
-  const scene3Opacity = useTransform(scrollYProgress, [0.36, 0.40, 0.55, 0.58], [0, 1, 1, 0]);
-  const designProgress = useTransform(scrollYProgress, [0.40, 0.55], [0, 1]);
+  const scene3Opacity = useTransform(scrollYProgress, [0.38, 0.45, 0.55, 0.58], [0, 1, 1, 0]);
+  const designProgress = useTransform(scrollYProgress, [0.45, 0.55], [0, 1]);
 
   // Scene 4: Final Website (58% - 85%)
-  const scene4Opacity = useTransform(scrollYProgress, [0.56, 0.60, 0.82, 0.85], [0, 1, 1, 0]);
+  const scene4Opacity = useTransform(scrollYProgress, [0.58, 0.70, 0.82, 0.85], [0, 1, 1, 0]);
 
   // Scene 5: CTA (85% - 100%)
-  const scene5Opacity = useTransform(scrollYProgress, [0.83, 0.88], [0, 1]);
+  const scene5Opacity = useTransform(scrollYProgress, [0.85, 0.90, 0.98, 1], [0, 1, 1, 0]);
 
   return (
     <>
@@ -351,49 +351,33 @@ const CinematicHeroV4 = () => {
             style={{ opacity: scene5Opacity }}
           >
             <div className="text-center px-6 max-w-2xl">
-              <motion.p
-                className="text-[#B8A990] text-xs tracking-[0.5em] uppercase font-medium mb-6"
+              <motion.h2
+                className="text-white text-4xl lg:text-5xl font-display font-medium leading-tight text-center mb-6"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                Ready to start?
-              </motion.p>
-              <motion.h2
-                className="text-white text-4xl md:text-5xl lg:text-6xl font-display font-medium leading-tight mb-6"
+                Ready to upgrade your salon's website?
+              </motion.h2>
+              <motion.p
+                className="text-white/70 text-lg font-light text-center max-w-xl mx-auto"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-              >
-                Let's build your salon's website
-              </motion.h2>
-              <motion.p
-                className="text-[#9A948C] text-lg md:text-xl font-light mb-10"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
               >
                 Free 15-minute walkthrough. No pressure.
               </motion.p>
               <motion.button
                 onClick={() => setIsBookingOpen(true)}
-                className="bg-[#B8A990] hover:bg-[#A89880] text-[#1A1917] px-8 py-4 rounded-full text-lg font-medium transition-colors"
+                className="mt-10 px-8 py-4 text-lg font-semibold rounded-full bg-white text-[#1A1917] hover:bg-[#FAF8F5] transition duration-300"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
+                transition={{ delay: 0.4 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
                 Get My Website
               </motion.button>
-              <motion.p
-                className="text-[#6B645C] text-sm mt-6"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-              >
-                Built for salons • Mobile-first • No contracts
-              </motion.p>
             </div>
           </motion.div>
 
