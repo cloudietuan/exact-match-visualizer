@@ -8,66 +8,63 @@ import {
 
 const faqs = [
   {
-    question: 'What if I already have a website?',
-    answer: 'No problem! We can redesign your existing site or build fresh. Zero downtime during transition.',
+    question: 'How long does it take to launch?',
+    answer: 'Most salon websites are ready within 5–7 days once we receive your content.',
   },
   {
-    question: 'Do I own my website?',
-    answer: "You own all your content—photos, text, branding. If you ever leave, we export everything. We earn your business, not trap you.",
+    question: 'Do I need professional photos?',
+    answer: 'No. Phone photos are fine — we can upgrade visuals later if needed.',
   },
   {
-    question: "What's included in hosting?",
-    answer: 'Fast, secure hosting with SSL, daily backups, and 99.9% uptime. Domain renewal and email setup included.',
+    question: 'Can you connect my booking system?',
+    answer: 'Yes. We design your site to work with your existing booking platform.',
   },
   {
-    question: 'Can I cancel anytime?',
-    answer: "Absolutely. No contracts, no cancellation fees, no guilt trips. You're never locked in.",
+    question: 'What updates are included monthly?',
+    answer: 'Small text, photo, or service changes — up to 2 hours per month.',
   },
   {
-    question: 'How do updates work?',
-    answer: "Just text, email, or call us. Most updates are done same-day. New photos, price changes, holiday hours—we've got you.",
+    question: 'What happens if I cancel the monthly plan?',
+    answer: "Your site stays live. You just won't receive ongoing updates or support.",
   },
 ];
 
 const FAQSection = () => {
   return (
-    <section id="faq" className="py-24 bg-lumina-bg-secondary">
-      <div className="container mx-auto px-6">
+    <section id="faq" className="py-24 md:py-32 bg-lumina-cream">
+      <div className="container mx-auto px-6 max-w-3xl">
         {/* Header */}
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span className="text-primary uppercase tracking-widest text-sm font-medium">
-            FAQ
-          </span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl">
-            Questions? We've Got Answers.
+          <p className="text-lumina-gold text-sm tracking-[0.3em] uppercase mb-4">FAQ</p>
+          <h2 className="font-display text-4xl md:text-5xl text-lumina-ink">
+            Common questions
           </h2>
         </motion.div>
 
         {/* FAQ Accordion */}
         <motion.div 
-          className="max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="glass rounded-xl px-6 border-none data-[state=open]:border-lumina-rose/30"
+                className="bg-white rounded-xl px-6 border border-lumina-cream-warm data-[state=open]:border-lumina-gold/30 transition-colors"
               >
-                <AccordionTrigger className="text-left font-medium hover:text-primary py-5 [&[data-state=open]]:text-primary">
+                <AccordionTrigger className="text-left font-medium text-lumina-ink hover:text-lumina-gold py-5 [&[data-state=open]]:text-lumina-gold">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-lumina-cream-muted pb-5">
+                <AccordionContent className="text-lumina-ink-muted pb-5">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>

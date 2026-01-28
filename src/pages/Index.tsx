@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import Navbar from '@/components/Navbar';
 import CinematicHeroV2 from '@/components/sections/CinematicHeroV2';
+import WhatYouGetSection from '@/components/sections/WhatYouGetSection';
+import HowItWorksSection from '@/components/sections/HowItWorksSection';
+import WhyChooseUsSection from '@/components/sections/WhyChooseUsSection';
 import PricingSection from '@/components/sections/PricingSection';
+import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
 import Footer from '@/components/sections/Footer';
 import LoadingIntro from '@/components/LoadingIntro';
@@ -41,11 +45,25 @@ const Index = () => {
         {/* Navbar */}
         <Navbar />
         
-        {/* Cinematic Scroll Journey V2 */}
+        {/* Cinematic Scroll Journey */}
         <CinematicHeroV2 />
+        
+        {/* What You Get */}
+        <WhatYouGetSection />
+        
+        {/* How It Works */}
+        <section id="process">
+          <HowItWorksSection />
+        </section>
+        
+        {/* Why Choose Us */}
+        <WhyChooseUsSection />
         
         {/* Pricing Section */}
         <PricingSection />
+        
+        {/* FAQ Section */}
+        <FAQSection />
         
         {/* CTA Section */}
         <CTASection />
